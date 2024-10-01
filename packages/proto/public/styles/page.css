@@ -1,0 +1,20 @@
+@import url("token.css");
+
+/* Index Page CSS */
+.titleIndex {
+    color: blue;
+}
+
+.bodyIndex {
+    background-image:
+}
+
+/* Drink Menu CSS */
+.drinkOptions {
+    color: var(--color-text-menu);
+    font-family: var(--font-text-menu);
+}
+
+h2 {
+    font-family: var(--font-text-menu);
+}
