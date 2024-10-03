@@ -9,12 +9,17 @@
     background-image:
 }
 
+li {
+    font-family: "Pixelify Sans";
+}
+
 /* Drink Menu CSS */
-.drinkOptions {
+/* .drinkOptions, .foodOptions, .goodsOptions {
     color: var(--color-text-menu);
     font-family: var(--font-text-menu);
-}
+} */
 
 h2 {
     font-family: var(--font-text-menu);
 }
+
