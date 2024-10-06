@@ -2,24 +2,32 @@
 
 /* Index Page CSS */
 .titleIndex {
-    color: blue;
-}
-
-.bodyIndex {
-    background-image:
-}
-
-li {
-    font-family: "Pixelify Sans";
+  color: blue;
 }
 
 /* Drink Menu CSS */
-/* .drinkOptions, .foodOptions, .goodsOptions {
-    color: var(--color-text-menu);
-    font-family: var(--font-text-menu);
-} */
-
-h2 {
-    font-family: var(--font-text-menu);
+.drinkOptions,
+.foodOptions,
+.goodsOptions {
+  color: var(--color-text-menu);
+  font-family: var(--font-pixel);
 }
 
+h2,
+h1 {
+  font-family: var(--font-pixel);
+}
+
+svg.icon {
+  display: inline;
+  height: var(--icon-size);
+  width: var(--icon-size);
+  vertical-align: calc(0.5em - 0.65 * var(--icon-size));
+}
+
+body {
+    background-size: cover;
+    background-position: center;
+    width: 70%;
+    height: 50%;
+} 

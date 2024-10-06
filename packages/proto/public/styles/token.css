@@ -1,5 +1,6 @@
 :root {
     --color-text-menu: rgb(92, 76, 61);
-    --font-text-menu: "Pixelify Sans", Verdana, sans-serif;   
+    --font-pixel: "Pixelify Sans", Verdana, sans-serif;   
+    --icon-size: 1.5em;
 } 
    
