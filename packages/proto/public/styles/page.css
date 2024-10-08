@@ -13,9 +13,18 @@
   font-family: var(--font-pixel);
 }
 
-h2,
-h1 {
+h1{
   font-family: var(--font-pixel);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 6vw;
+}
+
+h2 {
+  font-family: var(--font-pixel);
+  font-size: 4vw;
+  margin-bottom: 2%;
 }
 
 svg.icon {
@@ -26,8 +35,34 @@ svg.icon {
 }
 
 body {
-    background-size: cover;
-    background-position: center;
-    width: 70%;
-    height: 50%;
-} 
+  background-size: contain;
+  background-position: center;
+  background-color: #451814;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+.center-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.drinkMenu {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  align-items: center
+}
+
+.drink-title {
+  margin-top: 5%;
+  margin-bottom: 2%;
+}
+
+ul {  
+  list-style-type: none;  
+  font-weight: bold;  
+  font-size: 2.5vw;  
+}
