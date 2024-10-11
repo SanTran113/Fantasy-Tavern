@@ -38,17 +38,16 @@ body {
   background-color: #451814;
   height: 100vh;
   display: flex;
-  background-size: contain;
-  justify-content: center;
+  justify-content: center; 
   overflow: hidden;
 }
 
 main {
-  padding: 6%;
+  padding: 5%;
   background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;
-  aspect-ratio: 4/3;
+  aspect-ratio: 3/2;
 }
 
 /* .center-screen {
@@ -62,15 +61,15 @@ main {
   display: flex;
   align-items: flex-start;
   justify-content: space-evenly;
+
 }
 
 .drink-title {
-  /* margin-top: 5%; */
   margin-bottom: 3%;
 }
 
 ul {  
   list-style-type: none;  
   font-weight: bold;  
-  font-size: calc(2vw + 1vh);  
+  font-size: calc(1.5vw + 1vh);  
 }
