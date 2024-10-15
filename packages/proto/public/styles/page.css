@@ -11,7 +11,6 @@
 
 .indexInformation {
   color: var(--index-menu-color);
-  font-family: var(--font-pixel);
   font-size: 3vw;
   display: flex;
   flex-direction: column;
@@ -35,7 +34,6 @@ a {
 .foodOptions,
 .goodsOptions {
   color: var(--color-text-menu);
-  font-family: var(--font-pixel);
 }
 
 h1 {
@@ -46,7 +44,6 @@ h1 {
 }
 
 h2 {
-  font-family: var(--font-pixel);
   font-size: calc(2vw + 1vh);
   margin-bottom: 2%;
 }
@@ -64,6 +61,7 @@ body {
   display: flex;
   justify-content: center;
   overflow: hidden;
+  font-family: var(--font-pixel);
 }
 
 main {
