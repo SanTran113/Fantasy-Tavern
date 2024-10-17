@@ -1,4 +1,4 @@
-import { css, html, shadow } from "@calpoly.mustang";
+import { css, html, shadow } from "@calpoly/mustang";
 import reset from "./styles/reset.css.js";
 
 export class AccommodationElement extends HTMLElement {
@@ -64,7 +64,8 @@ export class AccommodationElement extends HTMLElement {
   constructor() {
     super();
     shadow(this)
-      .template(AccomodationElement.template)
+      .template(AccommodationElement.template)
       .styles(reset.styles, AccommodationElement.styles);
   }
 }
+
