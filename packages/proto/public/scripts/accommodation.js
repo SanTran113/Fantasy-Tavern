@@ -32,10 +32,6 @@ export class AccommodationElement extends HTMLElement {
       display: contents;
     }
 
-    .drinkOptions {
-      color: var(--color-text-menu);
-    }
-
     /* Drink Menu CSS */
 
     h2 {
@@ -58,6 +54,8 @@ export class AccommodationElement extends HTMLElement {
     p {
       font-size: calc(0.75vw + 0.75vh);
       margin-bottom: 5%;
+      font-style: italic;
+      color: var(--color-text-menu);
     }
   `;
 
