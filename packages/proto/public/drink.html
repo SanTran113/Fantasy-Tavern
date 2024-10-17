@@ -11,31 +11,42 @@
     <link rel="stylesheet" href="/styles/reset.css" />
     <link rel="stylesheet" href="/styles/page.css" />
     <title class="drinkTitle">Drink Menu</title>
+    <script type="importmap">
+      {
+        "imports": {
+          "@calpoly/mustang": "https://unpkg.com/@calpoly/mustang"
+        }
+      }
+    </script>
+    <script type="module">
+      import { define } from "@calpoly/mustang";
+      import { AccommodationElement } from "/scripts/accommodation.js";
+
+      define({
+        "menu-accomodation": AccommodationElement,
+      });
+    </script>
   </head>
+
   <body class="bodyDrink">
     <main style="background-image: url('./assets/drinkMenuBg.png')">
       <h1 class="drink-title">Drink Menu</h1>
       <div class="drinkMenu">
-        <section class="emotion drinks">
-          <h2>
-            Emotional
-            <svg class="icon">
-              <use xlink:href="icons/icons.svg#heart" />
-            </svg>
-          </h2>
-          <ul class="drinkOptions">
-            <li>Secret Paradise</li>
-            <p>Rum infused with fresh lime mint and sugar.</p>
-            <li>Bluberry Bedtime</li>
-            <p>Rum infused with fresh lime mint and sugar.</p>
-            <li>Sweetest Sin</li>
-            <p>Rum infused with fresh lime mint and sugar.</p>
-            <li>Mulberry Madness</li>
-            <p>Rum infused with fresh lime mint and sugar.</p>
-            <li>Dissociate</li>
-            <p>Rum infused with fresh lime mint and sugar.</p>
-          </ul>
-        </section>
+        <menu-accomodation>
+          <section class="emotion drinks">
+              <span name="title">Emotional</span>
+              <span slot="option-1">Secret Paradise</slot>
+              <span slot="option-1-desc">Rum infused with fresh lime mint and sugar.</span>
+              <span slot="option-2">Bluberry Bedtime</span>
+              <span slot="option-2-desc">Rum infused with fresh lime mint and sugar.</span>
+              <span slot="option-3">Sweetest Sin</span>
+              <span slot="option-3-desc">Rum infused with fresh lime mint and sugar.</span>
+              <span slot="option-4">Mulberry Madness</span>
+              <span slot="option-4-desc">Rum infused with fresh lime mint and sugar.</span>
+              <span slot="option-5">Dissociate</span>
+              <span slot="option-5-desc">Rum infused with fresh lime mint and sugar.</span>
+          </section>
+        </menu-accomodation>
 
         <section class="mythical drinks">
           <h2>
