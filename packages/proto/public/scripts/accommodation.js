@@ -12,16 +12,16 @@ export class AccommodationElement extends HTMLElement {
           </svg>
         </h2>
         <ul class="drinkOptions">
-          <slot name="option-1"><li>Secret Paradise</li></slot>
-            <slot name="option-1-desc"><p>Rum infused with fresh lime mint and sugar.</p></slot>
-          <slot name="option-2"><li>Bluberry Bedtime</li></slot>
-            <slot name="option-2-desc"><p>Rum infused with fresh lime mint and sugar.</p></slot>
-          <slot name="option-3"><li>Sweetest Sin</li></slot>
-            <slot name="option-3-desc"><p>Rum infused with fresh lime mint and sugar.</p></slot>
-          <slot name="option-4"><li>Mulberry Madness</li></slot>
-            <slot name="option-4-desc"<p>Rum infused with fresh lime mint and sugar.</p></slot>
-          <slot name="option-5"><li>Dissociate</li></slot>
-            <slot name="option-5-desc"><p>Rum infused with fresh lime mint and sugar.</p></slot>
+          <li><slot name="option-1">Secret Paradise</slot></li>
+            <p><slot name="option-1-desc">Rum infused with fresh lime mint and sugar.</slot></p>
+          <li><slot name="option-2">Bluberry Bedtime</slot></li>
+            <p><slot name="option-2-desc">Rum infused with fresh lime mint and sugar.</slot></p>
+          <li><slot name="option-3">Sweetest Sin</slot></li>
+            <p><slot name="option-3-desc">Rum infused with fresh lime mint and sugar.</slot></p>
+          <li><slot name="option-4">Mulberry Madness</slot></li>
+            <p><slot name="option-4-desc">Rum infused with fresh lime mint and sugar.</slot></p>
+          <li><slot name="option-5">Dissociate</slot></li>
+            <p><slot name="option-5-desc">Rum infused with fresh lime mint and sugar.</slot></p>
         </ul>
       </section>
     </template>
@@ -68,4 +68,3 @@ export class AccommodationElement extends HTMLElement {
       .styles(reset.styles, AccommodationElement.styles);
   }
 }
-
