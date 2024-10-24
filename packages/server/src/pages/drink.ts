@@ -2,17 +2,36 @@ import { css, html } from "@calpoly/mustang/server";
 import { Drinks, DrinkSection, Option } from "../models";
 import renderPage from "./renderPage"; // generic page renderer
 
-export class DrinksPage {
-  data: Drinks;
+export type DrinksPageData = Drinks 
 
-  constructor(data: Drinks) {
+
+export class DrinksPage {
+  data: DrinksPageData;
+
+  constructor(data: DrinksPageData) {
     this.data = data;
   }
 
-  render() {
+render() {
     return renderPage({
-      body: this.renderBody(),
-      // add more parts here later
+        body: this.renderBody(),
+        stylesheets: ["/styles/destination.css"],
+        styles: [
+        css`main.page {
+            --page-grids: 8;
+            @media screen and (max-width: 48rem) {
+                --page-grids: 6;
+            }
+        }`
+        ],
+        scripts: [
+        `import { define } from "@calpoly/mustang";
+        import { AccommodationElement } from "/scripts/accommodation.js";
+
+        define({
+            "blz-accommodation": AccommodationElement
+        });`
+        ]
     });
   }
 

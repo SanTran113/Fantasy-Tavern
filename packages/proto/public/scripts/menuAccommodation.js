@@ -1,15 +1,17 @@
 import { css, html, shadow } from "@calpoly/mustang";
 import reset from "./styles/reset.css.js";
 
-export class AccommodationElement extends HTMLElement {
+export class MenuElement extends HTMLElement {
   static template = html`
     <template>
       <section class="emotion drinks">
         <h2>
           <slot name="title">Emotional</slot>
-          <svg class="icon">
-            <use xlink:href="icons/icons.svg#heart" />
-          </svg>
+          <slot name="icon">
+            <svg class="icon">
+              <use xlink:href="icons/icons.svg#heart" />
+            </svg>
+          </slot>
         </h2>
         <ul class="drinkOptions">
           <div>
@@ -102,7 +104,7 @@ export class AccommodationElement extends HTMLElement {
   constructor() {
     super();
     shadow(this)
-      .template(AccommodationElement.template)
-      .styles(reset.styles, AccommodationElement.styles);
+      .template(MenuElement.template)
+      .styles(reset.styles, MenuElement.styles);
   }
 }

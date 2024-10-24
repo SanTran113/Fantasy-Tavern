@@ -20,10 +20,10 @@
     </script>
     <script type="module">
       import { define } from "@calpoly/mustang";
-      import { AccommodationElement } from "/scripts/accommodation.js";
+      import { MenuElement } from "/scripts/menuAccommodation.js";
 
       define({
-        "menu-accommodation": AccommodationElement,
+        "menu-accommodation": MenuElement,
       });
     </script>
   </head>
@@ -34,6 +34,11 @@
       <div class="drinkMenu">
         <menu-accommodation>
           <span slot="title">Emotional</span>
+          <span slot="icon">
+            <svg class="icon">
+            <use xlink:href="icons/icons.svg#heart" />
+            </svg>
+          </span>
           <span slot="option-1">Secret Paradise</span>
           <span slot="option-1-price">3g</span>
           <span slot="option-1-desc">Rum infused with fresh lime mint and sugar.</span>
@@ -51,23 +56,29 @@
           <span slot="option-5-desc">Rum infused with fresh lime mint and sugar.</span>
         </menu-accommodation>
 
+        <!-- TODO: change the slot icon to use a attribute -->
         <menu-accommodation>
           <span slot="title">Mythical</span>
-            <span slot="option-1">Phoenix Ashes</span>
-            <span slot="option-1-price">3g</span>
-            <span slot="option-1-desc">Rum infused with fresh lime mint and sugar.</span>
-            <span slot="option-2">Fairy?</span>
-            <span slot="option-2-price">3g</span>
-            <span slot="option-2-desc">Rum infused with fresh lime mint and sugar.</span>
-            <span slot="option-3">Emperor's Tea</span>
-            <span slot="option-3-price">3g</span>
-            <span slot="option-3-desc">Rum infused with fresh lime mint and sugar.</span>
-            <span slot="option-4">Tyranny of Dragons</span>
-            <span slot="option-4-price">3g</span>
-            <span slot="option-4-desc">Rum infused with fresh lime mint and sugar.</span>
-            <span slot="option-5">Acidic Basilisk</span>
-            <span slot="option-5-price">3g</span>
-            <span slot="option-5-desc">Rum infused with fresh lime mint and sugar.</span>
+          <span slot="icon">
+            <svg class="icon">
+            <use xlink:href="icons/icons.svg#mythical" />
+            </svg>
+          </span>
+          <span slot="option-1">Phoenix Ashes</span>
+          <span slot="option-1-price">3g</span>
+          <span slot="option-1-desc">Rum infused with fresh lime mint and sugar.</span>
+          <span slot="option-2">Fairy?</span>
+          <span slot="option-2-price">3g</span>
+          <span slot="option-2-desc">Rum infused with fresh lime mint and sugar.</span>
+          <span slot="option-3">Emperor's Tea</span>
+          <span slot="option-3-price">3g</span>
+          <span slot="option-3-desc">Rum infused with fresh lime mint and sugar.</span>
+          <span slot="option-4">Tyranny of Dragons</span>
+          <span slot="option-4-price">3g</span>
+          <span slot="option-4-desc">Rum infused with fresh lime mint and sugar.</span>
+          <span slot="option-5">Acidic Basilisk</span>
+          <span slot="option-5-price">3g</span>
+          <span slot="option-5-desc">Rum infused with fresh lime mint and sugar.</span>
         </menu-accomodation>
       </div>
     </main>

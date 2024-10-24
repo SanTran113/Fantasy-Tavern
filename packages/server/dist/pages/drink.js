@@ -40,8 +40,24 @@ class DrinksPage {
   }
   render() {
     return (0, import_renderPage.default)({
-      body: this.renderBody()
-      // add more parts here later
+      body: this.renderBody(),
+      stylesheets: ["/styles/destination.css"],
+      styles: [
+        import_server.css`main.page {
+            --page-grids: 8;
+            @media screen and (max-width: 48rem) {
+                --page-grids: 6;
+            }
+        }`
+      ],
+      scripts: [
+        `import { define } from "@calpoly/mustang";
+        import { AccommodationElement } from "/scripts/accommodation.js";
+
+        define({
+            "blz-accommodation": AccommodationElement
+        });`
+      ]
     });
   }
   renderOptions(options) {
