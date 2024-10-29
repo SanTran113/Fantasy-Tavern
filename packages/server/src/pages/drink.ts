@@ -15,7 +15,7 @@ export class DrinksPage {
 render() {
     return renderPage({
         body: this.renderBody(),
-        stylesheets: ["/styles/destination.css"],
+        stylesheets: ["/styles/page.css"],
         styles: [
         css`main.page {
             --page-grids: 8;
@@ -26,10 +26,10 @@ render() {
         ],
         scripts: [
         `import { define } from "@calpoly/mustang";
-        import { AccommodationElement } from "/scripts/accommodation.js";
+        import { MenuElement } from "/scripts/menuAccommodation.js";
 
         define({
-            "blz-accommodation": AccommodationElement
+            "menu-accommodation": MenuElement
         });`
         ]
     });

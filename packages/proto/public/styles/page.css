@@ -5,7 +5,17 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  /* opacity: 0.4; */
+  background-image: url("../assets/backdrop.png")
+}
+
+.bodyIndex.dark-mode {
+  background-image: url("../assets/backdrop_DM4.png")
+}
+
+.darkmodeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .indexInformation {
