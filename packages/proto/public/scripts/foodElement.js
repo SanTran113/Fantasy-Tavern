@@ -15,11 +15,13 @@ export class FoodElement extends HTMLElement {
           </slot>
         </h2>
         <ul class="drinkOptions">
-        <option-accommodation>
-          <span slot="option">Secret Paradise</span>
-          <span slot="price">3g</span>
-          <span slot="desc">Rum infused with fresh lime mint and sugar.</span>
-        </option-accommodation>
+          <slot name="option">
+            <option-accommodation>
+              <slot="option">Secret Paradise</span>
+              <slot="price">3g</span>
+              <slot="desc">Rum infused with fresh lime mint and sugar.</span>
+            </option-accommodation>
+          </slot>
         </ul>
       </section>
     </template>
