@@ -1,134 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="UTF-8" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="/styles/reset.css" />
     <link rel="stylesheet" href="/styles/page.css" />
-    <title class="drinkTitle">Drink Menu</title>
-    <script type="importmap">
-      {
-        "imports": {
-          "@calpoly/mustang": "https://unpkg.com/@calpoly/mustang"
-        }
-      }
-    </script>
-    <script type="module">
-      import { define } from "@calpoly/mustang";
-      import { FoodElement } from "/scripts/foodElement.js";
-
-      define({
-        "food-accommodation": FoodElement,
-      });
-    </script>
-        <script type="module">
-          import { define } from "@calpoly/mustang";
-          import { OptionElement } from "/scripts/optionElement.js";
-    
-          define({
-            "option-accommodation": OptionElement,
-          });
-      </script>
+    <title>Food Menu</title>
   </head>
+  </body>
+    <section class="appetizers">
+      <h2>Breakfast</h2>
+      <ul>
+        <li>Basilisk Omelet.........................10g</li>
+        <li>Slime Soup.........................10g</li>
+        <li>Ice Golem Savory Egg Custard.........................10g</li>
+        <li>Soul Eggs Benedict.........................10g</li>
+      </ul>
+    </section>
 
-  <body class="bodyDrink">
-    <main style="background-image: url('./assets/drinkMenuBg.png')">
-      <h1 class="drink-title">Drink Menu</h1>
-      <div class="drinkMenu">
-        <food-accommodation>
-          <span slot="title">Emotional</span>
-          <span slot="icon">
-            <svg class="icon">
-            <use xlink:href="icons/icons.svg#heart" />
-            </svg>
-          </span>
-          <span slot="option">
-            <option-accommodation>
-              <span slot="option">Secret Paradise</span>
-              <span slot="price">3g</span>
-              <span slot="desc">Rum infused with fresh lime mint and sugar.</span>
-            </option-accommodation>
-          </span>
-          <span slot="option">
-            <option-accommodation>
-              <span slot="option">Bluberry Bedtime</span>
-              <span slot="price">15g</span>
-              <span slot="desc">Rum infused with fresh lime mint and sugar.</span>
-            </option-accommodation>
-          </span>
-          <span slot="option">
-            <option-accommodation>
-              <span slot="option">Sweetest Sin</span>
-              <span slot="price">10g</span>
-              <span slot="desc">Rum infused with fresh lime mint and sugar.</span>
-            </option-accommodation>
-          </span>
-          <span slot="option">
-            <option-accommodation>
-              <span slot="option">Mulberry Madness</span>
-              <span slot="price">11g</span>
-              <span slot="desc">Rum infused with fresh lime mint and sugar.</span>
-            </option-accommodation>
-          </span>
-          <span slot="option">
-            <option-accommodation>
-              <span slot="option">Dissociate</span>
-              <span slot="price">7g</span>
-              <span slot="desc">Rum infused with fresh lime mint and sugar.</span>
-            </option-accommodation>
-          </span>
-        </food-accommodation>
+    <section class="meals">
+      <h2>Lunch</h2>
+      <ul>
+        <li>Boneless Dragon Ham.........................10g</li>
+        <li>Phoenix Confit.........................10g</li>
+        <li>Fairy Changeling Dumplins.........................10g</li>
+        <li>Golem Field Fresh Veggie.........................10g</li>
+        <li>Sky Fish and Chips.........................10g</li>
+        <li>Hippogriff Soup Dumplings........................10g</li>
+        <li>Doppelganger Takoyaki.........................10g</li>
+      </ul>
+    </section>
 
-        <!-- TODO: change the slot icon to use a attribute -->
-        <food-accommodation>
-          <span slot="title">Mythical</span>
-          <span slot="icon">
-            <svg class="icon">
-              <use xlink:href="icons/icons.svg#mythical" />
-            </svg>
-          </span>
-          <span slot="option">
-            <option-accommodation>
-              <span slot="option">Phoenix Ashes</span>
-              <span slot="price">3g</span>
-              <span slot="desc">Rum infused with fresh lime mint and sugar.</span>
-            </option-accommodation>
-          </span>
-          <span slot="option">
-            <option-accommodation>
-              <span slot="option">Fairy?</span>
-              <span slot="price">3g</span>
-              <span slot="desc">Rum infused with fresh lime mint and sugar.</span>
-            </option-accommodation>
-          </span>
-          <span slot="option">
-            <option-accommodation>
-              <span slot="option">Emperor's Tea</span>
-              <span slot="price">3g</span>
-              <span slot="desc">Rum infused with fresh lime mint and sugar.</span>
-            </option-accommodation>
-          </span>
-          <span slot="option">
-            <option-accommodation>
-              <span slot="option">Tyranny of Dragons</span>
-              <span slot="price">3g</span>
-              <span slot="desc">Rum infused with fresh lime mint and sugar.</span>
-            </option-accommodation>
-          </span>
-          <span slot="option">
-            <option-accommodation>
-              <span slot="option">Acidic Basilisk</span>
-              <span slot="price">3g</span>
-              <span slot="desc">Rum infused with fresh lime mint and sugar.</span>
-            </option-accommodation>
-          </span>
-        </food-accomodation>
-      </div>
-    </main>
+    <section class="desserts">
+      <h2>Dinner</h2>
+      <ul>
+        <li>Man-Eating Plant Tart.........................10g</li>
+        <li>Red Dragon Meal.........................10g</li>
+        <li>Exorcism Sorbet.........................10g</li>
+        <li>Faligon Stew.........................10g</li>
+        <li>Griffin Soup.........................10g</li>
+        <li>Tentacle Gnocchi.........................10g</li>
+        <li>Grilled Krraken.........................10g</li>
+      </ul>
+    </section>
   </body>
 </html>

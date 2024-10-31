@@ -1,5 +1,6 @@
 import { css, html, shadow } from "@calpoly/mustang";
 import reset from "./styles/reset.css.js";
+import { OptionElement } from "./optionElement.js";
 
 export class MenuElement extends HTMLElement {
   static template = html`
@@ -14,51 +15,13 @@ export class MenuElement extends HTMLElement {
           </slot>
         </h2>
         <ul class="drinkOptions">
-          <div>
-            <li><slot name="option-1">Secret Paradise</slot></li>
-            <li><slot name="option-1-price">5g</slot></li>
-          </div>
-          <p>
-            <slot name="option-1-desc"
-              >Rum infused with fresh lime mint and sugar.</slot
-            >
-          </p>
-          <div>
-            <li><slot name="option-2">Bluberry Bedtime</slot></li>
-            <li><slot name="option-2-price">5g</slot></li>
-          </div>
-          <p>
-            <slot name="option-2-desc"
-              >Rum infused with fresh lime mint and sugar.</slot
-            >
-          </p>
-          <div>
-            <li><slot name="option-3">Sweetest Sin</slot></li>
-            <li><slot name="option-3-price">5g</slot></li>
-          </div>
-          <p>
-            <slot name="option-3-desc"
-              >Rum infused with fresh lime mint and sugar.</slot
-            >
-          </p>
-          <div>
-            <li><slot name="option-4">Mulberry Madness</slot></li>
-            <li><slot name="option-4-price">5g</slot></li>
-          </div>
-          <p>
-            <slot name="option-4-desc"
-              >Rum infused with fresh lime mint and sugar.</slot
-            >
-          </p>
-          <div>
-            <li><slot name="option-5">Dissociate</slot></li>
-            <li><slot name="option-5-price">5g</slot></li>
-          </div>
-          <p>
-            <slot name="option-5-desc"
-              >Rum infused with fresh lime mint and sugar.</slot
-            >
-          </p>
+          <slot name="option">
+            <option-accommodation>
+              <slot="option">Secret Paradise</span>
+              <slot="price">3g</span>
+              <slot="desc">Rum infused with fresh lime mint and sugar.</span>
+            </option-accommodation>
+          </slot>
         </ul>
       </section>
     </template>
@@ -82,7 +45,7 @@ export class MenuElement extends HTMLElement {
       vertical-align: calc(0.5em - 0.65 * var(--icon-size));
     }
 
-    ul {
+    .drinkOptions {
       list-style-type: none;
       font-weight: bold;
       font-size: calc(1vw + 1vh);
