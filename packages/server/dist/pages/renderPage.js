@@ -31,15 +31,7 @@ const defaults = {
   styles: [],
   scripts: [
     `
-      import { define } from "@calpoly/mustang";
-      import { HeaderElement } from "/scripts/header.js";
-  
-      define({
-        "blz-header": HeaderElement
-      });
-  
-      HeaderElement.initializeOnce();
-      `
+      import { define } from "@calpoly/mustang";`
   ],
   googleFontURL: "https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,200;0,400;0,700;1,700&family=Merriweather:wght@400;700&display=swap",
   imports: {

@@ -37,12 +37,13 @@ render() {
 
   renderOptions(options: Option) {
     const { name, price, desc } = options;
+    
+    return html `
+    <span slot="option-1">${name}</span>
+    <span slot="option-1-price">${price}</span>
+    <span slot="option-1-desc">${desc}</span>
+  `
 
-    return html`
-      <span slot="option-1">${name}</span>
-      <span slot="option-1-price">${price}</span>
-      <span slot="option-1-desc">${desc}</span>
-    `;
   }
 
   renderDrinkSections(drinkSections: DrinkSection) {
@@ -75,13 +76,13 @@ render() {
 
     
     return html`
-        <body class="bodyDrink">
-            <main style="background-image: url('./assets/drinkMenuBg.png')">
-            <h1 class="drink-title">${title}</h1>
-            <div class="drinkMenu">
-                ${sectionList}
-            </div>
-            </main>
-        </body>`;
+      <body class="bodyDrink">
+          <main style="background-image: url('./assets/drinkMenuBg.png')">
+          <h1 class="drink-title">${title}</h1>
+          <div class="drinkMenu">
+              ${sectionList}
+          </div>
+          </main>
+      </body>`;
   }
 }

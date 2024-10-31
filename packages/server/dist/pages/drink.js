@@ -9,11 +9,11 @@ var __export = (target, all) => {
   for (var name in all)
     __defProp(target, name, { get: all[name], enumerable: true });
 };
-var __copyProps = (to, from, except, desc) => {
+var __copyProps = (to, from, except, desc2) => {
   if (from && typeof from === "object" || typeof from === "function") {
     for (let key of __getOwnPropNames(from))
       if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc2 = __getOwnPropDesc(from, key)) || desc2.enumerable });
   }
   return to;
 };
@@ -61,12 +61,7 @@ class DrinksPage {
     });
   }
   renderOptions(options) {
-    const { name, price, desc } = options;
-    return import_server.html`
-      <span slot="option-1">${name}</span>
-      <span slot="option-1-price">${price}</span>
-      <span slot="option-1-desc">${desc}</span>
-    `;
+    const { name, price: price2, desc: desc2 } = options;
   }
   renderDrinkSections(drinkSections) {
     const { title, icon, optionMenu } = drinkSections;
@@ -81,7 +76,14 @@ class DrinksPage {
             <use xlink:href="icons/icons.svg#${icon}" />
           </svg>
         </span>
-        ${optionList}
+        <span slot="option-1">${optionList[0].name}</span>
+        <span slot="option-1-price">${price}</span>
+        <span slot="option-1-desc">${desc}</span>
+        ${optionList[0]}
+        ${optionList[1]}
+        ${optionList[2]}
+        ${optionList[3]}
+        ${optionList[4]}
       </menu-accommodation>
     `;
   }
@@ -91,14 +93,14 @@ class DrinksPage {
       (drinkSections2) => this.renderDrinkSections(drinkSections2)
     );
     return import_server.html`
-        <body class="bodyDrink">
-            <main style="background-image: url('./assets/drinkMenuBg.png')">
-            <h1 class="drink-title">${title}</h1>
-            <div class="drinkMenu">
-                ${sectionList}
-            </div>
-            </main>
-        </body>`;
+      <body class="bodyDrink">
+          <main style="background-image: url('./assets/drinkMenuBg.png')">
+          <h1 class="drink-title">${title}</h1>
+          <div class="drinkMenu">
+              ${sectionList}
+          </div>
+          </main>
+      </body>`;
   }
 }
 // Annotate the CommonJS export names for ESM import in node:
