@@ -12,14 +12,42 @@
     <link rel="stylesheet" href="/styles/token.css" />
     <link rel="stylesheet" href="/styles/page.css" />
     <title>Tavern</title>
+    <script type="importmap">
+      {
+        "imports": {
+          "@calpoly/mustang": "https://unpkg.com/@calpoly/mustang"
+        }
+      }
+    </script>
   </head>
   <body
     class="bodyIndex"
-    style="background-image: url('./assets/backdrop.png')"
   >
+  <script>
+    const page = document.body;
+
+    page.addEventListener("dark-mode:toggle", (event) => {
+      const checked = event.detail.checked;
+      page.classList.toggle("dark-mode", checked);
+    });
+
+    function toggleDarkMode(target, checked) {
+     const customEvent = new CustomEvent(
+       "dark-mode:toggle", {
+        bubbles: true,
+        detail: { checked },
+        });
+
+        target.dispatchEvent(customEvent);
+    }
+  </script>
     <div class="indexInformation">
       <header>
         <h1 class="titleIndex">Fantasy Tavern</h1>
+        <label class="darkmodeButton" onchange="toggleDarkMode(event.target, event.target.checked)">
+          <input type="checkbox" autocomplete="off" />
+          Dark mode
+        </label>
       </header>
 
       <section class="htmlIndex">
