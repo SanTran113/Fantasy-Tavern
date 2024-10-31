@@ -16,12 +16,8 @@ app.get("/hello", (req: Request, res: Response) => {
     res.send("Hello, World");
 });
 
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
-});
-
 app.get(
-  "/drink/drinkMenuId",
+  "/drink/:drinkMenuId",
   (req: Request, res: Response) => {
     const { drinkMenuId } = req.params;
     const data = getDrinks(drinkMenuId);
@@ -30,3 +26,7 @@ app.get(
     res.set("Content-Type", "text/html").send(page.render());
   }
 );
+
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});

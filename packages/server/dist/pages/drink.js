@@ -43,36 +43,45 @@ class DrinksPage {
       body: this.renderBody(),
       stylesheets: ["/styles/page.css"],
       styles: [
-        import_server.css`main.page {
+        import_server.css`
+          main.page {
             --page-grids: 8;
             @media screen and (max-width: 48rem) {
-                --page-grids: 6;
+              --page-grids: 6;
             }
-        }`
+          }
+        `
       ],
       scripts: [
         `import { define } from "@calpoly/mustang";
         import { MenuElement } from "/scripts/menuAccommodation.js";
+        import { OptionElement } from "/scripts/optionElement.js";
 
         define({
             "menu-accommodation": MenuElement
+        });
+        define({
+            "option-accommodation": OptionElement
         });`
       ]
     });
   }
-  renderOptions(options) {
-    const { name, price, desc } = options;
-    return import_server.html`
-    <span slot="option-1">${name}</span>
-    <span slot="option-1-price">${price}</span>
-    <span slot="option-1-desc">${desc}</span>
-  `;
+  renderBody() {
+    const { title, drinkSections } = this.data;
+    const sectionList = drinkSections.map(
+      (drinkSections2) => this.renderDrinkSections(drinkSections2)
+    );
+    return import_server.html` 
+    <body class="bodyDrink">
+      <main class="drinkMain">
+        <h1 class="drink-title">${title}</h1>
+        <div class="drinkMenu">${sectionList}</div>
+      </main>
+    </body>`;
   }
   renderDrinkSections(drinkSections) {
     const { title, icon, optionMenu } = drinkSections;
-    const optionList = optionMenu.map(
-      (options) => this.renderOptions(options)
-    );
+    const optionList = optionMenu.map((options) => this.renderOptions(options));
     return import_server.html`
       <menu-accommodation>
         <span slot="title">${title}</span>
@@ -81,24 +90,19 @@ class DrinksPage {
             <use xlink:href="icons/icons.svg#${icon}" />
           </svg>
         </span>
-        ${optionList}
+        <span slot="option"> ${optionList} </span>
       </menu-accommodation>
     `;
   }
-  renderBody() {
-    const { title, drinkSections } = this.data;
-    const sectionList = drinkSections.map(
-      (drinkSections2) => this.renderDrinkSections(drinkSections2)
-    );
+  renderOptions(options) {
+    const { name, price, desc } = options;
     return import_server.html`
-      <body class="bodyDrink">
-          <main style="background-image: url('./assets/drinkMenuBg.png')">
-          <h1 class="drink-title">${title}</h1>
-          <div class="drinkMenu">
-              ${sectionList}
-          </div>
-          </main>
-      </body>`;
+      <option-accommodation>
+        <span slot="name">${name}</span>
+        <span slot="price">${price}</span>
+        <span slot="desc">${desc}</span>
+      </option-accommodation>
+    `;
   }
 }
 // Annotate the CommonJS export names for ESM import in node:

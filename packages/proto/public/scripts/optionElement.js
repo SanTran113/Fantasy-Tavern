@@ -5,7 +5,7 @@ export class OptionElement extends HTMLElement {
   static template = html`
     <template>
           <div>
-            <li><slot name="option">Secret Paradise</slot></li>
+            <li><slot name="name">Secret Paradise</slot></li>
             <li><slot name="price">5g</slot></li>
           </div>
           <p>

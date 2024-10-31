@@ -33,11 +33,8 @@ app.use(import_express.default.static(staticDir));
 app.get("/hello", (req, res) => {
   res.send("Hello, World");
 });
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
-});
 app.get(
-  "/drink/drinkMenuId",
+  "/drink/:drinkMenuId",
   (req, res) => {
     const { drinkMenuId } = req.params;
     const data = (0, import_drink_svc.getDrinks)(drinkMenuId);
@@ -45,3 +42,6 @@ app.get(
     res.set("Content-Type", "text/html").send(page.render());
   }
 );
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});

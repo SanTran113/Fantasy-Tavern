@@ -2,8 +2,7 @@ import { css, html } from "@calpoly/mustang/server";
 import { Drinks, DrinkSection, Option } from "../models";
 import renderPage from "./renderPage"; // generic page renderer
 
-export type DrinksPageData = Drinks 
-
+export type DrinksPageData = Drinks;
 
 export class DrinksPage {
   data: DrinksPageData;
@@ -12,48 +11,59 @@ export class DrinksPage {
     this.data = data;
   }
 
-render() {
+  render() {
     return renderPage({
-        body: this.renderBody(),
-        stylesheets: ["/styles/page.css"],
-        styles: [
-        css`main.page {
+      body: this.renderBody(),
+      stylesheets: ["/styles/page.css"],
+      styles: [
+        css`
+          main.page {
             --page-grids: 8;
             @media screen and (max-width: 48rem) {
-                --page-grids: 6;
+              --page-grids: 6;
             }
-        }`
-        ],
-        scripts: [
+          }
+        `,
+      ],
+      scripts: [
         `import { define } from "@calpoly/mustang";
         import { MenuElement } from "/scripts/menuAccommodation.js";
+        import { OptionElement } from "/scripts/optionElement.js";
 
         define({
             "menu-accommodation": MenuElement
-        });`
-        ]
+        });
+        define({
+            "option-accommodation": OptionElement
+        });`,
+      ],
     });
   }
 
-  renderOptions(options: Option) {
-    const { name, price, desc } = options;
-    
-    return html `
-    <span slot="option-1">${name}</span>
-    <span slot="option-1-price">${price}</span>
-    <span slot="option-1-desc">${desc}</span>
-  `
 
+  renderBody() {
+    const { title, drinkSections } = this.data;
+
+    const sectionList = drinkSections.map((drinkSections) =>
+      this.renderDrinkSections(drinkSections)
+    );
+
+    return html` 
+    <body class="bodyDrink">
+      <main class="drinkMain">
+        <h1 class="drink-title">${title}</h1>
+        <div class="drinkMenu">${sectionList}</div>
+      </main>
+    </body>`;
   }
+
+  
 
   renderDrinkSections(drinkSections: DrinkSection) {
     const { title, icon, optionMenu } = drinkSections;
 
-    const optionList = (optionMenu.map((options) =>
-        this.renderOptions(options)
-      ));
-  
-// TODO: Make a custom element for options
+    const optionList = optionMenu.map((options) => this.renderOptions(options));
+
     return html`
       <menu-accommodation>
         <span slot="title">${title}</span>
@@ -62,27 +72,21 @@ render() {
             <use xlink:href="icons/icons.svg#${icon}" />
           </svg>
         </span>
-        ${optionList}
+        <span slot="option"> ${optionList} </span>
       </menu-accommodation>
     `;
   }
 
-  renderBody() {
-    const { title, drinkSections } = this.data;
 
-    const sectionList = (drinkSections.map((drinkSections) =>
-      this.renderDrinkSections(drinkSections)
-    ));
+  renderOptions(options: Option) {
+    const { name, price, desc } = options;
 
-    
     return html`
-      <body class="bodyDrink">
-          <main style="background-image: url('./assets/drinkMenuBg.png')">
-          <h1 class="drink-title">${title}</h1>
-          <div class="drinkMenu">
-              ${sectionList}
-          </div>
-          </main>
-      </body>`;
+      <option-accommodation>
+        <span slot="name">${name}</span>
+        <span slot="price">${price}</span>
+        <span slot="desc">${desc}</span>
+      </option-accommodation>
+    `;
   }
 }

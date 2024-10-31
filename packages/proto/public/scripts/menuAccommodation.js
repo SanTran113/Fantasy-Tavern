@@ -1,6 +1,5 @@
 import { css, html, shadow } from "@calpoly/mustang";
 import reset from "./styles/reset.css.js";
-import { OptionElement } from "./optionElement.js";
 
 export class MenuElement extends HTMLElement {
   static template = html`
