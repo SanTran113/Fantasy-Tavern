@@ -53,7 +53,7 @@ render() {
         this.renderOptions(options)
       ));
   
-
+// TODO: Make a custom element for options
     return html`
       <menu-accommodation>
         <span slot="title">${title}</span>

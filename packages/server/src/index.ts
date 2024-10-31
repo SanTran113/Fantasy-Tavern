@@ -2,7 +2,9 @@
 import express, { Request, Response } from "express";
 import { getDrinks } from "./services/drink-svc";
 import { DrinksPage } from "./pages";
+import { connect } from "./services/mongo";
 
+connect("tavern");
 
 const app = express();
 const port = process.env.PORT || 3000;
