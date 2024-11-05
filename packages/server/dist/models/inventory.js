@@ -11,14 +11,6 @@ var __copyProps = (to, from, except, desc) => {
   }
   return to;
 };
-var __reExport = (target, mod, secondTarget) => (__copyProps(target, mod, "default"), secondTarget && __copyProps(secondTarget, mod, "default"));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-var pages_exports = {};
-module.exports = __toCommonJS(pages_exports);
-__reExport(pages_exports, require("./drink"), module.exports);
-__reExport(pages_exports, require("./inventoryProfile"), module.exports);
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  ...require("./drink"),
-  ...require("./inventoryProfile")
-});
+var inventory_exports = {};
+module.exports = __toCommonJS(inventory_exports);

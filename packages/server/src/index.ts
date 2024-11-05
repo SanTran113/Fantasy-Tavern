@@ -1,8 +1,9 @@
 // src/index.ts
 import express, { Request, Response } from "express";
 import { getDrinks } from "./services/drink-svc";
-import { DrinksPage } from "./pages";
+import { DrinksPage, InventoryPage } from "./pages/index";
 import { connect } from "./services/mongo";
+import InventoryProfile from "./services/inventory-svc";
 
 connect("tavern");
 
@@ -16,6 +17,10 @@ app.get("/hello", (req: Request, res: Response) => {
     res.send("Hello, World");
 });
 
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
+
 app.get(
   "/drink/:drinkMenuId",
   (req: Request, res: Response) => {
@@ -27,7 +32,12 @@ app.get(
   }
 );
 
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
-});
+app.get("/inventoryProfile/:userId", (req: Request, res: Response) => {
+  const { userId } = req.params;
 
+  InventoryProfile.get(userId).then((data) => {
+    res
+      .set("Content-Type", "text/html")
+      .send(TravelerPage.render(data));
+  });
+});

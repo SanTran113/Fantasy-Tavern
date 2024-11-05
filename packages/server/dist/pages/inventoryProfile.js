@@ -5,6 +5,10 @@ var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
 var __copyProps = (to, from, except, desc) => {
   if (from && typeof from === "object" || typeof from === "function") {
     for (let key of __getOwnPropNames(from))
@@ -21,34 +25,37 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
   mod
 ));
-var import_express = __toESM(require("express"));
-var import_drink_svc = require("./services/drink-svc");
-var import_pages = require("./pages/index");
-var import_mongo = require("./services/mongo");
-var import_inventory_svc = __toESM(require("./services/inventory-svc"));
-(0, import_mongo.connect)("tavern");
-const app = (0, import_express.default)();
-const port = process.env.PORT || 3e3;
-const staticDir = process.env.STATIC || "public";
-app.use(import_express.default.static(staticDir));
-app.get("/hello", (req, res) => {
-  res.send("Hello, World");
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+var inventoryProfile_exports = {};
+__export(inventoryProfile_exports, {
+  InventoryProfilePage: () => InventoryProfilePage
 });
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
-});
-app.get(
-  "/drink/:drinkMenuId",
-  (req, res) => {
-    const { drinkMenuId } = req.params;
-    const data = (0, import_drink_svc.getDrinks)(drinkMenuId);
-    const page = new import_pages.DrinksPage(data);
-    res.set("Content-Type", "text/html").send(page.render());
+module.exports = __toCommonJS(inventoryProfile_exports);
+var import_server = require("@calpoly/mustang/server");
+var import_renderPage = __toESM(require("./renderPage"));
+class InventoryProfilePage {
+  data;
+  constructor(data) {
+    this.data = data;
   }
-);
-app.get("/inventoryProfile/:userId", (req, res) => {
-  const { userId } = req.params;
-  import_inventory_svc.default.get(userId).then((data) => {
-    res.set("Content-Type", "text/html").send(TravelerPage.render(data));
-  });
+  render() {
+    return (0, import_renderPage.default)({
+      body: this.renderBody(),
+      scripts: [
+        `
+        import { define } from "@calpoly/mustang";
+
+        `
+      ]
+    });
+  }
+  renderBody() {
+    const { userId } = this.data;
+    const api = `/api/travelers/${userId}`;
+    return import_server.html``;
+  }
+}
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  InventoryProfilePage
 });

@@ -16,7 +16,7 @@ const DrinkSchema = new Schema<Drinks>(
   { collection: "drinks" }
 );
 
-const DrinkOptionModel = model<Drinks>("Option", DrinkSchema);
+const DrinkOptionModel = model<Drinks>("Drinks", DrinkSchema);
 
 function index(): Promise<Drinks[]> {
     return DrinkOptionModel.find();

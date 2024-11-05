@@ -18,24 +18,21 @@
         }
       }
     </script>
+    <script type="module">
+      import { define } from "@calpoly/mustang";
+      import { InvenProfileElement } from "/scripts/inventoryProfileElement.js";
+
+      define({
+        "inven-profile": InvenProfileElement,
+      });
+    </script>
   </head>
+
   <body>
-    <main class="mainInventory">
-        <div class="profile">profile</div>
-        <div class="InventoryTitle">
-            <div class="Invtitle">Inventory</div>
-        </div>
-        <div class="Inventory">
-            <div>Item 1</div>
-            <div>Item 2</div>
-            <div>Item 3</div>
-            <div>Item 4</div>
-            <div>Item 5</div>
-            <div>Item 6</div>
-            <div>Item 7</div>
-        </div>
-        <div class="userName">Name</div>
-        <div class="class">Class</div>
-    </main>
-  </body>
+    <inven-profile>
+        <span slot="item">Item 1</span>
+        <span slot="name">Naga</span>
+        <span slot="userClass">SpiritMaster</span>
+    </inven-profile>
+  </body>  
 </html>

@@ -16,28 +16,28 @@ var __copyProps = (to, from, except, desc) => {
   return to;
 };
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-var drinks_svc_exports = {};
-__export(drinks_svc_exports, {
-  default: () => drinks_svc_default
+var inventory_svc_exports = {};
+__export(inventory_svc_exports, {
+  default: () => inventory_svc_default
 });
-module.exports = __toCommonJS(drinks_svc_exports);
+module.exports = __toCommonJS(inventory_svc_exports);
 var import_mongoose = require("mongoose");
-const DrinkSchema = new import_mongoose.Schema(
+const InventoryProfileSchema = new import_mongoose.Schema(
   {
-    title: { type: String, required: true, trim: true },
-    drinkSections: [
-      {
-        title: { type: String, required: true, trim: true },
-        icon: { type: String, required: true, trim: true },
-        optionMenu: [import_mongoose.Schema.Types.ObjectId]
-      }
-    ]
+    userId: { type: String, required: true, trim: true },
+    name: { type: String, required: true, trim: true },
+    class: { type: String, trim: true },
+    inventory: [{ type: import_mongoose.Schema.Types.ObjectId, ref: "Option" }]
   },
-  { collection: "drinks" }
+  { collection: "user_inventory" }
 );
-const DrinkOptionModel = (0, import_mongoose.model)("Drinks", DrinkSchema);
+const InventoryProfileModel = (0, import_mongoose.model)("InventoryProfile", InventorySchema);
 function index() {
-  return DrinkOptionModel.find();
+  return InventoryProfileModel.find();
 }
-;
-var drinks_svc_default = { index };
+function get(userid) {
+  return InventoryProfileModel.find({ userid }).then((list) => list[0]).catch((err) => {
+    throw `${userid} Not Found`;
+  });
+}
+var inventory_svc_default = { index, get };
