@@ -55,7 +55,7 @@ class InventoryProfilePage {
     });
   }
   renderBody() {
-    const { userId, name, userClass, inventory } = this.data;
+    const { userid, name, userClass, inventory } = this.data;
     const inventoryList = inventory.map(
       (inventory2) => this.renderInventory(inventory2)
     );
@@ -73,8 +73,8 @@ class InventoryProfilePage {
     return import_server.html` <span slot="item"><div>${inventoryItem}</div></span>`;
   }
   //   renderBody() {
-  //     const { userId } = this.data;
-  //     const api = `/api/inventoryProfile/${userId}`;
+  //     const { userid } = this.data;
+  //     const api = `/api/inventoryProfile/${userid}`;
   //     return html`
   //     `;
   //   }

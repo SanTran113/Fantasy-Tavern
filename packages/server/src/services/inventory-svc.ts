@@ -3,7 +3,7 @@ import { Schema, model } from "mongoose";
 
 const InventoryProfileSchema = new Schema<InventoryProfile>(
   {
-    userId: { type: String, required: true, trim: true },
+    userid: { type: String, required: true, trim: true },
     name: { type: String, required: true, trim: true },
     userClass: { type: String, trim: true },
     inventory: [{ type: String, trim: true }],
@@ -24,5 +24,31 @@ function index(): Promise<InventoryProfile[]> {
         throw `${userid} Not Found`;
       });
   }
+
+  function create(json: InventoryProfile): Promise<InventoryProfile> {
+    const t = new InventoryProfileModel(json);
+    return t.save();
+  }
+
+  function update(
+    userid: String,
+    invenProfile: InventoryProfile
+  ): Promise<InventoryProfile> {
+    return InventoryProfileModel.findOneAndUpdate({ userid }, invenProfile, {
+      new: true
+    }).then((updated) => {
+      if (!updated) throw `${userid} not updated`;
+      else return updated as InventoryProfile;
+    });
+  }
+
+  function remove(userid: String): Promise<void> {
+    return InventoryProfileModel.findOneAndDelete({ userid }).then(
+      (deleted) => {
+        if (!deleted) throw `${userid} not deleted`;
+      }
+    );
+  }
+
   
-  export default { index, get };
+  export default { index, get, create, update, remove };

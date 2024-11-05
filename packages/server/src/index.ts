@@ -5,6 +5,7 @@ import { getInventory } from "./services/inventoryMock";
 import { DrinksPage, InventoryProfilePage } from "./pages/index";
 import { connect } from "./services/mongo";
 import InventoryProfile from "./services/inventory-svc";
+import inventoryProfiles from "./routes/inventoryProfiles";
 
 connect("tavern");
 
@@ -13,6 +14,10 @@ const port = process.env.PORT || 3000;
 const staticDir = process.env.STATIC || "public";
 
 app.use(express.static(staticDir));
+
+app.use(express.json());
+
+app.use("/api/inventoryProfiles", inventoryProfiles);
 
 app.get("/hello", (req: Request, res: Response) => {
   res.send("Hello, World");
@@ -30,10 +35,13 @@ app.get("/drink/:drinkMenuId", (req: Request, res: Response) => {
   res.set("Content-Type", "text/html").send(page.render());
 });
 
-app.get("/inventoryProfile/:userId", (req: Request, res: Response) => {
-  const { userId } = req.params;
-  const data = getInventory(userId);
-  const page = new InventoryProfilePage(data);
+app.get("/inventoryProfiles/:userid", (req: Request, res: Response) => {
+  const { userid } = req.params;
 
-  res.set("Content-Type", "text/html").send(page.render());
+  InventoryProfile.get(userid).then((data) => {
+    const page = new InventoryProfilePage(data);
+    res.set("Content-Type", "text/html").send(page.render());
+  });
 });
+
+

@@ -24,7 +24,7 @@ module.exports = __toCommonJS(inventory_svc_exports);
 var import_mongoose = require("mongoose");
 const InventoryProfileSchema = new import_mongoose.Schema(
   {
-    userId: { type: String, required: true, trim: true },
+    userid: { type: String, required: true, trim: true },
     name: { type: String, required: true, trim: true },
     userClass: { type: String, trim: true },
     inventory: [{ type: String, trim: true }]
@@ -40,4 +40,23 @@ function get(userid) {
     throw `${userid} Not Found`;
   });
 }
-var inventory_svc_default = { index, get };
+function create(json) {
+  const t = new InventoryProfileModel(json);
+  return t.save();
+}
+function update(userid, invenProfile) {
+  return InventoryProfileModel.findOneAndUpdate({ userid }, invenProfile, {
+    new: true
+  }).then((updated) => {
+    if (!updated) throw `${userid} not updated`;
+    else return updated;
+  });
+}
+function remove(userid) {
+  return InventoryProfileModel.findOneAndDelete({ userid }).then(
+    (deleted) => {
+      if (!deleted) throw `${userid} not deleted`;
+    }
+  );
+}
+var inventory_svc_default = { index, get, create, update, remove };

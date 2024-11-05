@@ -29,7 +29,7 @@ export class InventoryProfilePage {
   }
 
   renderBody() {
-    const { userId, name, userClass, inventory } = this.data;
+    const { userid, name, userClass, inventory } = this.data;
 
     const inventoryList = inventory.map((inventory) =>
       this.renderInventory(inventory)
@@ -51,8 +51,8 @@ export class InventoryProfilePage {
   }
 
   //   renderBody() {
-  //     const { userId } = this.data;
-  //     const api = `/api/inventoryProfile/${userId}`;
+  //     const { userid } = this.data;
+  //     const api = `/api/inventoryProfile/${userid}`;
 
   //     return html`
 
