@@ -70,14 +70,8 @@ class InventoryProfilePage {
     `;
   }
   renderInventory(inventoryItem) {
-    return import_server.html` <span slot="item"><div>${inventoryItem}</div></span>`;
+    return import_server.html` <span slot="inventory"><div>${inventoryItem}</div></span>`;
   }
-  //   renderBody() {
-  //     const { userid } = this.data;
-  //     const api = `/api/inventoryProfile/${userid}`;
-  //     return html`
-  //     `;
-  //   }
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {

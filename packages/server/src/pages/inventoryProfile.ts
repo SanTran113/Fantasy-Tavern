@@ -47,15 +47,7 @@ export class InventoryProfilePage {
   }
 
   renderInventory(inventoryItem: string) {
-    return html` <span slot="item"><div>${inventoryItem}</div></span>`;
+    return html` <span slot="inventory"><div>${inventoryItem}</div></span>`;
   }
 
-  //   renderBody() {
-  //     const { userid } = this.data;
-  //     const api = `/api/inventoryProfile/${userid}`;
-
-  //     return html`
-
-  //     `;
-  //   }
 }

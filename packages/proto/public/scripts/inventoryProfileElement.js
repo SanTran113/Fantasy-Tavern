@@ -2,6 +2,11 @@ import { css, html, shadow } from "@calpoly/mustang";
 import reset from "./styles/reset.css.js";
 
 export class InvenProfileElement extends HTMLElement {
+  get src() {
+    return this.getAttribute("src");
+  }
+
+
     static template = html `
     <template>
         <main class="mainInventory">
@@ -10,7 +15,7 @@ export class InvenProfileElement extends HTMLElement {
                 <div class="Invtitle">Inventory</div>
             </div>
             <div class="Inventory">
-                <slot name="item"><div>Item 1</div></slot>
+                <slot name="inventory"><div>Item 1</div></slot>
             </div>
             <div class="userName"><slot name="name">Name</slot></div>
             <div class="class"><slot name="userClass">Class</slot></div>
@@ -116,4 +121,30 @@ export class InvenProfileElement extends HTMLElement {
       .template(InvenProfileElement.template)
       .styles(reset.styles, InvenProfileElement.styles);
   }
+
+  connectedCallback() {
+    if (this.src) this.hydrate(this.src);
+  }
+
+  hydrate(url) {
+    fetch(url)
+      .then((res) => {
+        if (res.status !== 200) throw `Status: ${res.status}`;
+        return res.json();
+      })
+      .then((json) => this.renderSlots(json))
+      .catch((error) =>
+        console.log(`Failed to render data ${url}:`, error)
+      );
+  }
+
+  renderSlots(json) {
+  const entries = Object.entries(json);
+  const toSlot = ([key, value]) =>
+    html`<span slot="${key}">${value}</span>`
+
+  const fragment = entries.map(toSlot);
+  this.replaceChildren(...fragment);
+}
+
 }
