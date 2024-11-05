@@ -1,5 +1,7 @@
 import { css, html } from "@calpoly/mustang/server";
-import { Drinks, DrinkSection, Option } from "../models";
+import { Drinks } from "../models/drink";
+import { Option } from "../models/option"
+import { DrinkSection } from "models/drinkSection";
 import renderPage from "./renderPage"; // generic page renderer
 
 export type DrinksPageData = Drinks;
