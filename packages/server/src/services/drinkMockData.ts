@@ -13,22 +13,22 @@ const drinks = {
                     desc: "Rum infused with fresh lime mint and sugar."
                 },
                 {
-                    name: "Secret Paradise",
-                    price: "3g",
+                    name: "Blueberry Bedtime",
+                    price: "15g",
                     desc: "Rum infused with fresh lime mint and sugar."
                 },
                 {
-                    name: "Secret Paradise",
-                    price: "3g",
+                    name: "Sweetest Sin",
+                    price: "10g",
                     desc: "Rum infused with fresh lime mint and sugar."
                 },
                 {
-                    name: "Secret Paradise",
-                    price: "3g",
+                    name: "Mulberry Madness",
+                    price: "11g",
                     desc: "Rum infused with fresh lime mint and sugar."
                 },
                 {
-                    name: "Secret Paradise",
+                    name: "Dissociate",
                     price: "3g",
                     desc: "Rum infused with fresh lime mint and sugar."
                 }
@@ -39,27 +39,27 @@ const drinks = {
             icon: "mythical",
             optionMenu: [
                 {
-                    name: "Secret Paradise",
+                    name: "Phoenix Ashes",
                     price: "3g",
                     desc: "Rum infused with fresh lime mint and sugar."
                 },
                 {
-                    name: "Secret Paradise",
+                    name: "Emperor's Tea",
                     price: "3g",
                     desc: "Rum infused with fresh lime mint and sugar."
                 },
                 {
-                    name: "Secret Paradise",
+                    name: "Tyranny of Dragons",
                     price: "3g",
                     desc: "Rum infused with fresh lime mint and sugar."
                 },
                 {
-                    name: "Secret Paradise",
+                    name: "Acidic Basilisk",
                     price: "3g",
                     desc: "Rum infused with fresh lime mint and sugar."
                 },
                 {
-                    name: "Secret Paradise",
+                    name: "Fairy?",
                     price: "3g",
                     desc: "Rum infused with fresh lime mint and sugar."
                 }

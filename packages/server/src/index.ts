@@ -1,6 +1,6 @@
 // src/index.ts
 import express, { Request, Response } from "express";
-import { getDrinks } from "./services/drink-svc";
+import { getDrinks } from "./services/drinkMockData";
 import { getInventory } from "./services/inventoryMock";
 import { DrinksPage, InventoryProfilePage } from "./pages/index";
 import { connect } from "./services/mongo";

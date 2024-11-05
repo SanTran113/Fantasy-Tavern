@@ -22,7 +22,7 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 var import_express = __toESM(require("express"));
-var import_drink_svc = require("./services/drink-svc");
+var import_drinkMockData = require("./services/drinkMockData");
 var import_pages = require("./pages/index");
 var import_mongo = require("./services/mongo");
 var import_inventory_svc = __toESM(require("./services/inventory-svc"));
@@ -42,7 +42,7 @@ app.listen(port, () => {
 });
 app.get("/drink/:drinkMenuId", (req, res) => {
   const { drinkMenuId } = req.params;
-  const data = (0, import_drink_svc.getDrinks)(drinkMenuId);
+  const data = (0, import_drinkMockData.getDrinks)(drinkMenuId);
   const page = new import_pages.DrinksPage(data);
   res.set("Content-Type", "text/html").send(page.render());
 });
