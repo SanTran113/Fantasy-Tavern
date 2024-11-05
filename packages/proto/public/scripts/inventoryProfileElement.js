@@ -10,7 +10,7 @@ export class InvenProfileElement extends HTMLElement {
                 <div class="Invtitle">Inventory</div>
             </div>
             <div class="Inventory">
-                <div><slot name="item">Item 1</slot></div>
+                <slot name="item"><div>Item 1</div></slot>
             </div>
             <div class="userName"><slot name="name">Name</slot></div>
             <div class="class"><slot name="userClass">Class</slot></div>

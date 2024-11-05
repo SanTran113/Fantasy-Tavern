@@ -26,12 +26,12 @@ const InventoryProfileSchema = new import_mongoose.Schema(
   {
     userId: { type: String, required: true, trim: true },
     name: { type: String, required: true, trim: true },
-    class: { type: String, trim: true },
-    inventory: [{ type: import_mongoose.Schema.Types.ObjectId, ref: "Option" }]
+    userClass: { type: String, trim: true },
+    inventory: [{ type: String, trim: true }]
   },
   { collection: "user_inventory" }
 );
-const InventoryProfileModel = (0, import_mongoose.model)("InventoryProfile", InventorySchema);
+const InventoryProfileModel = (0, import_mongoose.model)("InventoryProfile", InventoryProfileSchema);
 function index() {
   return InventoryProfileModel.find();
 }

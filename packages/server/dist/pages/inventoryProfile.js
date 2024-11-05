@@ -41,19 +41,43 @@ class InventoryProfilePage {
   render() {
     return (0, import_renderPage.default)({
       body: this.renderBody(),
+      stylesheets: ["/styles/page.css"],
       scripts: [
         `
         import { define } from "@calpoly/mustang";
+        import { InvenProfileElement } from "/scripts/inventoryProfileElement.js";
 
+        define({
+            "inven-profile": InvenProfileElement,
+        });
         `
       ]
     });
   }
   renderBody() {
-    const { userId } = this.data;
-    const api = `/api/travelers/${userId}`;
-    return import_server.html``;
+    const { userId, name, userClass, inventory } = this.data;
+    const inventoryList = inventory.map(
+      (inventory2) => this.renderInventory(inventory2)
+    );
+    return import_server.html`
+      <body>
+        <inven-profile>
+          ${inventoryList}
+          <span slot="name">${name}</span>
+          <span slot="userClass">${userClass}</span>
+        </inven-profile>
+      </body>
+    `;
   }
+  renderInventory(inventoryItem) {
+    return import_server.html` <span slot="item"><div>${inventoryItem}</div></span>`;
+  }
+  //   renderBody() {
+  //     const { userId } = this.data;
+  //     const api = `/api/inventoryProfile/${userId}`;
+  //     return html`
+  //     `;
+  //   }
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
