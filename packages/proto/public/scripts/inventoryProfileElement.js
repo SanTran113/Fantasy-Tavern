@@ -28,7 +28,7 @@ export class InvenProfileElement extends HTMLElement {
     }
 
     .mainInventory {
-      background-image: url("../assets/Inventory/inventoryPageBg.png");
+      background-image: url("../assets/Inventory/profileTavern.png");
       padding: 5%;
       background-size: 100% 100%;
       background-position: center;
