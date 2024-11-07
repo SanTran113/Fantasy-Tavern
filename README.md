@@ -1,3 +1,3 @@
 Welcome to the Fantasy Tavern!
 
-routes: http://localhost:3000/drink/drinkMenuId (For Mock Data)
+routes: https://stran113.csse.dev/drink/drinkMenuId (For Mock Data)
