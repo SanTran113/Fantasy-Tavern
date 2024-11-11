@@ -6,6 +6,7 @@ import { DrinksPage, InventoryProfilePage } from "./pages/index";
 import { connect } from "./services/mongo";
 import InventoryProfile from "./services/inventory-svc";
 import inventoryProfiles from "./routes/inventoryProfiles";
+import options from "./routes/options";
 
 connect("tavern");
 
@@ -18,6 +19,7 @@ app.use(express.static(staticDir));
 app.use(express.json());
 
 app.use("/api/inventoryProfiles", inventoryProfiles);
+app.use("/api/options", options);
 
 app.get("/hello", (req: Request, res: Response) => {
   res.send("Hello, World");

@@ -14,7 +14,9 @@ export class InvenProfileElement extends HTMLElement {
           <div class="Invtitle">Inventory</div>
         </div>
         <div class="Inventory">
-          <slot name="inventory"><div>Item 1</div></slot>
+          <slot name="inventory">
+            <img src="./assets/drinkOptions/mulberry_white.png" />
+          </slot>
         </div>
         <div class="userName"><slot name="name">Name</slot></div>
         <div class="class"><slot name="userClass">Class</slot></div>
@@ -130,9 +132,28 @@ export class InvenProfileElement extends HTMLElement {
         if (res.status !== 200) throw `Status: ${res.status}`;
         return res.json();
       })
-      .then((json) => this.renderSlots(json))
+      .then(async (json) => {
+        if (Array.isArray(json.inventory)) {
+          const inventoryPromises = json.inventory.map((id) => this.fetchOption(id));
+          json.inventory = await Promise.all(inventoryPromises);
+        }
+        this.renderSlots(json);
+      })
       .catch((error) => console.log(`Failed to render data ${url}:`, error));
   }
+  
+  fetchOption(id) {
+    const optionUrl = `/options/${id}`; 
+    return fetch(optionUrl)
+      .then((res) => {
+        if (res.status !== 200) throw `Status: ${res.status}`;
+        return res.json();
+      })
+      .catch((error) => {
+        console.error(`Failed to fetch Option with id ${id}:`, error);
+      });
+  }
+  
 
   renderSlots(json) {
     const entries = Object.entries(json);
@@ -141,7 +162,9 @@ export class InvenProfileElement extends HTMLElement {
         case "object":
           if (Array.isArray(value))
             return html` ${value.map(
-              (s) => html`<span slot="${key}">${s}</span>`
+              (s) => html`<span slot="${key}"><img src="data:image/png;base64,${s.img}" /></span>`
+              // (s) => html`<span slot="${key}">${s.img}</span>`
+
             )}`;
         default:
           return html`<span slot="${key}">${value}</span>`;
