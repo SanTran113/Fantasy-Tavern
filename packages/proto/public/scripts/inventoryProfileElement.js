@@ -134,23 +134,25 @@ export class InvenProfileElement extends HTMLElement {
       })
       .then(async (json) => {
         if (Array.isArray(json.inventory)) {
-          const inventoryPromises = json.inventory.map((id) => this.fetchOption(id));
+          const inventoryPromises = json.inventory.map((_id) => this.fetchOption(_id));
           json.inventory = await Promise.all(inventoryPromises);
         }
         this.renderSlots(json);
+        console.log("user fetched ids")
       })
       .catch((error) => console.log(`Failed to render data ${url}:`, error));
   }
   
-  fetchOption(id) {
-    const optionUrl = `/options/${id}`; 
+  fetchOption(_id) {
+    const optionUrl = `/api/options/${_id}`; 
     return fetch(optionUrl)
       .then((res) => {
         if (res.status !== 200) throw `Status: ${res.status}`;
         return res.json();
+        console.log("fetched ids")
       })
       .catch((error) => {
-        console.error(`Failed to fetch Option with id ${id}:`, error);
+        console.error(`Failed to fetch Option with id ${_id}:`, error);
       });
   }
   
@@ -162,9 +164,7 @@ export class InvenProfileElement extends HTMLElement {
         case "object":
           if (Array.isArray(value))
             return html` ${value.map(
-              (s) => html`<span slot="${key}"><img src="data:image/png;base64,${s}" /></span>`
-              // (s) => html`<span slot="${key}">${s.img}</span>`
-
+              (s) => html`<span slot="${key}"><img src="data:image/png;base64,${s.img}" /></span>`
             )}`;
         default:
           return html`<span slot="${key}">${value}</span>`;
