@@ -55,3 +55,10 @@ app.get("/inventoryProfiles/:userid", (req, res) => {
     res.set("Content-Type", "text/html").send(page.render());
   });
 });
+app.get("/options/:_id", (req, res) => {
+  const { _id } = req.params;
+  import_inventory_svc.default.get(_id).then((data) => {
+    const page = new import_pages.InventoryProfilePage(data);
+    res.set("Content-Type", "text/html").send(page.render());
+  });
+});

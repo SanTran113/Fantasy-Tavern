@@ -18,11 +18,11 @@ function index(): Promise<Option[]> {
     return DrinkOptionModel.find();
 };
 
-function get(optionid: String): Promise<Option> {
-    return DrinkOptionModel.find({ optionid })
+function get(_id: String): Promise<Option> {
+    return DrinkOptionModel.find({ _id })
       .then((list) => list[0])
       .catch((err) => {
-        throw `${optionid} Not Found`;
+        throw `${_id} Not Found`;
       });
   }
 
@@ -32,21 +32,21 @@ return t.save();
 }
 
 function update(
-    optionid: String,
+  _id: String,
     option: Option
   ): Promise<Option> {
-    return DrinkOptionModel.findOneAndUpdate({ optionid }, option, {
+    return DrinkOptionModel.findOneAndUpdate({ _id }, option, {
       new: true
     }).then((updated) => {
-      if (!updated) throw `${optionid} not updated`;
+      if (!updated) throw `${_id} not updated`;
       else return updated as Option;
     });
   }
 
-  function remove(optionid: String): Promise<void> {
-    return DrinkOptionModel.findOneAndDelete({ optionid }).then(
+  function remove(_id: String): Promise<void> {
+    return DrinkOptionModel.findOneAndDelete({ _id }).then(
       (deleted) => {
-        if (!deleted) throw `${optionid} not deleted`;
+        if (!deleted) throw `${_id} not deleted`;
       }
     );
   }

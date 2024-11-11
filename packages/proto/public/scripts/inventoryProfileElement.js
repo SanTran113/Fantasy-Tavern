@@ -162,7 +162,7 @@ export class InvenProfileElement extends HTMLElement {
         case "object":
           if (Array.isArray(value))
             return html` ${value.map(
-              (s) => html`<span slot="${key}"><img src="data:image/png;base64,${s.img}" /></span>`
+              (s) => html`<span slot="${key}"><img src="data:image/png;base64,${s}" /></span>`
               // (s) => html`<span slot="${key}">${s.img}</span>`
 
             )}`;

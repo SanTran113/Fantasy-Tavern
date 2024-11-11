@@ -36,27 +36,27 @@ function index() {
   return DrinkOptionModel.find();
 }
 ;
-function get(optionid) {
-  return DrinkOptionModel.find({ optionid }).then((list) => list[0]).catch((err) => {
-    throw `${optionid} Not Found`;
+function get(_id) {
+  return DrinkOptionModel.find({ _id }).then((list) => list[0]).catch((err) => {
+    throw `${_id} Not Found`;
   });
 }
 function create(json) {
   const t = new DrinkOptionModel(json);
   return t.save();
 }
-function update(optionid, option) {
-  return DrinkOptionModel.findOneAndUpdate({ optionid }, option, {
+function update(_id, option) {
+  return DrinkOptionModel.findOneAndUpdate({ _id }, option, {
     new: true
   }).then((updated) => {
-    if (!updated) throw `${optionid} not updated`;
+    if (!updated) throw `${_id} not updated`;
     else return updated;
   });
 }
-function remove(optionid) {
-  return DrinkOptionModel.findOneAndDelete({ optionid }).then(
+function remove(_id) {
+  return DrinkOptionModel.findOneAndDelete({ _id }).then(
     (deleted) => {
-      if (!deleted) throw `${optionid} not deleted`;
+      if (!deleted) throw `${_id} not deleted`;
     }
   );
 }

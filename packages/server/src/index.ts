@@ -5,6 +5,7 @@ import { getInventory } from "./services/inventoryMock";
 import { DrinksPage, InventoryProfilePage } from "./pages/index";
 import { connect } from "./services/mongo";
 import InventoryProfile from "./services/inventory-svc";
+import Options from "./services/drinkOption-svc";
 import inventoryProfiles from "./routes/inventoryProfiles";
 import options from "./routes/options";
 
@@ -45,5 +46,13 @@ app.get("/inventoryProfiles/:userid", (req: Request, res: Response) => {
     res.set("Content-Type", "text/html").send(page.render());
   });
 });
+
+app.get("/options/:_id", (req: Request, res: Response) => {
+  const { _id } = req.params;
+
+  InventoryProfile.get(_id).then((data) => {
+    const page = new InventoryProfilePage(data);
+    res.set("Content-Type", "text/html").send(page.render());
+  });});
 
 

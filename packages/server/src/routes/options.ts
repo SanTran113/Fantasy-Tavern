@@ -45,3 +45,5 @@ router.get("/", (_, res: Response) => {
       .then(() => res.status(204).end())
       .catch((err) => res.status(404).send(err));
   });
+
+  export default router;
