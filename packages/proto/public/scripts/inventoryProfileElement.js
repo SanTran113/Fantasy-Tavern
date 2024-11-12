@@ -14,14 +14,14 @@ export class InvenProfileElement extends HTMLElement {
           <div class="Invtitle">Inventory</div>
         </div>
         <div class="Inventory">
-          <div class="imgInvenBg">
-            <slot name="inventory">
+          <slot name="inventory">
+            <div class="imgInvenBg">
               <img
                 class="imgInven"
                 src="./assets/drinkOptions/mulberry_white.png"
               />
-            </slot>
             </div>
+          </slot>
         </div>
         <div class="userName"><slot name="name">Name</slot></div>
         <div class="class"><slot name="userClass">Class</slot></div>
@@ -107,7 +107,7 @@ export class InvenProfileElement extends HTMLElement {
     }
 
     .imgInvenBg {
-      background-image: url("../assets/Inventory/itemInvBg.png");
+      background: var(--bgImg), url("../assets/Inventory/itemInvBg.png");
       background-size: contain;
       background-position: center;
       background-repeat: no-repeat;
@@ -183,14 +183,12 @@ export class InvenProfileElement extends HTMLElement {
           if (Array.isArray(value))
             return html` ${value.map(
               (s) =>
-                html`
-              <div class="imgInvenBg">
-                  <span slot="${key}">
-                    <img
-                      class="imgInven"
-                      src="data:image/png;base64,${s.img}"
-                    />
-                  </span></div>`
+                html` <div
+                  style="--bgImg: url(data:image/png;base64,${s.img})"
+                  slot="${key}"
+                  class="imgInvenBg"
+                >
+                </div>`
             )}`;
         default:
           return html`<span slot="${key}">${value}</span>`;

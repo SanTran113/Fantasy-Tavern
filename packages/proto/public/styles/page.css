@@ -173,8 +173,8 @@ div {
 }
 
 .imgInvenBg {
-  background-image: url("../assets/Inventory/itemInvBg.png");
-  background-size: 100% 100%;
+  background: var(--bgImg), url("../assets/Inventory/itemInvBg.png");
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
 

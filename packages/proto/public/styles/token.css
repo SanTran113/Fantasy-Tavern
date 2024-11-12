@@ -5,5 +5,11 @@
     --background-color: #451814;
     --index-menu-color: white;
     --index-bg-color: rgba(0,0,0,.7);
+
+    @property --bgImg {
+        syntax: "<color>"
+        initial-value: "black"
+    }
+
 } 
    
