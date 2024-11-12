@@ -168,8 +168,19 @@ div {
   text-align: center;
 }
 
-.Invtitle {
+.imgInven {
+  width: 80%;
+}
 
+.imgInvenBg {
+  background-image: url("../assets/Inventory/itemInvBg.png");
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .userName {

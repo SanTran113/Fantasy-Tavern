@@ -14,9 +14,14 @@ export class InvenProfileElement extends HTMLElement {
           <div class="Invtitle">Inventory</div>
         </div>
         <div class="Inventory">
-          <slot name="inventory">
-            <img src="./assets/drinkOptions/mulberry_white.png" />
-          </slot>
+          <div class="imgInvenBg">
+            <slot name="inventory">
+              <img
+                class="imgInven"
+                src="./assets/drinkOptions/mulberry_white.png"
+              />
+            </slot>
+            </div>
         </div>
         <div class="userName"><slot name="name">Name</slot></div>
         <div class="class"><slot name="userClass">Class</slot></div>
@@ -83,9 +88,6 @@ export class InvenProfileElement extends HTMLElement {
       text-align: center;
     }
 
-    .Invtitle {
-    }
-
     .userName {
       background-image: url("../assets/Inventory/userClassBg.png");
       grid-column: 4 / span 3;
@@ -98,6 +100,21 @@ export class InvenProfileElement extends HTMLElement {
       justify-content: center;
       color: white;
       text-align: center;
+    }
+
+    .imgInven {
+      width: 80%;
+    }
+
+    .imgInvenBg {
+      background-image: url("../assets/Inventory/itemInvBg.png");
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .class {
@@ -134,28 +151,29 @@ export class InvenProfileElement extends HTMLElement {
       })
       .then(async (json) => {
         if (Array.isArray(json.inventory)) {
-          const inventoryPromises = json.inventory.map((_id) => this.fetchOption(_id));
+          const inventoryPromises = json.inventory.map((_id) =>
+            this.fetchOption(_id)
+          );
           json.inventory = await Promise.all(inventoryPromises);
         }
         this.renderSlots(json);
-        console.log("user fetched ids")
+        console.log("user fetched ids");
       })
       .catch((error) => console.log(`Failed to render data ${url}:`, error));
   }
-  
+
   fetchOption(_id) {
-    const optionUrl = `/api/options/${_id}`; 
+    const optionUrl = `/api/options/${_id}`;
     return fetch(optionUrl)
       .then((res) => {
         if (res.status !== 200) throw `Status: ${res.status}`;
         return res.json();
-        console.log("fetched ids")
+        console.log("fetched ids");
       })
       .catch((error) => {
         console.error(`Failed to fetch Option with id ${_id}:`, error);
       });
   }
-  
 
   renderSlots(json) {
     const entries = Object.entries(json);
@@ -164,7 +182,15 @@ export class InvenProfileElement extends HTMLElement {
         case "object":
           if (Array.isArray(value))
             return html` ${value.map(
-              (s) => html`<span slot="${key}"><img src="data:image/png;base64,${s.img}" /></span>`
+              (s) =>
+                html`
+              <div class="imgInvenBg">
+                  <span slot="${key}">
+                    <img
+                      class="imgInven"
+                      src="data:image/png;base64,${s.img}"
+                    />
+                  </span></div>`
             )}`;
         default:
           return html`<span slot="${key}">${value}</span>`;
