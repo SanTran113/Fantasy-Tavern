@@ -184,7 +184,7 @@ export class InvenProfileElement extends HTMLElement {
             return html` ${value.map(
               (s) =>
                 html` <div
-                  style="--bgImg: url(data:image/png;base64,${s.img})"
+                  style="--bgImg: url(data:image/png;base64,${s.img}) 50% 50%;"
                   slot="${key}"
                   class="imgInvenBg"
                 >
