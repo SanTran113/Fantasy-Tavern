@@ -81,9 +81,8 @@ class LoginPage {
         `
       ],
       body: import_server.html`<body>
-        <mu-auth provides="blazing:auth">
+        <mu-auth provides="main:auth">
           <article>
-            <blz-header> </blz-header>
             <main class="page">
               <login-form api="/auth/login">
                 <h3 slot="title">Sign in and go places!</h3>
