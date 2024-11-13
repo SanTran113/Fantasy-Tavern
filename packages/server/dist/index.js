@@ -28,6 +28,7 @@ var import_mongo = require("./services/mongo");
 var import_inventory_svc = __toESM(require("./services/inventory-svc"));
 var import_inventoryProfiles = __toESM(require("./routes/inventoryProfiles"));
 var import_options = __toESM(require("./routes/options"));
+var import_auth = __toESM(require("./routes/auth"));
 (0, import_mongo.connect)("tavern");
 const app = (0, import_express.default)();
 const port = process.env.PORT || 3e3;
@@ -36,6 +37,7 @@ app.use(import_express.default.static(staticDir));
 app.use(import_express.default.json());
 app.use("/api/inventoryProfiles", import_inventoryProfiles.default);
 app.use("/api/options", import_options.default);
+app.use("/auth", import_auth.default);
 app.get("/hello", (req, res) => {
   res.send("Hello, World");
 });
