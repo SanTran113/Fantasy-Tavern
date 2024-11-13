@@ -32,7 +32,7 @@ import {
         </header>`
 
     // observe auth context
-    _authObserver = new Observer(this, "blazing:auth");
+    _authObserver = new Observer(this, "main:auth");
 
     connectedCallback() {
       this._authObserver.observe(({ user }) => {

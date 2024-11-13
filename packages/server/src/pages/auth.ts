@@ -84,9 +84,8 @@ export class RegistrationPage {
         `
       ],
       body: html`<body>
-        <mu-auth provides="blazing:auth">
+        <mu-auth provides="main:auth">
           <article>
-            <blz-header> </blz-header>
             <main class="page">
               <registration-form api="/auth/register">
                 <h3 slot="title"

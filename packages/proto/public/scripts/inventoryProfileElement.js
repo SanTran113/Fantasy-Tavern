@@ -139,12 +139,27 @@ export class InvenProfileElement extends HTMLElement {
       .styles(reset.styles, InvenProfileElement.styles);
   }
 
+  _authObserver = new Observer(this, "main:auth");
+
+  get authorization() {
+    return (
+      this._user?.authenticated && {
+        Authorization: `Bearer ${this._user.token}`
+      }
+    );
+  }
+
   connectedCallback() {
-    if (this.src) this.hydrate(this.src);
+    this._authObserver.observe(({ user }) => {
+      console.log("Authenticated user:", user);
+      this._user = user;
+      if (this.src && this.mode !== "new")
+        this.hydrate(this.src);
+    });
   }
 
   hydrate(url) {
-    fetch(url)
+    fetch(url, { headers: this.authorization })
       .then((res) => {
         if (res.status !== 200) throw `Status: ${res.status}`;
         return res.json();
