@@ -88,6 +88,7 @@ export class RegistrationPage {
       ],
       body: html`<body>
         <mu-auth provides="main:auth">
+          <tavern-header></tavern-header>
           <article>
             <main class="page">
               <registration-form api="/auth/register">

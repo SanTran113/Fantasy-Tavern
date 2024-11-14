@@ -118,6 +118,7 @@ class RegistrationPage {
       ],
       body: import_server.html`<body>
         <mu-auth provides="main:auth">
+          <tavern-header></tavern-header>
           <article>
             <main class="page">
               <registration-form api="/auth/register">
