@@ -1,10 +1,23 @@
-import { css, html, shadow, Observer } from "@calpoly/mustang";
+import {
+  css,
+  define,
+  html,
+  shadow,
+  Observer,
+  Form,
+  InputArray,
+} from "@calpoly/mustang";
 import reset from "./styles/reset.css.js";
 
 export class InvenProfileElement extends HTMLElement {
   get src() {
     return this.getAttribute("src");
   }
+
+  // static uses = define({
+  //   "mu-form": Form.Element,
+  //   "input-array": InputArray.Element,
+  // });
 
   static template = html`
     <template>
@@ -18,7 +31,7 @@ export class InvenProfileElement extends HTMLElement {
             <div class="imgInvenBg">
               <img
                 class="imgInven"
-                src="./assets/drinkOptions/mulberry_white.png"
+                src="./assets/mulberry_white.png"
               />
             </div>
           </slot>
@@ -26,6 +39,19 @@ export class InvenProfileElement extends HTMLElement {
         <div class="userName"><slot name="name">Name</slot></div>
         <div class="class"><slot name="userClass">Class</slot></div>
       </main>
+      // <mu-form class="edit">
+      //   <label>
+      //   <input-array name="inventory">
+      //       <span slot="label-add">Add an airport</span>
+      //   </input-array>
+      //   </label>
+      //   <label>
+      //     <input name="name"/>
+      //   <label>
+      //   <label>
+      //     <input name="userClass">
+      //   </label>
+      // </mu-form>
     </template>
   `;
 
@@ -144,7 +170,7 @@ export class InvenProfileElement extends HTMLElement {
   get authorization() {
     return (
       this._user?.authenticated && {
-        Authorization: `Bearer ${this._user.token}`
+        Authorization: `Bearer ${this._user.token}`,
       }
     );
   }
@@ -153,8 +179,7 @@ export class InvenProfileElement extends HTMLElement {
     this._authObserver.observe(({ user }) => {
       console.log("Authenticated user:", user);
       this._user = user;
-      if (this.src && this.mode !== "new")
-        this.hydrate(this.src);
+      if (this.src && this.mode !== "new") this.hydrate(this.src);
     });
   }
 
@@ -202,8 +227,7 @@ export class InvenProfileElement extends HTMLElement {
                   style="--bgImg: url(data:image/png;base64,${s.img}) 50% 50%;"
                   slot="${key}"
                   class="imgInvenBg"
-                >
-                </div>`
+                ></div>`
             )}`;
         default:
           return html`<span slot="${key}">${value}</span>`;

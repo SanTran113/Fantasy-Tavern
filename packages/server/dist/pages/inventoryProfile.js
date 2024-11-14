@@ -57,7 +57,7 @@ class InventoryProfilePage {
   renderBody() {
     const { userid, name, userClass, inventory } = this.data;
     const inventoryList = inventory.map(
-      (inventory2) => this.renderInventory(inventory2)
+      (inventory2) => this.renderInventory(inventory2.img)
     );
     return import_server.html`
       <body>

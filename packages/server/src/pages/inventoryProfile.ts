@@ -32,7 +32,7 @@ export class InventoryProfilePage {
     const { userid, name, userClass, inventory } = this.data;
 
     const inventoryList = inventory.map((inventory) =>
-      this.renderInventory(inventory)
+      this.renderInventory(inventory.img)
     );
 
     return html`
