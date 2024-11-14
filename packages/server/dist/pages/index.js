@@ -17,8 +17,10 @@ var pages_exports = {};
 module.exports = __toCommonJS(pages_exports);
 __reExport(pages_exports, require("./drink"), module.exports);
 __reExport(pages_exports, require("./inventoryProfile"), module.exports);
+__reExport(pages_exports, require("./auth"), module.exports);
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   ...require("./drink"),
-  ...require("./inventoryProfile")
+  ...require("./inventoryProfile"),
+  ...require("./auth")
 });

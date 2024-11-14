@@ -1,4 +1,4 @@
-import { css, html, shadow } from "@calpoly/mustang";
+import { css, html, shadow, Observer } from "@calpoly/mustang";
 import reset from "./styles/reset.css.js";
 
 export class InvenProfileElement extends HTMLElement {

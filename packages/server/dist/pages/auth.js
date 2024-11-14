@@ -72,7 +72,7 @@ class LoginPage {
       scripts: [
         `
         import { define, Auth } from "@calpoly/mustang";
-        import { LoginForm } from "/scripts/login-form.js";
+        import { LoginForm } from "./scripts/login-form.js";
 
         define({
           "mu-auth": Auth.Provider,
@@ -80,9 +80,11 @@ class LoginPage {
         })
         `
       ],
+      googleFontURL: "https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap",
       body: import_server.html`<body>
         <mu-auth provides="main:auth">
           <article>
+          <tavern-header><tavern-header>
             <main class="page">
               <login-form api="/auth/login">
                 <h3 slot="title">Sign in and go places!</h3>
