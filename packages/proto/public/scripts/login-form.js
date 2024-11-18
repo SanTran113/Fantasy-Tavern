@@ -1,5 +1,6 @@
 import { css, html, shadow } from "@calpoly/mustang";
 import reset from "./styles/reset.css.js";
+import headings from "./styles/headings.css.js";
 
 export class LoginForm extends HTMLElement {
   static template = html`<template>
