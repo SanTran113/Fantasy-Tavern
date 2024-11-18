@@ -174,40 +174,19 @@ export class InvenProfileElement extends HTMLElement {
   }
 
   
-  // fetchOption(_id) {
-  //   const optionUrl = `/api/options/${_id}`;
-  //   return fetch(optionUrl)
-  //     .then((res) => {
-  //       if (res.status !== 200) throw `Status: ${res.status}`;
-  //       return res.json();
-  //       console.log("fetched ids");
-  //     })
-  //     .catch((error) => {
-  //       console.error(`Failed to fetch Option with id ${_id}:`, error);
-  //     });
-  // }
+  fetchOption(_id) {
+    const optionUrl = `/api/options/${_id}`;
+    return fetch(optionUrl)
+      .then((res) => {
+        if (res.status !== 200) throw `Status: ${res.status}`;
+        return res.json();
+        console.log("fetched ids");
+      })
+      .catch((error) => {
+        console.error(`Failed to fetch Option with id ${_id}:`, error);
+      });
+  }
 
-  // renderSlots(json) {
-  //   const entries = Object.entries(json);
-  //   const toSlot = ([key, value]) => {
-  //     switch (typeof value) {
-  //       case "object":
-  //         if (Array.isArray(value))
-  //           return html` ${value.map(
-  //             (s) =>
-  //               html` <div
-  //                 style="--bgImg: url(data:image/png;base64,${s.img}) 50% 50%;"
-  //                 slot="${key}"
-  //                 class="imgInvenBg"
-  //               ></div>`
-  //           )}`;
-  //       default:
-  //         return html`<span slot="${key}">${value}</span>`;
-  //     }
-  //   };
-  //   const fragment = entries.map(toSlot);
-  //   this.replaceChildren(...fragment);
-  // }
   renderSlots(json) {
     const entries = Object.entries(json);
     const toSlot = ([key, value]) => {
@@ -215,7 +194,12 @@ export class InvenProfileElement extends HTMLElement {
         case "object":
           if (Array.isArray(value))
             return html` ${value.map(
-              (s) => html`<span slot="${key}">${s}</span>`
+              (s) =>
+                html` <div
+                  style="--bgImg: url(data:image/png;base64,${s.img}) 50% 50%;"
+                  slot="${key}"
+                  class="imgInvenBg"
+                ></div>`
             )}`;
         default:
           return html`<span slot="${key}">${value}</span>`;
@@ -224,4 +208,20 @@ export class InvenProfileElement extends HTMLElement {
     const fragment = entries.map(toSlot);
     this.replaceChildren(...fragment);
   }
+  // renderSlots(json) {
+  //   const entries = Object.entries(json);
+  //   const toSlot = ([key, value]) => {
+  //     switch (typeof value) {
+  //       case "object":
+  //         if (Array.isArray(value))
+  //           return html` ${value.map(
+  //             (s) => html`<span slot="${key}">${s}</span>`
+  //           )}`;
+  //       default:
+  //         return html`<span slot="${key}">${value}</span>`;
+  //     }
+  //   };
+  //   const fragment = entries.map(toSlot);
+  //   this.replaceChildren(...fragment);
+  // }
 }
