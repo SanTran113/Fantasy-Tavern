@@ -11,6 +11,7 @@ import credentials from "../services/credential-svc";
 const router = express.Router();
 
 dotenv.config();
+
 const TOKEN_SECRET: string =
   process.env.TOKEN_SECRET || "NOT_A_SECRET";
 
@@ -45,6 +46,7 @@ const TOKEN_SECRET: string =
     }
   });
 
+
   // creates JWT 
   function generateAccessToken(
     username: string
@@ -61,6 +63,7 @@ const TOKEN_SECRET: string =
       );
     });
   }
+
 
   // before request, check if req if it is allowed to run
   export function authenticateUser(

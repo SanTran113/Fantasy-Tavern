@@ -1,5 +1,6 @@
 import { css, html, shadow } from "@calpoly/mustang";
 import reset from "./styles/reset.css.js";
+import headings from "./styles/headings.css.js";
 
 export class LoginForm extends HTMLElement {
   static template = html`<template>
@@ -66,7 +67,8 @@ export class LoginForm extends HTMLElement {
 
     shadow(this)
       .template(LoginForm.template)
-      .styles(reset.styles, LoginForm.styles);
+      .styles(reset.styles, headings.styles, LoginForm.styles);
+
 
     this.form.addEventListener("submit", (event) =>
       submitLoginForm(
@@ -84,7 +86,8 @@ function submitLoginForm(event, endpoint, redirect) {
   const data = new FormData(form);
   const method = "POST";
   const headers = {
-    "Content-Type": "application/json",
+    "Content-Type": "application/json"
+
   };
   const body = JSON.stringify(Object.fromEntries(data));
 
@@ -103,7 +106,7 @@ function submitLoginForm(event, endpoint, redirect) {
         new CustomEvent("auth:message", {
           bubbles: true,
           composed: true,
-          detail: ["auth/signin", { token, redirect }],
+          detail: ["auth/signin", { token, redirect }]
         })
       );
     })
