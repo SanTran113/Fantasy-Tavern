@@ -180,7 +180,6 @@ export class InvenProfileElement extends HTMLElement {
       });
   }
 
-
   fetchOption(_id) {
     const optionUrl = `/api/options/${_id}`;
     return fetch(optionUrl)
@@ -215,5 +214,4 @@ export class InvenProfileElement extends HTMLElement {
     const fragment = entries.map(toSlot);
     this.replaceChildren(...fragment);
   }
-
 }

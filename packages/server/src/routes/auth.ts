@@ -44,6 +44,7 @@ const TOKEN_SECRET: string =
     }
   });
 
+
   function generateAccessToken(
     username: string
   ): Promise<String> {
@@ -59,6 +60,7 @@ const TOKEN_SECRET: string =
       );
     });
   }
+
 
   export function authenticateUser(
     req: Request,
