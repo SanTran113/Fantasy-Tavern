@@ -19,18 +19,21 @@
       }
     </script>
     <script type="module">
-      import { define } from "@calpoly/mustang";
+      import { define, Auth } from "@calpoly/mustang";
       import { InvenProfileElement } from "/scripts/inventoryProfileElement.js";
+      import { HeaderElement } from "/scripts/header.js";
 
       define({
         "inven-profile": InvenProfileElement,
+        "mu-auth": Auth.Provider
       });
+      HeaderElement.initializeOnce();
     </script>
   </head>
 
   <body>
     <mu-auth provides="main:auth">
-      <inven-profile src="/api/inventoryProfiles/789"></inven-profile>
+      <inven-profile src="/api/inventoryProfiles/456"></inven-profile>
     </mu-auth>
   </body>
 </html>
