@@ -1,11 +1,7 @@
-import { css, html, shadow } from "@calpoly/mustang";
+import { css, html, shadow, Observer } from "@calpoly/mustang";
 import reset from "./styles/reset.css.js";
 
 export class InvenProfileElement extends HTMLElement {
-  get src() {
-    return this.getAttribute("src");
-  }
-
   static template = html`
     <template>
       <main class="mainInventory">
@@ -113,25 +109,68 @@ export class InvenProfileElement extends HTMLElement {
     }
   `;
 
+
+  get src() {
+    return this.getAttribute("src");
+  }
+
   constructor() {
     super();
     shadow(this)
       .template(InvenProfileElement.template)
-      .styles(reset.styles, InvenProfileElement.styles);
+      .styles(
+        reset.styles,
+        InvenProfileElement.styles
+      );
+
   }
 
+  _authObserver = new Observer(this, "blazing:auth");
+
   connectedCallback() {
-    if (this.src) this.hydrate(this.src);
+    this._authObserver.observe(({ user }) => {
+      console.log("Authenticated user:", user);
+      this._user = user;
+      if (this.src && this.mode !== "new")
+        this.hydrate(this.src);
+    });
+  }
+
+  static observedAttributes = ["src"];
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (
+      name === "src" &&
+      oldValue !== newValue &&
+      oldValue &&
+      newValue &&
+      this.mode !== "new"
+    )
+      this.hydrate(newValue);
+  }
+
+  get authorization() {
+    console.log("Authorization for user, ", this._user);
+    if (this._user && this._user.authenticated)
+      return {
+        Authorization: `Bearer ${this._user.token}`
+      };
+    else return {};
   }
 
   hydrate(url) {
-    fetch(url)
+    fetch(url, { headers: this.authorization })
       .then((res) => {
         if (res.status !== 200) throw `Status: ${res.status}`;
         return res.json();
       })
-      .then((json) => this.renderSlots(json))
-      .catch((error) => console.log(`Failed to render data ${url}:`, error));
+      .then((json) => {
+        this.renderSlots(json);
+        this.form.init = json;
+      })
+      .catch((error) => {
+        console.log(`Failed to render data ${url}:`, error);
+      });
   }
 
   renderSlots(json) {

@@ -19,10 +19,22 @@
         }
       }
     </script>
+    <script type="module">
+      import { define, Auth } from "@calpoly/mustang";
+      import { HeaderElement } from "/scripts/header.js";
+    
+      define({
+        "blz-header": HeaderElement,
+        "mu-auth": Auth.Provider
+      });
+    
+      HeaderElement.initializeOnce();
+    </script>
   </head>
   <body
     class="bodyIndex"
   >
+  <mu-auth provides="blazing:auth">
   <script>
     const page = document.body;
 
@@ -42,6 +54,10 @@
     }
   </script>
     <div class="indexInformation">
+      <blz-header>
+        12 days in
+        <a href="/guide/italy.html">Italy</a>
+      </blz-header>
       <header>
         <h1 class="titleIndex">Fantasy Tavern</h1>
         <label class="darkmodeButton" onchange="toggleDarkMode(event.target, event.target.checked)">
@@ -58,5 +74,6 @@
         <a href="inventory.html">Inventory</a>
       </section>
     </div>
+  </body>
   </body>
 </html>

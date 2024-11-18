@@ -6,7 +6,6 @@ import { DrinksPage, InventoryProfilePage } from "./pages/index";
 import { connect } from "./services/mongo";
 import InventoryProfile from "./services/inventory-svc";
 import inventoryProfiles from "./routes/inventoryProfiles";
-import auth from "./routes/auth";
 import auth, { authenticateUser } from "./routes/auth";
 
 connect("tavern");
@@ -48,4 +47,10 @@ app.get("/inventoryProfiles/:userid", (req: Request, res: Response) => {
 
 app.use("/auth", auth);
 
+import { LoginPage } from "./pages/auth";
 
+// with the other HTML routes
+app.get("/login", (req: Request, res: Response) => {
+  const page = new LoginPage();
+  res.set("Content-Type", "text/html").send(page.render());
+});
