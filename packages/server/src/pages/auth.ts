@@ -22,9 +22,9 @@ export class LoginPage {
       ],
       body: html`
         <body>
-          <mu-auth provides="blazing:auth">
+          <mu-auth provides="main:auth">
             <article>
-              <blz-header></blz-header>
+              <tavern-header></tavern-header>
               <main class="page">
                 <login-form api="/auth/login">
                   <h3 slot="title">Sign in and go places!</h3>

@@ -24,7 +24,8 @@
       import { HeaderElement } from "/scripts/header.js";
     
       define({
-        "blz-header": HeaderElement,
+        "tavern-header": HeaderElement,
+
         "mu-auth": Auth.Provider
       });
     
@@ -34,7 +35,7 @@
   <body
     class="bodyIndex"
   >
-  <mu-auth provides="blazing:auth">
+  <mu-auth provides="main:auth">
   <script>
     const page = document.body;
 
@@ -54,10 +55,7 @@
     }
   </script>
     <div class="indexInformation">
-      <blz-header>
-        12 days in
-        <a href="/guide/italy.html">Italy</a>
-      </blz-header>
+      <tavern-header></tavern-header>       
       <header>
         <h1 class="titleIndex">Fantasy Tavern</h1>
         <label class="darkmodeButton" onchange="toggleDarkMode(event.target, event.target.checked)">

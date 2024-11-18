@@ -180,26 +180,6 @@ export class InvenProfileElement extends HTMLElement {
       });
   }
 
-  // hydrate(url) {
-  //   fetch(url, { headers: this.authorization }).then((res) => {
-  //       if (res.status !== 200) throw `Status: ${res.status}`;
-  //       return res.json();
-  //     })
-  //     .then(async (json) => {
-  //       console.log("hello:");
-  //       if (Array.isArray(json.inventory)) {
-  //         const inventoryPromises = json.inventory.map((_id) =>
-  //           this.fetchOption(_id)
-  //         );
-  //         json.inventory = await Promise.all(inventoryPromises);
-  //       }
-  //       this.renderSlots(json);
-  //       console.log("user fetched ids");
-  //     })
-  //     .catch((error) => console.log(`Failed to render data ${url}:`, error));
-  // }
-
-  
   fetchOption(_id) {
     const optionUrl = `/api/options/${_id}`;
     return fetch(optionUrl)
@@ -234,20 +214,4 @@ export class InvenProfileElement extends HTMLElement {
     const fragment = entries.map(toSlot);
     this.replaceChildren(...fragment);
   }
-  // renderSlots(json) {
-  //   const entries = Object.entries(json);
-  //   const toSlot = ([key, value]) => {
-  //     switch (typeof value) {
-  //       case "object":
-  //         if (Array.isArray(value))
-  //           return html` ${value.map(
-  //             (s) => html`<span slot="${key}">${s}</span>`
-  //           )}`;
-  //       default:
-  //         return html`<span slot="${key}">${value}</span>`;
-  //     }
-  //   };
-  //   const fragment = entries.map(toSlot);
-  //   this.replaceChildren(...fragment);
-  // }
 }

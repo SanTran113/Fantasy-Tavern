@@ -69,6 +69,7 @@ export class LoginForm extends HTMLElement {
       .template(LoginForm.template)
       .styles(reset.styles, headings.styles, LoginForm.styles);
 
+
     this.form.addEventListener("submit", (event) =>
       submitLoginForm(
         event,
@@ -86,6 +87,7 @@ function submitLoginForm(event, endpoint, redirect) {
   const method = "POST";
   const headers = {
     "Content-Type": "application/json"
+
   };
   const body = JSON.stringify(Object.fromEntries(data));
 
@@ -109,6 +111,4 @@ function submitLoginForm(event, endpoint, redirect) {
       );
     })
     .catch((err) => console.log("Error submitting form:", err));
-
-
 }

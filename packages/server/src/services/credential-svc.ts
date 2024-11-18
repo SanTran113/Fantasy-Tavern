@@ -27,11 +27,14 @@ function create(username: string, password: string) {
       if (!username || !password) {
         reject("must provide username and password");
       }
+
       credentialModel
         .find({ username })
         .then((found: Credential[]) => {
           if (found.length) reject("username exists");
         })
+
+    // if not then encrpt (hash) password
         .then(() =>
           bcrypt
             .genSalt(10)
@@ -49,17 +52,23 @@ function create(username: string, password: string) {
     });
   }
 
-  function verify(
+//   finds a credential in the database by username and then uses bcrypt.compare to check whether it matches the password that was presented by the user
+function verify(
+
     username: string,
     password: string
   ): Promise<string> {
     return new Promise<string>((resolve, reject) => {
-      credentialModel
+
+    // find user based on username
+        credentialModel
         .find({ username })
         .then((found) => {
           if (found && found.length === 1) return found[0];
           else reject("Invalid username or password");
         })
+
+    // then use bcrypt to verify password
         .then((credsOnFile) => {
           if (credsOnFile)
             bcrypt.compare(
@@ -81,3 +90,4 @@ function create(username: string, password: string) {
   }
 
   export default { create, verify };
+

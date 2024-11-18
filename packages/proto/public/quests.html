@@ -5,29 +5,24 @@
     <link rel="stylesheet" href="/styles/page.css" />
     <title>Quest Board</title>
   </head>
-  </body>
-    <section class="bounty">
-      <h2>Bounty</h2>
-      <ul>
-        <li>.........................g</li>
-        <li>.........................g</li>
-        <li>.........................g</li>
-        <li>.........................g</li>
-        <li>.........................g</li>
-        <li>.........................g</li>
-      </ul>
-    </section>
-
-    <section class="help">
-      <h2>Help Wanted!</h2>
-      <ul>
-        <li>.........................g</li>
-        <li>.........................g</li>
-        <li>.........................g</li>
-        <li>.........................g</li>
-        <li>.........................g</li>
-        <li>.........................g</li>
-      </ul>
-    </section>
+  <body>
+    <main class="mainInventory">
+      <div class="profile">profile</div>
+      <div class="InventoryTitle">
+        <div class="Invtitle">Inventory</div>
+      </div>
+      <div class="Inventory">
+        <slot name="inventory">
+          <div class="imgInvenBg">
+            <img
+              class="imgInven"
+              src="./assets/mulberry_white.png"
+            />
+          </div>
+        </slot>
+      </div>
+      <div class="userName"><slot name="name">Name</slot></div>
+      <div class="class"><slot name="userClass">Class</slot></div>
+    </main>
   </body>
 </html>
