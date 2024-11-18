@@ -1,22 +1,7 @@
-import {
-  css,
-  define,
-  html,
-  shadow,
-  Observer,
-  Form,
-  InputArray,
-  Events
-} from "@calpoly/mustang";
+import { css, html, shadow, Observer } from "@calpoly/mustang";
 import reset from "./styles/reset.css.js";
 
 export class InvenProfileElement extends HTMLElement {
-
-  // static uses = define({
-  //   "mu-form": Form.Element,
-  //   "input-array": InputArray.Element,
-  // });
-
   static template = html`
     <template>
       <main class="mainInventory">
@@ -25,31 +10,11 @@ export class InvenProfileElement extends HTMLElement {
           <div class="Invtitle">Inventory</div>
         </div>
         <div class="Inventory">
-          <slot name="inventory">
-            <div class="imgInvenBg">
-              <img
-                class="imgInven"
-                src="./assets/mulberry_white.png"
-              />
-            </div>
-          </slot>
+          <slot name="inventory"><div>Item 1</div></slot>
         </div>
         <div class="userName"><slot name="name">Name</slot></div>
         <div class="class"><slot name="userClass">Class</slot></div>
       </main>
-      // <mu-form class="edit">
-      //   <label>
-      //   <input-array name="inventory">
-      //       <span slot="label-add">Add an airport</span>
-      //   </input-array>
-      //   </label>
-      //   <label>
-      //     <input name="name"/>
-      //   <label>
-      //   <label>
-      //     <input name="userClass">
-      //   </label>
-      // </mu-form>
     </template>
   `;
 
@@ -112,6 +77,9 @@ export class InvenProfileElement extends HTMLElement {
       text-align: center;
     }
 
+    .Invtitle {
+    }
+
     .userName {
       background-image: url("../assets/Inventory/userClassBg.png");
       grid-column: 4 / span 3;
@@ -124,21 +92,6 @@ export class InvenProfileElement extends HTMLElement {
       justify-content: center;
       color: white;
       text-align: center;
-    }
-
-    .imgInven {
-      width: 80%;
-    }
-
-    .imgInvenBg {
-      background: var(--bgImg), url("../assets/Inventory/itemInvBg.png");
-      background-size: contain;
-      background-position: center;
-      background-repeat: no-repeat;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .class {
@@ -156,6 +109,7 @@ export class InvenProfileElement extends HTMLElement {
     }
   `;
 
+
   get src() {
     return this.getAttribute("src");
   }
@@ -164,33 +118,22 @@ export class InvenProfileElement extends HTMLElement {
     super();
     shadow(this)
       .template(InvenProfileElement.template)
-      .styles(reset.styles, InvenProfileElement.styles);
+      .styles(
+        reset.styles,
+        InvenProfileElement.styles
+      );
+
   }
 
-  _authObserver = new Observer(this, "main:auth");
-
-
-  get authorization() {
-    return (
-      this._user?.authenticated && {
-        Authorization: `Bearer ${this._user.token}`,
-      }
-    );
-  }
+  _authObserver = new Observer(this, "blazing:auth");
 
   connectedCallback() {
-    console.log("Observer", this._authObserver);
     this._authObserver.observe(({ user }) => {
-      console.log("Observer triggered:", user); // Check if this logs
-      if (user) {
-        console.log("Authenticated user:", user);
-        this._user = user;
-        if (this.src /* && this.mode !== "new" */) {
-          console.log("Forcing hydrate call with src:", this.src);
-          this.hydrate("http://localhost:3000/inventory.html");
-        }    
-      }
-    }); 
+      console.log("Authenticated user:", user);
+      this._user = user;
+      if (this.src && this.mode !== "new")
+        this.hydrate(this.src);
+    });
   }
 
   static observedAttributes = ["src"];
@@ -265,5 +208,20 @@ export class InvenProfileElement extends HTMLElement {
     const fragment = entries.map(toSlot);
     this.replaceChildren(...fragment);
   }
-  
+  // renderSlots(json) {
+  //   const entries = Object.entries(json);
+  //   const toSlot = ([key, value]) => {
+  //     switch (typeof value) {
+  //       case "object":
+  //         if (Array.isArray(value))
+  //           return html` ${value.map(
+  //             (s) => html`<span slot="${key}">${s}</span>`
+  //           )}`;
+  //       default:
+  //         return html`<span slot="${key}">${value}</span>`;
+  //     }
+  //   };
+  //   const fragment = entries.map(toSlot);
+  //   this.replaceChildren(...fragment);
+  // }
 }
