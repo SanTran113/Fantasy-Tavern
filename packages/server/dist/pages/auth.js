@@ -28,21 +28,11 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 var auth_exports = {};
 __export(auth_exports, {
-<<<<<<< HEAD
   LoginPage: () => LoginPage
-=======
-
-  LoginPage: () => LoginPage
-
->>>>>>> 24d58d31e311ea4abbef4724a4c36cf1d0ed4159
 });
 module.exports = __toCommonJS(auth_exports);
 var import_server = require("@calpoly/mustang/server");
 var import_renderPage = __toESM(require("./renderPage"));
-<<<<<<< HEAD
-=======
-
->>>>>>> 24d58d31e311ea4abbef4724a4c36cf1d0ed4159
 class LoginPage {
   render() {
     return (0, import_renderPage.default)({
@@ -64,15 +54,9 @@ class LoginPage {
       ],
       body: import_server.html`
         <body>
-<<<<<<< HEAD
           <mu-auth provides="main:auth">
             <article>
               <tavern-header></tavern-header>
-=======
-          <mu-auth provides="blazing:auth">
-            <article>
-              <blz-header></blz-header>
->>>>>>> 24d58d31e311ea4abbef4724a4c36cf1d0ed4159
               <main class="page">
                 <login-form api="/auth/login">
                   <h3 slot="title">Sign in and go places!</h3>
