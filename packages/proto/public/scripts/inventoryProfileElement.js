@@ -6,6 +6,7 @@ import {
   Observer,
   Form,
   InputArray,
+  Events
 } from "@calpoly/mustang";
 import reset from "./styles/reset.css.js";
 
@@ -167,6 +168,7 @@ export class InvenProfileElement extends HTMLElement {
 
   _authObserver = new Observer(this, "main:auth");
 
+
   get authorization() {
     return (
       this._user?.authenticated && {
@@ -176,20 +178,28 @@ export class InvenProfileElement extends HTMLElement {
   }
 
   connectedCallback() {
+    console.log("Observer", this._authObserver);
     this._authObserver.observe(({ user }) => {
-      console.log("Authenticated user:", user);
-      this._user = user;
-      if (this.src && this.mode !== "new") this.hydrate(this.src);
-    });
+      console.log("Observer triggered:", user); // Check if this logs
+      if (user) {
+        console.log("Authenticated user:", user);
+        this._user = user;
+        // console.log("src", this.src)
+        if (this.src /* && this.mode !== "new" */) {
+          console.log("Forcing hydrate call with src:", this.src);
+          this.hydrate(this.src);
+        }    
+      }
+    }); 
   }
 
   hydrate(url) {
-    fetch(url, { headers: this.authorization })
-      .then((res) => {
+    fetch(url, { headers: this.authorization }).then((res) => {
         if (res.status !== 200) throw `Status: ${res.status}`;
         return res.json();
       })
       .then(async (json) => {
+        console.log("hello:");
         if (Array.isArray(json.inventory)) {
           const inventoryPromises = json.inventory.map((_id) =>
             this.fetchOption(_id)
@@ -236,4 +246,5 @@ export class InvenProfileElement extends HTMLElement {
     const fragment = entries.map(toSlot);
     this.replaceChildren(...fragment);
   }
+  
 }

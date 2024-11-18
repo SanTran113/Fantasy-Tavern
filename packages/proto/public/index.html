@@ -53,13 +53,6 @@
         <mu-auth provides="main:auth">
         <header>
           <h1 class="titleIndex">Fantasy Tavern</h1>
-          <label
-            class="darkmodeButton"
-            onchange="toggleDarkMode(event.target, event.target.checked)"
-          >
-            <input type="checkbox" autocomplete="off" />
-            Dark mode
-          </label>
         </header>
 
         <section class="htmlIndex">
@@ -69,6 +62,7 @@
           <a href="goods.html">General Goods</a>
           <a href="inventory.html">Inventory</a>
         </section>
+        <tavern-header></tavern-header>        
       </mu-auth>
       </div>
   </body>
