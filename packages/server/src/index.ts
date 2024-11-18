@@ -3,9 +3,12 @@ import express, { Request, Response } from "express";
 import { getDrinks } from "./services/drinkMockData";
 import { getInventory } from "./services/inventoryMock";
 import { DrinksPage, InventoryProfilePage } from "./pages/index";
+import { LoginPage } from "./pages/auth";
 import { connect } from "./services/mongo";
 import InventoryProfile from "./services/inventory-svc";
+import Options from "./services/drinkOption-svc";
 import inventoryProfiles from "./routes/inventoryProfiles";
+import options from "./routes/options";
 import auth, { authenticateUser } from "./routes/auth";
 
 connect("tavern");
@@ -18,7 +21,10 @@ app.use(express.static(staticDir));
 
 app.use(express.json());
 
+// make sure that each api can only be accessed with authenticateUser 
 app.use("/api/inventoryProfiles", authenticateUser, inventoryProfiles);
+app.use("/api/options", authenticateUser, options);
+app.use("/auth", auth);
 
 app.get("/hello", (req: Request, res: Response) => {
   res.send("Hello, World");
@@ -45,12 +51,16 @@ app.get("/inventoryProfiles/:userid", (req: Request, res: Response) => {
   });
 });
 
-app.use("/auth", auth);
+app.get("/options/:_id", (req: Request, res: Response) => {
+  const { _id } = req.params;
 
-import { LoginPage } from "./pages/auth";
+  InventoryProfile.get(_id).then((data) => {
+    const page = new InventoryProfilePage(data);
+    res.set("Content-Type", "text/html").send(page.render());
+  });});
 
-// with the other HTML routes
-app.get("/login", (req: Request, res: Response) => {
-  const page = new LoginPage();
-  res.set("Content-Type", "text/html").send(page.render());
-});
+  app.get("/login", (req: Request, res: Response) => {
+    const page = new LoginPage();
+    res.set("Content-Type", "text/html").send(page.render());
+  });
+
