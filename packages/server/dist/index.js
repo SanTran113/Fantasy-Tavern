@@ -27,13 +27,14 @@ var import_pages = require("./pages/index");
 var import_mongo = require("./services/mongo");
 var import_inventory_svc = __toESM(require("./services/inventory-svc"));
 var import_inventoryProfiles = __toESM(require("./routes/inventoryProfiles"));
+var import_auth2 = __toESM(require("./routes/auth"));
 (0, import_mongo.connect)("tavern");
 const app = (0, import_express.default)();
 const port = process.env.PORT || 3e3;
 const staticDir = process.env.STATIC || "public";
 app.use(import_express.default.static(staticDir));
 app.use(import_express.default.json());
-app.use("/api/inventoryProfiles", import_inventoryProfiles.default);
+app.use("/api/inventoryProfiles", import_auth2.authenticateUser, import_inventoryProfiles.default);
 app.get("/hello", (req, res) => {
   res.send("Hello, World");
 });
@@ -53,3 +54,4 @@ app.get("/inventoryProfiles/:userid", (req, res) => {
     res.set("Content-Type", "text/html").send(page.render());
   });
 });
+app.use("/auth", import_auth2.default);

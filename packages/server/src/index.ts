@@ -6,6 +6,8 @@ import { DrinksPage, InventoryProfilePage } from "./pages/index";
 import { connect } from "./services/mongo";
 import InventoryProfile from "./services/inventory-svc";
 import inventoryProfiles from "./routes/inventoryProfiles";
+import auth from "./routes/auth";
+import auth, { authenticateUser } from "./routes/auth";
 
 connect("tavern");
 
@@ -17,7 +19,7 @@ app.use(express.static(staticDir));
 
 app.use(express.json());
 
-app.use("/api/inventoryProfiles", inventoryProfiles);
+app.use("/api/inventoryProfiles", authenticateUser, inventoryProfiles);
 
 app.get("/hello", (req: Request, res: Response) => {
   res.send("Hello, World");
@@ -43,5 +45,7 @@ app.get("/inventoryProfiles/:userid", (req: Request, res: Response) => {
     res.set("Content-Type", "text/html").send(page.render());
   });
 });
+
+app.use("/auth", auth);
 
 
