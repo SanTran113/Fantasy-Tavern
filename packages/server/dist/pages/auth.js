@@ -28,51 +28,18 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 var auth_exports = {};
 __export(auth_exports, {
-  LoginPage: () => LoginPage,
-  RegistrationPage: () => RegistrationPage
+  LoginPage: () => LoginPage
 });
 module.exports = __toCommonJS(auth_exports);
 var import_server = require("@calpoly/mustang/server");
 var import_renderPage = __toESM(require("./renderPage"));
-const styles = [
-  import_server.css`
-    article {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    main.page {
-      --page-grids: 8;
-      grid-template-areas:
-        "-- -- -- -- -- -- -- --"
-        "-1 -1 fm fm fm fm -2 -2"
-        "-1 -1 rq rq rq rq -2 -2";
-      grid-template-rows: 1fr auto 1fr;
-      flex-basis: 100%;
-    }
-
-    login-form,
-    registration-form {
-      grid-area: fm;
-    }
-
-    p.register,
-    p.login {
-      display: block;
-      grid-area: rq;
-      text-align: center;
-    }
-  `
-];
 class LoginPage {
   render() {
     return (0, import_renderPage.default)({
-      styles,
       scripts: [
         `
         import { define, Auth } from "@calpoly/mustang";
-        import { LoginForm } from "./scripts/login-form.js";
+        import { LoginForm } from "/scripts/login-form.js";
 
         define({
           "mu-auth": Auth.Provider,
@@ -80,65 +47,36 @@ class LoginPage {
         })
         `
       ],
-      googleFontURL: "https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap",
-      body: import_server.html`<body>
-        <mu-auth provides="main:auth">
-          <article>
-          <tavern-header><tavern-header>
-            <main class="page">
-              <login-form api="/auth/login">
-                <h3 slot="title">Sign in and go places!</h3>
-              </login-form>
-              <p class="register">
-                Or did you want to
-                <a href="./register"> register as a new user </a
-                >?
-              </p>
-            </main>
-          </article>
-        </mu-auth>
-      </body> `
-    });
-  }
-}
-class RegistrationPage {
-  render() {
-    return (0, import_renderPage.default)({
-      styles,
-      scripts: [
-        `
-        import { define, Auth } from "@calpoly/mustang";
-        import { RegistrationForm } from "/scripts/registration-form.js";
-
-        define({
-          "mu-auth": Auth.Provider,
-          "registration-form": RegistrationForm
-        })
+      styles: [
+        import_server.css`
+          /* your CSS here */
         `
       ],
-      body: import_server.html`<body>
-        <mu-auth provides="main:auth">
-          <tavern-header></tavern-header>
-          <article>
-            <main class="page">
-              <registration-form api="/auth/register">
-                <h3 slot="title"
-                  >Sign up to plan your next trip!</h3
-                >
-              </registration-form>
-              <p class="login">
-                Already signed up? You can
-                <a href="./login">log in</a> instead.
-              </p>
-            </main>
-          </article>
-        </mu-auth>
-      </body> `
+      body: import_server.html`
+        <body>
+          <mu-auth provides="main:auth">
+            <article>
+              <tavern-header></tavern-header>
+              <main class="page">
+                <login-form api="/auth/login">
+                  <h3 slot="title">Sign in and go places!</h3>
+                </login-form>
+                <p class="register">
+                  Or did you want to
+                  <a href="./register">
+                    register as a new user
+                  </a>
+                  ?
+                </p>
+              </main>
+            </article>
+          </mu-auth>
+        </body>
+      `
     });
   }
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  LoginPage,
-  RegistrationPage
+  LoginPage
 });

@@ -11,10 +11,10 @@ import credentials from "../services/credential-svc";
 const router = express.Router();
 
 dotenv.config();
+
 const TOKEN_SECRET: string =
   process.env.TOKEN_SECRET || "NOT_A_SECRET";
 
-  // create credential from form (if sucessful)
   router.post("/register", (req: Request, res: Response) => {
     const { username, password } = req.body; // from form
   
@@ -30,7 +30,6 @@ const TOKEN_SECRET: string =
     }
   });
 
-  // same as register but as login
   router.post("/login", (req: Request, res: Response) => {
     const { username, password } = req.body; // from form
   
@@ -45,7 +44,6 @@ const TOKEN_SECRET: string =
     }
   });
 
-  // creates JWT 
   function generateAccessToken(
     username: string
   ): Promise<String> {
@@ -62,7 +60,6 @@ const TOKEN_SECRET: string =
     });
   }
 
-  // before request, check if req if it is allowed to run
   export function authenticateUser(
     req: Request,
     res: Response,
