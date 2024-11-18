@@ -26,7 +26,8 @@ const DrinkOptionSchema = new import_mongoose2.Schema(
   {
     name: { type: String, required: true, trim: true },
     price: { type: String, required: true, trim: true },
-    desc: { type: String, required: true, trim: true }
+    desc: { type: String, required: true, trim: true },
+    img: { type: String, required: true, trim: true }
   },
   { collection: "drinkOptions" }
 );
@@ -35,4 +36,28 @@ function index() {
   return DrinkOptionModel.find();
 }
 ;
-var drinkOption_svc_default = { index };
+function get(_id) {
+  return DrinkOptionModel.find({ _id }).then((list) => list[0]).catch((err) => {
+    throw `${_id} Not Found`;
+  });
+}
+function create(json) {
+  const t = new DrinkOptionModel(json);
+  return t.save();
+}
+function update(_id, option) {
+  return DrinkOptionModel.findOneAndUpdate({ _id }, option, {
+    new: true
+  }).then((updated) => {
+    if (!updated) throw `${_id} not updated`;
+    else return updated;
+  });
+}
+function remove(_id) {
+  return DrinkOptionModel.findOneAndDelete({ _id }).then(
+    (deleted) => {
+      if (!deleted) throw `${_id} not deleted`;
+    }
+  );
+}
+var drinkOption_svc_default = { index, get, create, update, remove };
