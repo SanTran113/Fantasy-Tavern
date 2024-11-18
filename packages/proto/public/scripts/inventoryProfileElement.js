@@ -164,7 +164,14 @@ export class InvenProfileElement extends HTMLElement {
         if (res.status !== 200) throw `Status: ${res.status}`;
         return res.json();
       })
-      .then((json) => {
+      .then(async (json) => {
+        console.log("hello:");
+        if (Array.isArray(json.inventory)) {
+          const inventoryPromises = json.inventory.map((_id) =>
+            this.fetchOption(_id)
+          );
+          json.inventory = await Promise.all(inventoryPromises);
+        }
         this.renderSlots(json);
         this.form.init = json;
       })
@@ -172,6 +179,25 @@ export class InvenProfileElement extends HTMLElement {
         console.log(`Failed to render data ${url}:`, error);
       });
   }
+
+  // hydrate(url) {
+  //   fetch(url, { headers: this.authorization }).then((res) => {
+  //       if (res.status !== 200) throw `Status: ${res.status}`;
+  //       return res.json();
+  //     })
+  //     .then(async (json) => {
+  //       console.log("hello:");
+  //       if (Array.isArray(json.inventory)) {
+  //         const inventoryPromises = json.inventory.map((_id) =>
+  //           this.fetchOption(_id)
+  //         );
+  //         json.inventory = await Promise.all(inventoryPromises);
+  //       }
+  //       this.renderSlots(json);
+  //       console.log("user fetched ids");
+  //     })
+  //     .catch((error) => console.log(`Failed to render data ${url}:`, error));
+  // }
 
   
   fetchOption(_id) {

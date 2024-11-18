@@ -23,7 +23,7 @@ app.use(express.json());
 
 // make sure that each api can only be accessed with authenticateUser 
 app.use("/api/inventoryProfiles", authenticateUser, inventoryProfiles);
-app.use("/api/options", authenticateUser, options);
+app.use("/api/options", options);
 app.use("/auth", auth);
 
 app.get("/hello", (req: Request, res: Response) => {
