@@ -22,48 +22,55 @@
     <script type="module">
       import { define, Auth } from "@calpoly/mustang";
       import { HeaderElement } from "/scripts/header.js";
-
+    
       define({
         "tavern-header": HeaderElement,
-        "mu-auth": Auth.Provider,
+        "mu-auth": Auth.Provider
       });
-
+    
       HeaderElement.initializeOnce();
     </script>
   </head>
-  <body class="bodyIndex">
-      <script>
-        const page = document.body;
+  <body
+    class="bodyIndex"
+  >
+  <mu-auth provides="main:auth">
+  <script>
+    const page = document.body;
 
-        page.addEventListener("dark-mode:toggle", (event) => {
-          const checked = event.detail.checked;
-          page.classList.toggle("dark-mode", checked);
+    page.addEventListener("dark-mode:toggle", (event) => {
+      const checked = event.detail.checked;
+      page.classList.toggle("dark-mode", checked);
+    });
+
+    function toggleDarkMode(target, checked) {
+     const customEvent = new CustomEvent(
+       "dark-mode:toggle", {
+        bubbles: true,
+        detail: { checked },
         });
 
-        function toggleDarkMode(target, checked) {
-          const customEvent = new CustomEvent("dark-mode:toggle", {
-            bubbles: true,
-            detail: { checked },
-          });
+        target.dispatchEvent(customEvent);
+    }
+  </script>
+    <div class="indexInformation">
+      <tavern-header></tavern-header>        
+      <header>
+        <h1 class="titleIndex">Fantasy Tavern</h1>
+        <label class="darkmodeButton" onchange="toggleDarkMode(event.target, event.target.checked)">
+          <input type="checkbox" autocomplete="off" />
+          Dark mode
+        </label>
+      </header>
 
-          target.dispatchEvent(customEvent);
-        }
-      </script>
-      <div class="indexInformation">
-        <mu-auth provides="main:auth">
-        <header>
-          <h1 class="titleIndex">Fantasy Tavern</h1>
-        </header>
-
-        <section class="htmlIndex">
-          <a href="drink.html">Drink Menu</a>
-          <a href="food.html">Food Menu</a>
-          <a href="quests.html">Quest Board</a>
-          <a href="goods.html">General Goods</a>
-          <a href="inventory.html">Inventory</a>
-        </section>
-        <tavern-header></tavern-header>        
-      </mu-auth>
-      </div>
+      <section class="htmlIndex">
+        <a href="drink.html">Drink Menu</a>
+        <a href="food.html">Food Menu</a>
+        <a href="quests.html">Quest Board</a>
+        <a href="goods.html">General Goods</a>
+        <a href="inventory.html">Inventory</a>
+      </section>
+    </div>
+  </body>
   </body>
 </html>
