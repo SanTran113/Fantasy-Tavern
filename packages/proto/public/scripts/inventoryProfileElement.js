@@ -151,6 +151,10 @@ export class InvenProfileElement extends HTMLElement {
     shadow(this)
       .template(InvenProfileElement.template)
       .styles(reset.styles, InvenProfileElement.styles);
+    
+      this.addEventListener("mu-form:submit", (event) =>
+        this.submit(this.src, event.detail)
+      );
   }
 
   _authObserver = new Observer(this, "main:auth");
@@ -240,5 +244,26 @@ export class InvenProfileElement extends HTMLElement {
     };
     const fragment = entries.map(toSlot);
     this.replaceChildren(...fragment);
+  }
+
+  submit(url, json) {
+    const method = this.mode === "new" ? "POST" : "PUT";
+
+    fetch(url, {
+      method,
+      headers: {
+        "Content-Type": "application/json",
+        ...this.authorization
+      },
+      body: JSON.stringify(json)
+    })
+      .then((res) => {
+        if (res.status !== (this.mode === "new" ? 201 : 200))
+          throw `Status: ${res.status}`;
+        return res.json();
+      })
+      .catch((error) => {
+        console.log(`Failed to submit ${url}:`, error);
+      });
   }
 }
