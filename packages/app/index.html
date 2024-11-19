@@ -8,7 +8,7 @@
       href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles/reset.css" />
+    <link rel="stylesheet" href="/styles/reset.css" />
     <link rel="stylesheet" href="/styles/token.css" />
     <link rel="stylesheet" href="/styles/page.css" />
     <title>Tavern</title>
@@ -21,14 +21,13 @@
     </script>
     <script type="module">
       import { define, Auth } from "@calpoly/mustang";
-    
-      define({
-        "tavern-header": HeaderElement,
+      import { TavernHeaderElement } from "/src/components/tavern-header";
 
-        "mu-auth": Auth.Provider
+      define({
+        "mu-auth": Auth.Provider,
+        "tavern-header": TavernHeaderElement
       });
-    
-      HeaderElement.initializeOnce();
+      window.relayEvent = Events.relay;
     </script>
   </head>
   <body
@@ -54,14 +53,8 @@
     }
   </script>
     <div class="indexInformation">
+      <h1 class="titleIndex">Fantasy Tavern</h1>
       <tavern-header></tavern-header>       
-      <header>
-        <h1 class="titleIndex">Fantasy Tavern</h1>
-        <label class="darkmodeButton" onchange="toggleDarkMode(event.target, event.target.checked)">
-          <input type="checkbox" autocomplete="off" />
-          Dark mode
-        </label>
-      </header>
 
       <section class="htmlIndex">
         <a href="drink.html">Drink Menu</a>
@@ -71,6 +64,6 @@
         <a href="inventory.html">Inventory</a>
       </section>
     </div>
-  </body>
+  </mu-auth>
   </body>
 </html>
