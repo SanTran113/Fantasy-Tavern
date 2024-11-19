@@ -17,17 +17,20 @@ export class InvenProfileElement extends HTMLElement {
 
   static template = html`
     <template>
-      <main class="mainInventory">
-        <div class="profile">profile</div>
-        <div class="InventoryTitle">
-          <div class="Invtitle">Inventory</div>
-        </div>
-        <div class="Inventory">
-          <slot name="inventory"><div>Item 1</div></slot>
-        </div>
-        <div class="userName"><slot name="name">Name</slot></div>
-        <div class="class"><slot name="userClass">Class</slot></div>
-      </main>
+      <section class="view">
+        <main class="mainInventory">
+          <div class="profile">profile</div>
+          <div class="InventoryTitle">
+            <div class="Invtitle">Inventory</div>
+          </div>
+          <div class="Inventory">
+            <slot name="inventory"><div>Item 1</div></slot>
+          </div>
+          <div class="userName"><slot name="name">Name</slot></div>
+          <div class="class"><slot name="userClass">Class</slot></div>
+                  <button id="edit">Edit</button>
+        </main>
+      </section>
       <mu-form class="edit">
         <label>
           <span>Name</span>
@@ -50,6 +53,22 @@ export class InvenProfileElement extends HTMLElement {
   static styles = css`
     :host {
       display: contents;
+    }
+    :host([mode="edit"]),
+    :host([mode="new"]) {
+      --display-view-none: none;
+    }
+    :host([mode="view"]) {
+      --display-editor-none: none;
+    }
+
+    section.view {
+      display: var(--display-view-none, grid);
+      /* … */
+    }
+    mu-form.edit {
+      display: var(--display-editor-none, grid);
+      /* … */
     }
 
     .mainInventory {
@@ -142,19 +161,33 @@ export class InvenProfileElement extends HTMLElement {
     return this.getAttribute("src");
   }
 
+  get mode() {
+    return this.getAttribute("mode");
+  }
+
+  set mode(m) {
+    this.setAttribute("mode", m);
+  }
+
   get form() {
     return this.shadowRoot.querySelector("mu-form.edit");
   }
-  
+
+  get editButton() {
+    return this.shadowRoot.getElementById("edit");
+  }
+
   constructor() {
     super();
     shadow(this)
       .template(InvenProfileElement.template)
       .styles(reset.styles, InvenProfileElement.styles);
-    
-      this.addEventListener("mu-form:submit", (event) =>
-        this.submit(this.src, event.detail)
-      );
+
+    this.editButton.addEventListener("click", () => (this.mode = "edit"));
+
+    this.addEventListener("mu-form:submit", (event) =>
+      this.submit(this.src, event.detail)
+    );
   }
 
   _authObserver = new Observer(this, "main:auth");
@@ -189,7 +222,6 @@ export class InvenProfileElement extends HTMLElement {
     else return {};
   }
 
-  
   hydrate(url) {
     fetch(url, { headers: this.authorization })
       .then((res) => {
@@ -205,6 +237,7 @@ export class InvenProfileElement extends HTMLElement {
         }
         this.renderSlots(json);
         this.form.init = json;
+        this.mode = "view";
       })
       .catch((error) => {
         console.log(`Failed to render data ${url}:`, error);
@@ -253,9 +286,9 @@ export class InvenProfileElement extends HTMLElement {
       method,
       headers: {
         "Content-Type": "application/json",
-        ...this.authorization
+        ...this.authorization,
       },
-      body: JSON.stringify(json)
+      body: JSON.stringify(json),
     })
       .then((res) => {
         if (res.status !== (this.mode === "new" ? 201 : 200))
