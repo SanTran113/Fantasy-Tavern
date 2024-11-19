@@ -53,15 +53,26 @@ app.get("/drink/:drinkMenuId", (req, res) => {
 });
 app.get("/inventoryProfiles/:userid", (req, res) => {
   const { userid } = req.params;
-  import_inventory_svc.default.get(userid).then((data) => {
-    const page = new import_pages.InventoryProfilePage(data);
+  const mode = req.query["new"] !== void 0 ? "new" : req.query.edit !== void 0 ? "edit" : "view";
+  if (mode === "new") {
+    const page = new import_pages.InventoryProfilePage(null, mode);
     res.set("Content-Type", "text/html").send(page.render());
-  });
+  } else {
+    import_inventory_svc.default.get(userid).then((data) => {
+      if (!data) throw `Not found: ${userid}`;
+      const page = new import_pages.InventoryProfilePage(data, mode);
+      res.set("Content-Type", "text/html").send(page.render());
+    }).catch((error) => {
+      console.log(error);
+      res.status(404).end();
+    });
+  }
 });
 app.get("/options/:_id", (req, res) => {
   const { _id } = req.params;
   import_inventory_svc.default.get(_id).then((data) => {
-    const page = new import_pages.InventoryProfilePage(data);
+    const mode = req.query["new"] !== void 0 ? "new" : req.query.edit !== void 0 ? "edit" : "view";
+    const page = new import_pages.InventoryProfilePage(data, mode);
     res.set("Content-Type", "text/html").send(page.render());
   });
 });

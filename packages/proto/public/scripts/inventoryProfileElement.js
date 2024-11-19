@@ -24,7 +24,7 @@ export class InvenProfileElement extends HTMLElement {
             <div class="Invtitle">Inventory</div>
           </div>
           <div class="Inventory">
-            <slot name="inventory"><div>Item 1</div></slot>
+            <slot name="inventory"></slot>
           </div>
           <div class="userName"><slot name="name">Name</slot></div>
           <div class="class"><slot name="userClass">Class</slot></div>
@@ -282,18 +282,25 @@ export class InvenProfileElement extends HTMLElement {
   submit(url, json) {
     const method = this.mode === "new" ? "POST" : "PUT";
 
+    if (this._avatar) json.avatar = this._avatar;
+
     fetch(url, {
       method,
       headers: {
         "Content-Type": "application/json",
-        ...this.authorization,
+        ...this.authorization
       },
-      body: JSON.stringify(json),
+      body: JSON.stringify(json)
     })
       .then((res) => {
         if (res.status !== (this.mode === "new" ? 201 : 200))
           throw `Status: ${res.status}`;
         return res.json();
+      })
+      .then((json) => {
+        this.renderSlots(json);
+        this.form.init = json;
+        this.mode = "view";
       })
       .catch((error) => {
         console.log(`Failed to submit ${url}:`, error);

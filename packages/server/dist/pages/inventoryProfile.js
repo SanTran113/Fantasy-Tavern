@@ -35,8 +35,10 @@ var import_server = require("@calpoly/mustang/server");
 var import_renderPage = __toESM(require("./renderPage"));
 class InventoryProfilePage {
   data;
-  constructor(data) {
+  mode;
+  constructor(data, mode) {
     this.data = data;
+    this.mode = mode;
   }
   render() {
     return (0, import_renderPage.default)({
@@ -44,28 +46,28 @@ class InventoryProfilePage {
       stylesheets: ["/styles/page.css"],
       scripts: [
         `
-        import { define } from "@calpoly/mustang";
+        import { define, Auth } from "@calpoly/mustang";
         import { InvenProfileElement } from "/scripts/inventoryProfileElement.js";
+        import { HeaderElement } from "/scripts/header.js";
 
         define({
-            "inven-profile": InvenProfileElement,
+          "inven-profile": InvenProfileElement,
+          "mu-auth": Auth.Provider
         });
+
+        HeaderElement.initializeOnce();
         `
       ]
     });
   }
   renderBody() {
-    const { userid, name, userClass, inventory } = this.data;
-    const inventoryList = inventory.map(
-      (inventory2) => this.renderInventory(inventory2.img)
-    );
+    const base = "/api/inventoryProfiles";
+    const api = this.data ? `${base}/${this.data.userid}` : base;
     return import_server.html`
       <body>
-        <inven-profile>
-          ${inventoryList}
-          <span slot="name">${name}</span>
-          <span slot="userClass">${userClass}</span>
-        </inven-profile>
+        <mu-auth provides="main:auth">
+          <inven-profile mode="${this.mode}" src="${api}"> </inven-profile>
+        </mu-auth>
       </body>
     `;
   }

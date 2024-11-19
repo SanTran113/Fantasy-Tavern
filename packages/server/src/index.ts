@@ -10,6 +10,7 @@ import Options from "./services/drinkOption-svc";
 import inventoryProfiles from "./routes/inventoryProfiles";
 import options from "./routes/options";
 import auth, { authenticateUser } from "./routes/auth";
+import { model } from "mongoose";
 
 connect("tavern");
 
@@ -44,18 +45,44 @@ app.get("/drink/:drinkMenuId", (req: Request, res: Response) => {
 
 app.get("/inventoryProfiles/:userid", (req: Request, res: Response) => {
   const { userid } = req.params;
+  const mode =
+    req.query["new"] !== undefined
+      ? "new"
+      : req.query.edit !== undefined
+        ? "edit"
+        : "view";
 
-  InventoryProfile.get(userid).then((data) => {
-    const page = new InventoryProfilePage(data);
+  if (mode === "new") {
+    const page = new InventoryProfilePage(null, mode);
     res.set("Content-Type", "text/html").send(page.render());
-  });
+  } else {
+    InventoryProfile.get(userid)
+      .then((data) => {
+        if (!data) throw `Not found: ${userid}`;
+        const page = new InventoryProfilePage(data, mode);
+        res
+          .set("Content-Type", "text/html")
+          .send(page.render());
+      })
+      .catch((error) => {
+        console.log(error);
+        res.status(404).end();
+      });
+  }
 });
 
 app.get("/options/:_id", (req: Request, res: Response) => {
   const { _id } = req.params;
 
   InventoryProfile.get(_id).then((data) => {
-    const page = new InventoryProfilePage(data);
+    const mode =
+    req.query["new"] !== undefined
+      ? "new"
+      : req.query.edit !== undefined
+        ? "edit"
+        : "view";
+        
+    const page = new InventoryProfilePage(data, mode);
     res.set("Content-Type", "text/html").send(page.render());
   });});
 
