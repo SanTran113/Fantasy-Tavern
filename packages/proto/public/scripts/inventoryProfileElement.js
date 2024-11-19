@@ -1,7 +1,20 @@
-import { css, html, shadow, Observer } from "@calpoly/mustang";
+import {
+  css,
+  define,
+  html,
+  shadow,
+  Observer,
+  Form,
+  InputArray,
+} from "@calpoly/mustang";
 import reset from "./styles/reset.css.js";
 
 export class InvenProfileElement extends HTMLElement {
+  static uses = define({
+    "mu-form": Form.Element,
+    "input-array": InputArray.Element,
+  });
+
   static template = html`
     <template>
       <main class="mainInventory">
@@ -15,6 +28,22 @@ export class InvenProfileElement extends HTMLElement {
         <div class="userName"><slot name="name">Name</slot></div>
         <div class="class"><slot name="userClass">Class</slot></div>
       </main>
+      <mu-form class="edit">
+        <label>
+          <span>Name</span>
+          <input name="name" />
+        </label>
+        <label>
+          <span>Class</span>
+          <input name="userClass" />
+        </label>
+        <label>
+          <span>Inventory</span>
+          <input-array name="inventory">
+            <span slot="label-add">Add an airport</span>
+          </input-array>
+        </label>
+      </mu-form>
     </template>
   `;
 
@@ -109,20 +138,19 @@ export class InvenProfileElement extends HTMLElement {
     }
   `;
 
-
   get src() {
     return this.getAttribute("src");
   }
 
+  get form() {
+    return this.shadowRoot.querySelector("mu-form.edit");
+  }
+  
   constructor() {
     super();
     shadow(this)
       .template(InvenProfileElement.template)
-      .styles(
-        reset.styles,
-        InvenProfileElement.styles
-      );
-
+      .styles(reset.styles, InvenProfileElement.styles);
   }
 
   _authObserver = new Observer(this, "main:auth");
@@ -131,8 +159,7 @@ export class InvenProfileElement extends HTMLElement {
     this._authObserver.observe(({ user }) => {
       console.log("Authenticated user:", user);
       this._user = user;
-      if (this.src && this.mode !== "new")
-        this.hydrate(this.src);
+      if (this.src && this.mode !== "new") this.hydrate(this.src);
     });
   }
 
@@ -153,11 +180,12 @@ export class InvenProfileElement extends HTMLElement {
     console.log("Authorization for user, ", this._user);
     if (this._user && this._user.authenticated)
       return {
-        Authorization: `Bearer ${this._user.token}`
+        Authorization: `Bearer ${this._user.token}`,
       };
     else return {};
   }
 
+  
   hydrate(url) {
     fetch(url, { headers: this.authorization })
       .then((res) => {
@@ -165,7 +193,6 @@ export class InvenProfileElement extends HTMLElement {
         return res.json();
       })
       .then(async (json) => {
-        console.log("hello:");
         if (Array.isArray(json.inventory)) {
           const inventoryPromises = json.inventory.map((_id) =>
             this.fetchOption(_id)
