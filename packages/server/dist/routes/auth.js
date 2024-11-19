@@ -36,6 +36,7 @@ var import_dotenv = __toESM(require("dotenv"));
 var import_express = __toESM(require("express"));
 var import_jsonwebtoken = __toESM(require("jsonwebtoken"));
 var import_credential_svc = __toESM(require("../services/credential-svc"));
+var import_inventory_svc = __toESM(require("../services/inventory-svc"));
 const router = import_express.default.Router();
 import_dotenv.default.config();
 const TOKEN_SECRET = process.env.TOKEN_SECRET || "NOT_A_SECRET";
@@ -47,6 +48,13 @@ router.post("/register", (req, res) => {
     import_credential_svc.default.create(username, password).then((creds) => generateAccessToken(creds.username)).then((token) => {
       res.status(201).send({ token });
     });
+    const userProfile = {
+      userid: username,
+      name: username,
+      userClass: "",
+      inventory: []
+    };
+    import_inventory_svc.default.create(userProfile);
   }
 });
 router.post("/login", (req, res) => {

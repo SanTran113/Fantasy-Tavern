@@ -7,7 +7,7 @@ import express, {
 import jwt from "jsonwebtoken";
 
 import credentials from "../services/credential-svc";
-
+import inventoryProfile from "../services/inventory-svc"
 const router = express.Router();
 
 dotenv.config();
@@ -27,6 +27,16 @@ const TOKEN_SECRET: string =
         .then((token) => {
           res.status(201).send({ token: token });
         });
+
+        // create a user profile while register
+          const userProfile = {
+            userid: username,
+            name: username, 
+            userClass: "", 
+            inventory: [] 
+          };
+      
+          inventoryProfile.create(userProfile);
     }
   });
 
