@@ -3,7 +3,7 @@ import express, { Request, Response } from "express";
 import { getDrinks } from "./services/drinkMockData";
 import { getInventory } from "./services/inventoryMock";
 import { DrinksPage, InventoryProfilePage } from "./pages/index";
-import { LoginPage } from "./pages/auth";
+import { LoginPage, RegistrationPage } from "./pages/auth";
 import { connect } from "./services/mongo";
 import InventoryProfile from "./services/inventory-svc";
 import Options from "./services/drinkOption-svc";
@@ -63,4 +63,10 @@ app.get("/options/:_id", (req: Request, res: Response) => {
     const page = new LoginPage();
     res.set("Content-Type", "text/html").send(page.render());
   });
+
+  app.get("/register", (req: Request, res: Response) => {
+    const page = new RegistrationPage();
+    res.set("Content-Type", "text/html").send(page.render());
+  });
+  
 

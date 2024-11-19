@@ -69,3 +69,7 @@ app.get("/login", (req, res) => {
   const page = new import_auth.LoginPage();
   res.set("Content-Type", "text/html").send(page.render());
 });
+app.get("/register", (req, res) => {
+  const page = new import_auth.RegistrationPage();
+  res.set("Content-Type", "text/html").send(page.render());
+});
