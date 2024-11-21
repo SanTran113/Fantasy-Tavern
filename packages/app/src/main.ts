@@ -5,16 +5,16 @@ import { HomeViewElement } from "./views/home-view";
 import { InventoryProfileViewElement } from "./views/invenProfile-view";
 import { DrinkMenuViewElement } from "./views/drinkMenu-view";
 class AppElement extends LitElement {
+  
   static uses = define({
-    // "home-view": HomeViewElement,
-    // "invenProfile-view": InventoryProfileViewElement,
-    "drinkMenu-view": DrinkMenuViewElement
+    "drink-menu-view": DrinkMenuViewElement
   });
 
   protected render() {
+    console.log("main.ts loaded");
+
     return html`
-      <div>hello</div>
-      <drinkMenu-view></drinkMenu-view>
+      <drink-menu-view></drink-menu-view>
     `;
   }
 
