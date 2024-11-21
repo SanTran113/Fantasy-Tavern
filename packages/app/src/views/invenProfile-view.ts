@@ -2,7 +2,6 @@ import { Auth, define, Form, InputArray, Observer } from "@calpoly/mustang";
 import { css, html, LitElement } from "lit";
 import { property, state } from "lit/decorators.js";
 import { InventoryProfile } from "../../../server/src/models/inventory";
-import reset from "../styles/reset.css";
 
 export class InventoryProfileViewElement extends LitElement {
   static uses = define({

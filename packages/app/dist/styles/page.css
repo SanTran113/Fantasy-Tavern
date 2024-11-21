@@ -1,0 +1,211 @@
+@import url("token.css");
+
+/* Index Page CSS */
+.bodyIndex {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url("../assets/backdrop.png");
+}
+
+.bodyIndex.dark-mode {
+  background-image: url("../assets/backdrop_DM4.png");
+}
+
+.darkmodeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.indexInformation {
+  color: var(--index-menu-color);
+  font-size: 3vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: var(--index-bg-color);
+}
+
+.titleIndex {
+  font-size: 5vw;
+}
+
+a {
+  color: var(--index-menu-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.drinkOptions,
+.foodOptions,
+.goodsOptions {
+  color: var(--color-text-menu);
+}
+
+/* Drink Menu CSS */
+
+h1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(2.5vw + 1.5vh);
+}
+
+h2 {
+  font-size: calc(1.5vw + 1vh);
+}
+
+svg.icon {
+  display: inline;
+  height: var(--icon-size);
+  width: var(--icon-size);
+  vertical-align: calc(0.5em - 0.65 * var(--icon-size));
+}
+
+body {
+  background-color: var(--background-color);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  font-family: var(--font-pixel);
+}
+
+.drinkMain {
+  background-image: url("../assets/drinkMenuBg.png");
+  padding: 5%;
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  aspect-ratio: 3/2;
+}
+
+.drinkMain {
+  background-image: url("../assets/drinkMenuBg.png");
+}
+
+.drinkMenu {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-evenly;
+}
+
+.drink-title {
+  margin-bottom: 3%;
+}
+
+ul {
+  list-style-type: none;
+  font-weight: bold;
+  font-size: calc(1vw + 1vh);
+}
+
+p {
+  font-size: calc(0.75vw + 0.75vh);
+  margin-bottom: 5%;
+}
+
+div {
+  justify-content: space-between;
+}
+
+/* Inventory Html CSS */
+.mainInventory {
+  background-image: url("../assets/Inventory/InventoryPageBg.png");
+  padding: 5%;
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  aspect-ratio: 4/2;
+
+  display: grid;
+  grid-template-columns: repeat(15, 1fr);
+  grid-template-rows: repeat(7, 1fr);
+  gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+}
+
+.profile {
+  grid-column: 4 / span 3;
+  grid-row: 2 / span 3;
+  background-image: url("../assets/Inventory/profileTavern.png");
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.Inventory {
+  background-image: url("../assets/Inventory/inventorybg.png");
+  grid-column: 8 / span 5;
+  grid-row: 3 / span 4;
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  padding: 5%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 3%;
+  grid-auto-rows: minmax(100px, auto);
+}
+
+.InventoryTitle {
+  background-image: url("../assets/Inventory/InventoryTitle.png");
+  grid-column: 8 / span 5;
+  grid-row: 2 / span 1;
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+}
+
+.imgInven {
+  width: 80%;
+}
+
+.imgInvenBg {
+  background: var(--bgImg), url("../assets/Inventory/itemInvBg.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.userName {
+  background-image: url("../assets/Inventory/userClassBg.png");
+  grid-column: 4 / span 3;
+  grid-row: 5 / span 1;
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+}
+
+.class {
+  background-image: url("../assets/Inventory/userClassBg.png");
+  grid-column: 4 / span 3;
+  grid-row: 6 / span 1;
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+}

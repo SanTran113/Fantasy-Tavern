@@ -1,6 +1,7 @@
 import { Auth, define, Dropdown, Events, Observer } from "@calpoly/mustang";
 import { LitElement, css, html } from "lit";
 import { state } from "lit/decorators.js";
+import reset from "../styles/reset.css";
 
 function toggleDarkMode(ev: InputEvent) {
   const target = ev.target as HTMLInputElement;
@@ -19,17 +20,17 @@ export class TavernHeaderElement extends LitElement {
   });
 
   @state()
-  userid: string = "traveler";
+  userid: string = "";
 
   protected render() {
     return html`
       <header>
         <div id="userid">${this.userid}</div>
         <div class="when-signed-in">
-          <button id="signout" @click=${signOut}>Sign Out</button>
+          <a id="signout" @click=${signOut}>Sign Out</a>
         </div>
         <div class="when-signed-out">
-          <button href="/login">Sign In</button>
+          <a href="/login">Sign In</a>
         </div>
         <label @change=${toggleDarkMode}>
           <input type="checkbox" />
@@ -38,36 +39,45 @@ export class TavernHeaderElement extends LitElement {
       </header>
     `;
   }
-  // <div id="userid"></div>
-  // <button id="signout">Sign Out</button>
-  // <label class="dark-mode-switch">
-  //   <input type="checkbox" /> Dark Mode
-  // </label>
-  static styles = css`
+  static styles = [
+    reset.styles,
+    css`
       :host {
         display: contents;
       }
 
-      #userid:empty::before {
-        content: "traveler";
+      #userid:empty ~ .when-signed-in {
+        display: none;
       }
 
-    button:has(#userid:empty)  > .when-signed-in,
-    button:has(#userid:not(:empty)) > .when-signed-out {
-      display: none;
+      #userid:not(:empty) ~ .when-signed-out {
+        display: none;
+      }
+    `,
+  ];
+
+  _authObserver = new Observer<Auth.Model>(this, "main:auth");
+
+  connectedCallback() {
+    super.connectedCallback();
+
+    this._authObserver.observe(({ user }) => {
+      if (user && user.username !== this.userid) {
+        this.userid = user.username;
+      }
+    });
+  }
+
+  static initializeOnce() {
+    function toggleDarkMode(page: HTMLElement, checked: boolean) {
+      page.classList.toggle("dark-mode", checked);
     }
-  `;
 
-  // static initializeOnce() {
-  //   function toggleDarkMode(page: HTMLElement, checked: boolean) {
-  //     page.classList.toggle("dark-mode", checked);
-  //   }
-
-  //   document.body.addEventListener("dark-mode", (event) =>
-  //     toggleDarkMode(
-  //       event.currentTarget as HTMLElement,
-  //       (event as CustomEvent).detail?.checked
-  //     )
-  //   );
-  // }
+    document.body.addEventListener("dark-mode", (event) =>
+      toggleDarkMode(
+        event.currentTarget as HTMLElement,
+        (event as CustomEvent).detail?.checked
+      )
+    );
+  }
 }
