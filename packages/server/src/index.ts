@@ -11,6 +11,8 @@ import inventoryProfiles from "./routes/inventoryProfiles";
 import options from "./routes/options";
 import auth, { authenticateUser } from "./routes/auth";
 import { model } from "mongoose";
+import fs from "node:fs/promises";
+import path from "path";
 
 connect("tavern");
 
@@ -27,8 +29,11 @@ app.use("/api/inventoryProfiles", authenticateUser, inventoryProfiles);
 app.use("/api/options", options);
 app.use("/auth", auth);
 
-app.get("/hello", (req: Request, res: Response) => {
-  res.send("Hello, World");
+app.use("/app", (req: Request, res: Response) => {
+  const indexHtml = path.resolve(staticDir, "index.html");
+  fs.readFile(indexHtml, { encoding: "utf8" }).then((html) =>
+    res.send(html)
+  );
 });
 
 app.listen(port, () => {

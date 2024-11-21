@@ -29,23 +29,12 @@
       });
       window.relayEvent = Events.relay;
     </script>
+    <script type="module" src="/src/main"></script>
   </head>
-  <body class="bodyIndex">
+  <body>
     <mu-history provides="tavern:history">
       <mu-auth provides="main:auth">
-        <div class="indexInformation">
-          <h1 class="titleIndex">Fantasy Tavern</h1>
-          <tavern-header></tavern-header>
-          <mu-switch>
-            <section class="htmlIndex">
-              <a href="/app/drinkMenu">Drink Menu</a>
-              <a href="food.html">Food Menu</a>
-              <a href="quests.html">Quest Board</a>
-              <a href="goods.html">General Goods</a>
-              <a href="/app/inventoryProfiles/789">Inventory</a>
-            </section>
-            </mu-switch>
-        </div>
+          <tavern-app></tavern-app>
       </mu-auth>
     </mu-history>
   </body>

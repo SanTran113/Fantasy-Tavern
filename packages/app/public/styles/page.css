@@ -65,7 +65,7 @@ svg.icon {
   vertical-align: calc(0.5em - 0.65 * var(--icon-size));
 }
 
-body {
+article {
   background-color: var(--background-color);
   height: 100vh;
   display: flex;

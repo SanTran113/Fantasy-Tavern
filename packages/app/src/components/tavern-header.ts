@@ -20,7 +20,7 @@ export class TavernHeaderElement extends LitElement {
   });
 
   @state()
-  userid: string = "";
+  userid: string = "anonymous";
 
   protected render() {
     return html`
@@ -46,13 +46,13 @@ export class TavernHeaderElement extends LitElement {
         display: contents;
       }
 
-      #userid:empty ~ .when-signed-in {
+      /* #userid:empty ~ .when-signed-in {
         display: none;
       }
 
       #userid:not(:empty) ~ .when-signed-out {
         display: none;
-      }
+      } */
     `,
   ];
 

@@ -1,61 +1,84 @@
-// import { Auth, Observer } from "@calpoly/mustang";
-import { LitElement } from "lit";
-// import { state } from "lit/decorators.js";
-// import { InventoryProfile } from "../../../server/src/models/inventory"
+import { LitElement, html, css } from "lit";
+import reset from "../styles/reset.css";
 
 export class HomeViewElement extends LitElement {
-    src = "/api/inventoryProfiles";
-  
-    // observes changes to the 
-    // @state()
-    // inventoryIndex = new Array<InventoryProfile>();
-  
-    // _authObserver = new Observer<Auth.Model>(
-    //     this,
-    //     "main:auth"
-    //   );
-    
-    //   _user = new Auth.User();
-    
-    //   connectedCallback() {
-    //     super.connectedCallback();
-    //     this._authObserver.observe(({ user }) => {
-    //       if (user) {
-    //         this._user = user;
-    //       }
-    //       this.hydrate(this.src);
-    //     });
-    //   }
+  render() {
+    return html`
+      <article class="bodyIndex">
+        <div class="indexInformation">
+          <h1 class="titleIndex">Fantasy Tavern</h1>
+          <tavern-header></tavern-header>
+          <section class="htmlIndex">
+            <a href="/app/drinkMenu">Drink Menu</a>
+            <a href="food.html">Food Menu</a>
+            <a href="quests.html">Quest Board</a>
+            <a href="goods.html">General Goods</a>
+            <a href="/app/inventoryProfiles/789">Inventory</a>
+          </section>
+        </div>
+      </article>
+    `;
+  }
+  static styles = [
+    reset.styles,
+    css`
+      :host {
+        display: contents;
+      }
 
-    // hydrate(url: string) {
-    //     fetch(url, {
-    //       headers: Auth.headers(this._user)
-    //     })
-    //       .then((res: Response) => {
-    //         if (res.status === 200) return res.json();
-    //         throw `Server responded with status ${res.status}`;
-    //       })
-    //       .then((json: unknown) => {
-    //         if (json) {
-    //           const { inventoryProfiles } = json as { data: Array<InventoryProfile> };
-    //           this.inventoryIndex = inventoryProfiles;
-    //         }
-    //       })
-    //       .catch((err) =>
-    //         console.log("Failed to tour data:", err)
-    //       );
-    //   }
+      /* Index Page CSS */
+      .bodyIndex {
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-image: url("../assets/backdrop.png");
+      }
 
-    // render() {
-    //   const inventoryList = this.tourIndex.map(this.renderItem);
-  
-    //   return html`
-    //     <main class="page">
-    //       <header></header>
-    //       <dl>${inventoryList}</dl>
-    //     </main>
-    //   `;
+      .bodyIndex.dark-mode {
+        background-image: url("../assets/backdrop_DM4.png");
+      }
 
-      
-    // }
+      .darkmodeButton {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .indexInformation {
+        color: var(--index-menu-color);
+        font-size: 3vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: var(--index-bg-color);
+      }
+
+      .titleIndex {
+        font-size: 5vw;
+      }
+
+      a {
+        color: var(--index-menu-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+      }
+
+      .drinkOptions,
+      .foodOptions,
+      .goodsOptions {
+        color: var(--color-text-menu);
+      }
+
+      article {
+        background-color: var(--background-color);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        overflow: hidden;
+        font-family: var(--font-pixel);
+      }
+    `,
+  ];
 }

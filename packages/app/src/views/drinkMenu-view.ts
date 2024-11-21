@@ -16,29 +16,36 @@ export class DrinkMenuViewElement extends LitElement {
     // const drinkSections = this.drinkMenu.map(this.renderDrinks);
     const optionList = this.options.map(this.renderDrinkOptions);
     return html`
-      <main class="drinkMain">
-        <ul class="drinkOptions">
-          <span slot="option"> ${optionList} </span>
-        </ul>
-      </main>
+      <article class="bodyDrink">
+        <mu-auth provides="main:auth">
+          <main class="drinkMain">
+            <h1 class="drink-title">Drink Menu</h1>
+            <div class="drinkMenu">
+              <ul class="drinkOptions">
+                <span slot="option"> ${optionList} </span>
+              </ul>
+            </div>
+          </main>
+        </mu-auth>
+      </article>
     `;
   }
 
-//   renderDrinks(drinkSections: DrinkSection) {
-//     const { title, icon, optionMenu } = drinkSections;
+  //   renderDrinks(drinkSections: DrinkSection) {
+  //     const { title, icon, optionMenu } = drinkSections;
 
-//     return html`
-//       <div>
-//         <span slot="title">${title}</span>
-//         <span slot="icon">
-//           <svg class="icon">
-//             <use xlink:href="icons/icons.svg#${icon}" />
-//           </svg>
-//         </span>
-//         <span slot="option"> ${optionList} </span>
-//       </div>
-//     `;
-//   }
+  //     return html`
+  //       <div>
+  //         <span slot="title">${title}</span>
+  //         <span slot="icon">
+  //           <svg class="icon">
+  //             <use xlink:href="icons/icons.svg#${icon}" />
+  //           </svg>
+  //         </span>
+  //         <span slot="option"> ${optionList} </span>
+  //       </div>
+  //     `;
+  //   }
 
   renderDrinkOptions(options: Option) {
     const { name, price, desc } = options;
@@ -78,10 +85,21 @@ export class DrinkMenuViewElement extends LitElement {
       display: contents;
     }
 
+    @import url("token.css");
+
+    .drinkOptions,
+    .foodOptions,
+    .goodsOptions {
+      color: var(--color-text-menu);
+    }
+
     /* Drink Menu CSS */
 
-    h2 {
-      font-size: calc(1.5vw + 1vh);
+    h1 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: calc(2.5vw + 1.5vh);
     }
 
     svg.icon {
@@ -91,7 +109,39 @@ export class DrinkMenuViewElement extends LitElement {
       vertical-align: calc(0.5em - 0.65 * var(--icon-size));
     }
 
-    .drinkOptions {
+    article {
+      background-color: var(--background-color);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
+      font-family: var(--font-pixel);
+    }
+
+    .drinkMain {
+      background-image: url("../assets/drinkMenuBg.png");
+      padding: 5%;
+      background-size: 100% 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      aspect-ratio: 3/2;
+    }
+
+    .drinkMain {
+      background-image: url("../assets/drinkMenuBg.png");
+    }
+
+    .drinkMenu {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-evenly;
+    }
+
+    .drink-title {
+      margin-bottom: 3%;
+    }
+
+    ul {
       list-style-type: none;
       font-weight: bold;
       font-size: calc(1vw + 1vh);
@@ -100,14 +150,12 @@ export class DrinkMenuViewElement extends LitElement {
     p {
       font-size: calc(0.75vw + 0.75vh);
       margin-bottom: 5%;
-      font-style: italic;
-      color: var(--color-text-menu);
     }
 
     div {
-      display: flex;
       justify-content: space-between;
     }
+
   `;
 
   _authObserver = new Observer<Auth.Model>(this, "main:auth");
