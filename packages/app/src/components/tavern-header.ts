@@ -20,7 +20,7 @@ export class TavernHeaderElement extends LitElement {
   });
 
   @state()
-  userid: string = "anonymous";
+  userid: string = "";
 
   protected render() {
     return html`
@@ -46,13 +46,14 @@ export class TavernHeaderElement extends LitElement {
         display: contents;
       }
 
-      /* #userid:empty ~ .when-signed-in {
-        display: none;
-      }
+      #userid[data-userid=""] ~ .when-signed-in,
+    #userid[data-userid="anonymous"] ~ .when-signed-in {
+      display: none;
+    }
 
-      #userid:not(:empty) ~ .when-signed-out {
-        display: none;
-      } */
+    #userid:not([data-userid=""]) ~ .when-signed-out {
+      display: none;
+    }
     `,
   ];
 
@@ -60,13 +61,20 @@ export class TavernHeaderElement extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-
+  
     this._authObserver.observe(({ user }) => {
-      if (user && user.username !== this.userid) {
-        this.userid = user.username;
+      const username = user?.username || "anonymous";
+      if (username !== this.userid) {
+        this.userid = username;
+        const useridElement = this.shadowRoot?.getElementById("userid");
+        // if there is no user name set data-userid as anonoymous for css
+        if (useridElement) {
+          useridElement.setAttribute("data-userid", this.userid);
+        }
       }
     });
   }
+  
 
   static initializeOnce() {
     function toggleDarkMode(page: HTMLElement, checked: boolean) {
