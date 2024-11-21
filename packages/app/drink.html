@@ -36,20 +36,20 @@
     </script> -->
     <script type="module">
       import { define, Auth, Events } from "@calpoly/mustang";
-    
+
       define({ "mu-auth": Auth.Provider });
       window.relayEvent = Events.relay;
     </script>
   </head>
 
   <body class="bodyDrink">
-    <mu-auth provides="blazing:auth">
-    <main class="drinkMain">
-      <h1 class="drink-title">Drink Menu</h1>
-      <div class="drinkMenu">
-        <tavern-app></tavern-app>
-      </div>
-    </main>
+    <mu-auth provides="main:auth">
+      <main class="drinkMain">
+        <h1 class="drink-title">Drink Menu</h1>
+        <div class="drinkMenu">
+          <tavern-app></tavern-app>
+        </div>
+      </main>
     </mu-auth>
   </body>
 </html>

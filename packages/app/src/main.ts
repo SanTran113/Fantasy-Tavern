@@ -13,6 +13,7 @@ class AppElement extends LitElement {
 
   protected render() {
     return html`
+      <div>hello</div>
       <drinkMenu-view></drinkMenu-view>
     `;
   }

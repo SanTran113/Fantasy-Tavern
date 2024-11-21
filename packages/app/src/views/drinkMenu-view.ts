@@ -13,36 +13,19 @@ export class DrinkMenuViewElement extends LitElement {
   
     render() {
         const drinkSections = this.drinkMenu.map(this.renderDrinks);
-
+        console.log("rendering")
         return html`
           <main class="drinkMain">
+            hello
             <div class="drinkMenu">${drinkSections}</div>
           </main>
         `;
     }
 
-
-    // renderBody() {
-    //     const { title, drinkSections } = this.data;
-    
-    //     const sectionList = drinkSections.map((drinkSections) =>
-    //       this.renderDrinkSections(drinkSections)
-    //     );
-    
-    //     return html` 
-    //     <body class="bodyDrink">
-    //       <main class="drinkMain">
-    //         <h1 class="drink-title">${title}</h1>
-    //         <div class="drinkMenu">${sectionList}</div>
-    //       </main>
-    //     </body>`;
-    //   }
-
-
     renderDrinks(drinkSections: DrinkSection) {
         const { title, icon, optionMenu } = drinkSections;
     
-        const optionList = optionMenu.map((options) => this.renderOptions(options));
+        const optionList = optionMenu.map((options) => this.renderDrinkOptions(options));
     
         return html`
           <menu-accommodation>
@@ -58,7 +41,7 @@ export class DrinkMenuViewElement extends LitElement {
       }
     
     
-      renderOptions(options: Option) {
+      renderDrinkOptions(options: Option) {
         const { name, price, desc } = options;
     
         return html`
@@ -80,8 +63,8 @@ export class DrinkMenuViewElement extends LitElement {
           })
           .then((json: unknown) => {
             if (json) {
-              const { drinks } = json as { data: Array<DrinkSection> };
-              this.drinkMenu = drinks;
+              const { data } = json as { data: Array<DrinkSection> };
+              this.drinkMenu = data;
             }
           })
           .catch((err) =>
