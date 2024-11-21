@@ -25,27 +25,28 @@
 
       define({
         "mu-auth": Auth.Provider,
-        "tavern-header": TavernHeaderElement
+        "tavern-header": TavernHeaderElement,
       });
       window.relayEvent = Events.relay;
     </script>
   </head>
-  <body
-    class="bodyIndex"
-  >
-  <mu-auth provides="main:auth">
-    <div class="indexInformation">
-      <h1 class="titleIndex">Fantasy Tavern</h1>
-      <tavern-header></tavern-header>       
-
-      <section class="htmlIndex">
-        <a href="drink.html">Drink Menu</a>
-        <a href="food.html">Food Menu</a>
-        <a href="quests.html">Quest Board</a>
-        <a href="goods.html">General Goods</a>
-        <a href="inventory.html">Inventory</a>
-      </section>
-    </div>
-  </mu-auth>
+  <body class="bodyIndex">
+    <mu-history provides="tavern:history">
+      <mu-auth provides="main:auth">
+        <div class="indexInformation">
+          <h1 class="titleIndex">Fantasy Tavern</h1>
+          <tavern-header></tavern-header>
+          <mu-switch>
+            <section class="htmlIndex">
+              <a href="/app/drinkMenu">Drink Menu</a>
+              <a href="food.html">Food Menu</a>
+              <a href="quests.html">Quest Board</a>
+              <a href="goods.html">General Goods</a>
+              <a href="/app/inventoryProfiles/789">Inventory</a>
+            </section>
+            </mu-switch>
+        </div>
+      </mu-auth>
+    </mu-history>
   </body>
 </html>

@@ -26,7 +26,7 @@ export class InventoryProfileViewElement extends LitElement {
     const { name, userClass, inventory = [] } = this.inventoryProfiles || {};
 
     return html`
-      <template>
+      <div>
         <section class="view">
           <main class="mainInventory">
             <div class="profile">profile</div>
@@ -57,7 +57,7 @@ export class InventoryProfileViewElement extends LitElement {
             </input-array>
           </label>
         </mu-form>
-      </template>
+      </div>
     `;
   }
 
@@ -167,10 +167,7 @@ export class InventoryProfileViewElement extends LitElement {
       text-align: center;
     }
   `;
-  _authObserver = new Observer<Auth.Model>(
-    this,
-    "main:auth"
-  );
+  _authObserver = new Observer<Auth.Model>(this, "main:auth");
 
   _user = new Auth.User();
 
@@ -197,5 +194,4 @@ export class InventoryProfileViewElement extends LitElement {
         console.log(`Failed to render data ${url}:`, error);
       });
   }
-
 }
