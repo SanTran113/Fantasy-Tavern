@@ -12,6 +12,11 @@
     "start:proto": "cross-env STATIC=../proto/public npm run start",
     "check": "tsc --noEmit"
   },
+  "exports": {
+    "./models": {
+      "import": "./src/models/index.ts"
+    }
+  },
   "author": "",
   "license": "ISC",
   "description": "",

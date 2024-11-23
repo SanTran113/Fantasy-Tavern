@@ -1,5 +1,8 @@
 import { Auth, History, Switch, define } from "@calpoly/mustang";
 import { html, LitElement } from "lit";
+import { Msg } from "./messages";
+import { Model, init } from "./model";
+import update from "./update";
 import { TavernHeaderElement } from "./components/tavern-header";
 import { HomeViewElement } from "./views/home-view";
 import { InventoryProfileViewElement } from "./views/invenProfile-view";

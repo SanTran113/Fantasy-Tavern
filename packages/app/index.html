@@ -34,7 +34,9 @@
   <body>
     <mu-history provides="tavern:history">
       <mu-auth provides="main:auth">
+        <mu-store provides="tavern:model">
           <tavern-app></tavern-app>
+        </mu-store>
       </mu-auth>
     </mu-history>
   </body>
