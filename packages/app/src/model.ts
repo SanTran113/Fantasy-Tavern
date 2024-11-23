@@ -6,3 +6,5 @@ export interface Model {
     userClass?: string;
     inventory: Array<Option>; 
 }
+
+export const init: Model = {};
