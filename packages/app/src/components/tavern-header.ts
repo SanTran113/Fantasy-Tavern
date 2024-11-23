@@ -46,35 +46,38 @@ export class TavernHeaderElement extends LitElement {
         display: contents;
       }
 
-      #userid[data-userid=""] ~ .when-signed-in,
+    /* #userid[data-userid=""] ~ .when-signed-in,
     #userid[data-userid="anonymous"] ~ .when-signed-in {
       display: none;
     }
 
     #userid:not([data-userid=""]) ~ .when-signed-out {
       display: none;
-    }
+    } */
     `,
   ];
 
   _authObserver = new Observer<Auth.Model>(this, "main:auth");
 
-  connectedCallback() {
-    super.connectedCallback();
-  
-    this._authObserver.observe(({ user }) => {
-      const username = user?.username || "anonymous";
-      if (username !== this.userid) {
-        this.userid = username;
-        const useridElement = this.shadowRoot?.getElementById("userid");
-        // if there is no user name set data-userid as anonoymous for css
-        if (useridElement) {
-          useridElement.setAttribute("data-userid", this.userid);
-        }
+connectedCallback() {
+  super.connectedCallback();
+
+  this._authObserver.observe(({ user }) => {
+    const username = user?.username || "anonymous";
+    console.log("username", username)
+    console.log("userid", this.userid)
+    if (username !== this.userid) {
+      this.userid = username;
+      const useridElement = this.shadowRoot?.getElementById("userid");
+      if (useridElement) {
+        useridElement.setAttribute("data-userid", "anonymous");
       }
-    });
-  }
-  
+    console.log("ele", useridElement)
+
+    }
+  });
+}
+
 
   static initializeOnce() {
     function toggleDarkMode(page: HTMLElement, checked: boolean) {

@@ -34,10 +34,7 @@ __export(auth_exports, {
 module.exports = __toCommonJS(auth_exports);
 var import_server = require("@calpoly/mustang/server");
 var import_renderPage = __toESM(require("./renderPage"));
-const styles = [
-  import_server.css`
-  `
-];
+const styles = [import_server.css``];
 class LoginPage {
   render() {
     return (0, import_renderPage.default)({
@@ -54,26 +51,52 @@ class LoginPage {
       ],
       styles: [
         import_server.css`
-          /* your CSS here */
+          .login-body {
+            background: url("/assets/form-bg.png");
+            background-color: var(--background-color);
+            padding: 5%;
+            background-size: 100% 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            aspect-ratio: 3/2;
+
+            display: grid;
+            grid-template-columns: repeat(15, 1fr);
+            grid-template-rows: repeat(12, 1fr);
+            gap: 10px;
+            grid-auto-rows: minmax(100px, auto);
+          }
+
+          .login {
+            grid-column: 1 / span 15;
+            grid-row: 2 / span 10;
+          }
+
+          .register {
+            display: flex;
+            justify-content: center;
+            grid-column: 2 / span 10;
+            grid-row: 12 / span 1;
+            font-size: 25px;
+          }
+
+          a {
+            color: var(--form-button-color);
+          }
         `
       ],
       body: import_server.html`
         <body>
           <mu-auth provides="main:auth">
-            <article>
+            <article class="login-body">
               <tavern-header></tavern-header>
-              <main class="page">
-                <login-form api="/auth/login">
-                  <h3 slot="title">Sign in and go places!</h3>
-                </login-form>
-                <p class="register">
-                  Or did you want to
-                  <a href="./register">
-                    register as a new user
-                  </a>
-                  ?
-                </p>
-              </main>
+              <login-form class="login" api="/auth/login">
+                <!-- <h3 slot="title">Sign in and go places!</h3> -->
+              </login-form>
+              <p class="register">
+                Or would you like to
+                <a href="./register">register as a new traveler </a>?
+              </p>
             </article>
           </mu-auth>
         </body>
@@ -84,7 +107,42 @@ class LoginPage {
 class RegistrationPage {
   render() {
     return (0, import_renderPage.default)({
-      styles,
+      styles: [
+        import_server.css`
+          .login {
+            background: url("/assets/form-bg.png");
+            background-color: var(--background-color);
+            padding: 5%;
+            background-size: 100% 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            aspect-ratio: 3/2;
+
+            display: grid;
+            grid-template-columns: repeat(15, 1fr);
+            grid-template-rows: repeat(12, 1fr);
+            gap: 10px;
+            grid-auto-rows: minmax(100px, auto);
+          }
+
+          .login {
+            grid-column: 1 / span 15;
+            grid-row: 2 / span 10;
+          }
+
+          .register {
+            display: flex;
+            justify-content: center;
+            grid-column: 2 / span 10;
+            grid-row: 12 / span 1;
+            font-size: 25px;
+          }
+
+          a {
+            color: var(--form-button-color);
+          }
+        `
+      ],
       scripts: [
         `
         import { define, Auth } from "@calpoly/mustang";
@@ -97,14 +155,12 @@ class RegistrationPage {
         `
       ],
       body: import_server.html`<body>
-        <mu-auth provides="blazing:auth">
-          <article>
-            <blz-header> </blz-header>
+        <mu-auth provides="main:auth">
+          <article class="form-body">
+            <tavern-header> </tavern-header>
             <main class="page">
               <registration-form api="/auth/register">
-                <h3 slot="title"
-                  >Sign up to plan your next trip!</h3
-                >
+                <h3 slot="title">Sign up to plan your next trip!</h3>
               </registration-form>
               <p class="login">
                 Already signed up? You can
