@@ -32,7 +32,7 @@ export class RegistrationForm extends HTMLElement {
     form {
       display: grid;
       grid-template-columns: repeat(10, 1fr);
-      grid-template-rows: repeat(8, 1fr);
+      grid-template-rows: repeat(10, 1fr);
       gap: 10px;
       width: 100%;
       height: 100%;
@@ -43,13 +43,13 @@ export class RegistrationForm extends HTMLElement {
 
       > span {
         grid-column: 2 / span 1;
-        grid-row: 3 / span 1;
+        grid-row: 4 / span 1;
         justify-self: end;
         margin: auto;
       }
       > input {
         grid-column: 3 / span 6;
-        grid-row: 3 / span 1;
+        grid-row: 4 / span 1;
         font-size: 30px;
         padding: 2%;
         font-family: var(--font-pixel);
@@ -62,13 +62,13 @@ export class RegistrationForm extends HTMLElement {
 
       > span {
         grid-column: 2 / span 1;
-        grid-row: 5 / span 1;
+        grid-row: 6 / span 1;
         justify-self: end;
         margin: auto;
       }
       > input {
         grid-column: 3 / span 6;
-        grid-row: 5 / span 1;
+        grid-row: 6 / span 1;
         font-size: 30px;
         padding: 2%;
         outline-color: var(--form-input-border-color);
@@ -93,12 +93,12 @@ export class RegistrationForm extends HTMLElement {
       padding: 0;
 
       grid-column: 2 / span 6;
-      grid-row: 8 / span 1;
+      grid-row: 9 / span 1;
     }
 
     img {
       grid-column: 2 / span 1;
-      grid-row: 7 / span 1;
+      grid-row: 8 / span 1;
       width: 5em;
       height: 5em;
       aspect-ratio: 1/1;
@@ -108,13 +108,14 @@ export class RegistrationForm extends HTMLElement {
     ::slotted(*[slot="title"]),
     slot[name="title"] > * {
       grid-column: 2 / span 8;
+      grid-row: 2 / span 10;
       font-size: 60px;
     }
 
     ::slotted(button[slot="submit"]),
     button[type="submit"] {
       grid-column: 3 / span 4;
-      grid-row: 7 / span 1;
+      grid-row: 8 / span 1;
       align-self: center;
 
       height: 100%;

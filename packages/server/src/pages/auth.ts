@@ -59,7 +59,7 @@ export class LoginPage {
             <article class="login-body">
               <tavern-header></tavern-header>
               <login-form class="login" api="/auth/login">
-                <!-- <h3 slot="title">Sign in and go places!</h3> -->
+                <h3 slot="title">Welcome Back Traveler!</h3>
               </login-form>
               <p class="register">
                 Or would you like to
@@ -78,7 +78,7 @@ export class RegistrationPage {
     return renderPage({
       styles: [
         css`
-          .login {
+          .register-body {
             background: url("/assets/form-bg.png");
             background-color: var(--background-color);
             padding: 5%;
@@ -86,20 +86,10 @@ export class RegistrationPage {
             background-position: center;
             background-repeat: no-repeat;
             aspect-ratio: 3/2;
-
-            display: grid;
-            grid-template-columns: repeat(15, 1fr);
-            grid-template-rows: repeat(12, 1fr);
-            gap: 10px;
-            grid-auto-rows: minmax(100px, auto);
+            
           }
 
           .login {
-            grid-column: 1 / span 15;
-            grid-row: 2 / span 10;
-          }
-
-          .register {
             display: flex;
             justify-content: center;
             grid-column: 2 / span 10;
@@ -125,17 +115,15 @@ export class RegistrationPage {
       ],
       body: html`<body>
         <mu-auth provides="main:auth">
-          <article class="form-body">
-            <tavern-header> </tavern-header>
-            <main class="page">
-              <registration-form api="/auth/register">
-                <h3 slot="title">Sign up to plan your next trip!</h3>
-              </registration-form>
-              <p class="login">
-                Already signed up? You can
-                <a href="./login">log in</a> instead.
-              </p>
-            </main>
+          <article class="register-body">
+            <tavern-header></tavern-header>
+            <registration-form api="/auth/register">
+              <h3 slot="title">Register For Your Traveler's Card!</h3>
+            </registration-form>
+            <p class="login">
+              Already signed up? You can
+              <a href="./login">log in</a> instead.
+            </p>
           </article>
         </mu-auth>
       </body> `,
