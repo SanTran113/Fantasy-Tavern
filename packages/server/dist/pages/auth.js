@@ -41,7 +41,7 @@ class LoginPage {
       scripts: [
         `
         import { define, Auth } from "@calpoly/mustang";
-        import { LoginForm } from "/scripts/login-form.js";
+        import { LoginForm } from "/public/scripts/login-form.js";
 
         define({
           "mu-auth": Auth.Provider,
@@ -117,7 +117,6 @@ class RegistrationPage {
             background-position: center;
             background-repeat: no-repeat;
             aspect-ratio: 3/2;
-            
           }
 
           .login {

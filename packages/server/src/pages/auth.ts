@@ -86,7 +86,6 @@ export class RegistrationPage {
             background-position: center;
             background-repeat: no-repeat;
             aspect-ratio: 3/2;
-            
           }
 
           .login {
