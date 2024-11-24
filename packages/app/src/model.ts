@@ -1,10 +1,7 @@
-import { Option } from "server/models";
+import { InventoryProfile, Option } from "server/models";
 
 export interface Model {
-    userid?: String
-    name?: string; 
-    userClass?: string;
-    inventory: Array<Option>; 
+    profile?: InventoryProfile
 }
 
 export const init: Model = {};

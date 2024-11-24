@@ -13,7 +13,7 @@ export class HomeViewElement extends LitElement {
             <a href="food.html">Food Menu</a>
             <a href="quests.html">Quest Board</a>
             <a href="goods.html">General Goods</a>
-            <a href="/app/inventoryProfiles/789">Inventory</a>
+            <a href="/app/inventoryProfiles/:id">Inventory</a>
           </section>
         </div>
       </article>
