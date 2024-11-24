@@ -9,7 +9,7 @@ export class LoginPage {
       scripts: [
         `
         import { define, Auth } from "@calpoly/mustang";
-        import { LoginForm } from "/scripts/login-form.js";
+        import { LoginForm } from "/public/scripts/login-form.js";
 
         define({
           "mu-auth": Auth.Provider,
@@ -19,6 +19,10 @@ export class LoginPage {
       ],
       styles: [
         css`
+          body {
+            background-color: var(--background-color);
+          }
+
           .login-body {
             background: url("/assets/form-bg.png");
             background-color: var(--background-color);
@@ -33,6 +37,7 @@ export class LoginPage {
             grid-template-rows: repeat(12, 1fr);
             gap: 10px;
             grid-auto-rows: minmax(100px, auto);
+            margin: auto;
           }
 
           .login {
@@ -78,6 +83,10 @@ export class RegistrationPage {
     return renderPage({
       styles: [
         css`
+          body {
+            background-color: var(--background-color);
+          }
+
           .register-body {
             background: url("/assets/form-bg.png");
             background-color: var(--background-color);
@@ -86,6 +95,18 @@ export class RegistrationPage {
             background-position: center;
             background-repeat: no-repeat;
             aspect-ratio: 3/2;
+
+            display: grid;
+            grid-template-columns: repeat(15, 1fr);
+            grid-template-rows: repeat(12, 1fr);
+            gap: 10px;
+            grid-auto-rows: minmax(100px, auto);
+            margin: auto;
+          }
+
+          .register {
+            grid-column: 1 / span 15;
+            grid-row: 2 / span 10;
           }
 
           .login {
@@ -104,7 +125,7 @@ export class RegistrationPage {
       scripts: [
         `
         import { define, Auth } from "@calpoly/mustang";
-        import { RegistrationForm } from "/scripts/registration-form.js";
+        import { RegistrationForm } from "/public/scripts/registration-form.js";
 
         define({
           "mu-auth": Auth.Provider,
@@ -116,7 +137,7 @@ export class RegistrationPage {
         <mu-auth provides="main:auth">
           <article class="register-body">
             <tavern-header></tavern-header>
-            <registration-form api="/auth/register">
+            <registration-form class="register" api="/auth/register">
               <h3 slot="title">Register For Your Traveler's Card!</h3>
             </registration-form>
             <p class="login">

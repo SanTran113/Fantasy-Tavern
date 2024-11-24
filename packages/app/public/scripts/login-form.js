@@ -46,6 +46,7 @@ export class LoginForm extends HTMLElement {
         grid-row: 3 / span 1;
         justify-self: end;
         margin: auto;
+        font-size: var(--form-text-size);
       }
       > input {
         grid-column: 3 / span 6;
@@ -65,6 +66,7 @@ export class LoginForm extends HTMLElement {
         grid-row: 5 / span 1;
         justify-self: end;
         margin: auto;
+        font-size: var(--form-text-size);
       }
       > input {
         grid-column: 3 / span 6;
@@ -73,10 +75,6 @@ export class LoginForm extends HTMLElement {
         padding: 2%;
         outline-color: var(--form-input-border-color);
       }
-    }
-
-    span {
-      font-size: var(--form-text-size);
     }
 
     input {
