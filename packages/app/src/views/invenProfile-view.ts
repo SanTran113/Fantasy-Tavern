@@ -196,31 +196,4 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
       ]);
   }
 
-  // _authObserver = new Observer<Auth.Model>(this, "main:auth");
-
-  // _user = new Auth.User();
-
-  // connectedCallback() {
-  //   super.connectedCallback();
-  //   this._authObserver.observe(({ user }) => {
-  //     if (user) {
-  //       this._user = user;
-  //     }
-  //     this.hydrate(this.src);
-  //   });
-  // }
-
-  // hydrate(url: string) {
-  //   fetch(url, { headers: Auth.headers(this._user) })
-  //     .then((res) => {
-  //       if (res.status !== 200) throw `Status: ${res.status}`;
-  //       return res.json();
-  //     })
-  //     .then(async (json) => {
-  //       this.inventoryProfiles = json as InventoryProfile;
-  //     })
-  //     .catch((error) => {
-  //       console.log(`Failed to render data ${url}:`, error);
-  //     });
-  // }
 }

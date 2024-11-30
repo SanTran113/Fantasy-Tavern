@@ -10,4 +10,7 @@ export type Msg =
         onSuccess?: () => void;
         onFailure?: (err: Error) => void;
       }
-    ];
+    ]
+  | ["options/select", { _id: string }]
+  | ["options/index", { _id: string }]
+    ;
