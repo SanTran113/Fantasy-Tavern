@@ -21,11 +21,13 @@ export default function update(
           if (onFailure) onFailure(error);
         });
       break;
-    case "profile/select":
-      selectProfile(message[1], user).then((profile) =>
-        apply((model) => ({ ...model, profile }))
-      );
-      break;
+      case "profile/select":
+        console.log("Selecting profile for:", message[1].userid);
+        selectProfile(message[1], user).then((profile) => {
+          console.log("Fetched Profile:", profile);
+          apply((model) => ({ ...model, profile }));
+        });
+        break;
   }
 }
 
@@ -36,7 +38,7 @@ function saveProfile(
   },
   user: Auth.User
 ) {
-  return fetch(`/api/travelers/${msg.userid}`, {
+  return fetch(`/api/inventoryProfiles/${msg.userid}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -60,6 +62,7 @@ function selectProfile(msg: { userid: string }, user: Auth.User) {
   })
     .then((response: Response) => {
       if (response.status === 200) {
+        console.log("Profile:", response);
         return response.json();
       }
       return undefined;

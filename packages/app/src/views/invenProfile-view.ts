@@ -143,9 +143,6 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
         text-align: center;
       }
 
-      .Invtitle {
-      }
-
       .userName {
         background-image: url("../assets/Inventory/userClassBg.png");
         grid-column: 4 / span 3;
