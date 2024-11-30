@@ -31,7 +31,7 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
     const { userid, name, userClass, inventory = [] } = this.profile || {};
 
     return html`
-      <div>
+      <article>
         <section class="view">
           <main class="mainInventory">
             <div class="profile">profile</div>
@@ -62,7 +62,7 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
             </input-array>
           </label>
         </mu-form>
-      </div>
+  </article>
     `;
   }
 
@@ -82,15 +82,20 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
 
       section.view {
         display: var(--display-view-none, grid);
-        /* … */
-      }
+      } */
       mu-form.edit {
         display: var(--display-editor-none, grid);
-        /* … */
+      }
+
+      article {
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background: var(--background-color);
       }
 
       .mainInventory {
-        background-image: url("../assets/Inventory/InventoryPageBg.png");
+        background-image: url("/assets/Inventory/InventoryPageBg.png");
         padding: 5%;
         background-size: 100% 100%;
         background-position: center;
@@ -107,14 +112,14 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
       .profile {
         grid-column: 4 / span 3;
         grid-row: 2 / span 3;
-        background-image: url("../assets/Inventory/profileTavern.png");
+        background-image: url("/assets/Inventory/profileTavern.png");
         background-size: 100% 100%;
         background-position: center;
         background-repeat: no-repeat;
       }
 
       .Inventory {
-        background-image: url("../assets/Inventory/inventorybg.png");
+        background-image: url("/assets/Inventory/inventorybg.png");
         grid-column: 8 / span 5;
         grid-row: 3 / span 4;
         background-size: 100% 100%;
@@ -130,7 +135,7 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
       }
 
       .InventoryTitle {
-        background-image: url("../assets/Inventory/InventoryTitle.png");
+        background-image: url("/assets/Inventory/InventoryTitle.png");
         grid-column: 8 / span 5;
         grid-row: 2 / span 1;
         background-size: 100% 100%;
@@ -144,7 +149,7 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
       }
 
       .userName {
-        background-image: url("../assets/Inventory/userClassBg.png");
+        background-image: url("/assets/Inventory/userClassBg.png");
         grid-column: 4 / span 3;
         grid-row: 5 / span 1;
         background-size: 100% 100%;
@@ -158,7 +163,7 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
       }
 
       .class {
-        background-image: url("../assets/Inventory/userClassBg.png");
+        background-image: url("/assets/Inventory/userClassBg.png");
         grid-column: 4 / span 3;
         grid-row: 6 / span 1;
         background-size: 100% 100%;
