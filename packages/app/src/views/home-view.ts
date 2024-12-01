@@ -1,8 +1,35 @@
 import { LitElement, html, css } from "lit";
+import { state } from "lit/decorators.js";
+import { Auth, Observer } from "@calpoly/mustang";
 import reset from "../styles/reset.css";
 
 export class HomeViewElement extends LitElement {
-  render() {
+
+  @state()
+  userid: string = "";
+
+  _authObserver = new Observer<Auth.Model>(this, "main:auth");
+
+connectedCallback() {
+  super.connectedCallback();
+
+  this._authObserver.observe(({ user }) => {
+    const username = user?.username || "anonymous";
+    console.log("username", username)
+    console.log("userid", this.userid)
+    if (username !== this.userid) {
+      this.userid = username;
+      const useridElement = this.shadowRoot?.getElementById("userid");
+      if (useridElement) {
+        useridElement.setAttribute("data-userid", "anonymous");
+      }
+    console.log("ele", useridElement)
+
+    }
+  });
+}
+
+  render() {    
     return html`
       <article class="bodyIndex">
         <div class="indexInformation">
@@ -13,7 +40,7 @@ export class HomeViewElement extends LitElement {
             <a href="food.html">Food Menu</a>
             <a href="quests.html">Quest Board</a>
             <a href="goods.html">General Goods</a>
-            <a href="/app/inventoryProfiles/:id">Inventory</a>
+            <a href="/app/inventoryProfiles/${this.userid}">Inventory</a>
           </section>
         </div>
       </article>

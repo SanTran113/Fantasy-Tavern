@@ -84,14 +84,14 @@ function selectProfile(msg: { userid: string }, user: Auth.User) {
       if (json) {
         const profile = json as InventoryProfile;
 
-        // Fetch inventory options if needed
-        const optionsPromises = profile.inventory.map((item) =>
-          fetch(`/api/options/${item._id}`, {
+        const optionsPromises = profile.inventory.map((_id) =>
+          fetch(`/api/options/${_id}`, {
             headers: Auth.headers(user),
           })
             .then((response) => {
+              console.log("Option ID", _id)
               if (response.status === 200) return response.json();
-              throw new Error(`Failed to fetch option ${item._id}`);
+              throw new Error(`Failed to fetch option ${_id}`);
             })
             .then((optionData) => optionData as Option)
         );
@@ -132,12 +132,12 @@ function indexOptions(_id: String) {
     })
     .then((json: unknown) => {
       if (json) {
-        const { data } = json as { data: any[] }; // Assume the response has a "data" field containing an array
-        return data.map((item: any) => ({
-          name: item.name,
-          price: item.price,
-          desc: item.desc,
-          img: item.img,
+        const { data } = json as { data: any[] };
+        return data.map((option: any) => ({
+          name: option.name,
+          price: option.price,
+          desc: option.desc,
+          img: option.img,
         })) as Option[];
       }
       return [];
