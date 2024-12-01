@@ -1,5 +1,5 @@
 import { define, Form, InputArray, View } from "@calpoly/mustang";
-import { css, html, RenderOptions } from "lit";
+import { css, html } from "lit";
 import { property, state } from "lit/decorators.js";
 import { InventoryProfile, Option } from "server/models";
 import { Msg } from "../messages";
@@ -98,6 +98,7 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
         background-position: center;
         background-repeat: no-repeat;
         background: var(--background-color);
+        font-family: var(--font-pixel)
       }
 
       .mainInventory {
