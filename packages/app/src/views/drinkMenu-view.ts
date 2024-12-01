@@ -30,22 +30,7 @@ export class DrinkMenuViewElement extends LitElement {
       </article>
     `;
   }
-
-  //   renderDrinks(drinkSections: DrinkSection) {
-  //     const { title, icon, optionMenu } = drinkSections;
-
-  //     return html`
-  //       <div>
-  //         <span slot="title">${title}</span>
-  //         <span slot="icon">
-  //           <svg class="icon">
-  //             <use xlink:href="icons/icons.svg#${icon}" />
-  //           </svg>
-  //         </span>
-  //         <span slot="option"> ${optionList} </span>
-  //       </div>
-  //     `;
-  //   }
+  
 
   renderDrinkOptions(options: Option) {
     const { name, price, desc } = options;

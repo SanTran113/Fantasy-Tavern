@@ -1,7 +1,7 @@
 import { define, Form, InputArray, View } from "@calpoly/mustang";
-import { css, html } from "lit";
+import { css, html, RenderOptions } from "lit";
 import { property, state } from "lit/decorators.js";
-import { InventoryProfile } from "server/models";
+import { InventoryProfile, Option } from "server/models";
 import { Msg } from "../messages";
 import { Model } from "../model";
 import reset from "../styles/reset.css";
@@ -23,12 +23,18 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
     return this.model.profile;
   }
 
-  // get src() {
-  //   return `/api/inventoryProfiles/${this.userid}`;
-  // }
-
   render() {
     const { userid, name, userClass, inventory = [] } = this.profile || {};
+
+    const renderOptions = (inventory: Option[]) => {
+      return html` ${inventory.map(
+        (s) =>
+          html` <div
+            style="--bgImg: url(data:image/png;base64,${s.img})"
+            class="imgInvenBg"
+          ></div>`
+      )}`;
+    };
 
     return html`
       <article>
@@ -39,7 +45,7 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
               <div class="Invtitle">Inventory</div>
             </div>
             <div class="Inventory">
-              <slot name="inventory">${inventory}</slot>
+              <slot name="inventory">${renderOptions(inventory)}</slot>
             </div>
             <div class="userName"><slot name="name">${name}</slot></div>
             <div class="class"><slot name="userClass">${userClass}</slot></div>
@@ -62,7 +68,7 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
             </input-array>
           </label>
         </mu-form>
-  </article>
+      </article>
     `;
   }
 
@@ -82,8 +88,8 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
 
       section.view {
         display: var(--display-view-none, grid);
-      } */
-      mu-form.edit {
+      }
+      */ mu-form.edit {
         display: var(--display-editor-none, grid);
       }
 
@@ -148,6 +154,21 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
         text-align: center;
       }
 
+      .imgInven {
+        width: 80%;
+      }
+
+      .imgInvenBg {
+        background: var(--bgImg), url("/assets/Inventory/itemInvBg.png");
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
       .userName {
         background-image: url("/assets/Inventory/userClassBg.png");
         grid-column: 4 / span 3;
@@ -190,10 +211,6 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
     super.attributeChangedCallback(name, old, value);
 
     if (name === "userid" && old !== value && value)
-      this.dispatchMessage([
-        "profile/select",
-        { userid: value }
-      ]);
+      this.dispatchMessage(["profile/select", { userid: value }]);
   }
-
 }
