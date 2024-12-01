@@ -5,76 +5,26 @@ import { InventoryProfile, Option } from "server/models";
 import { Msg } from "../messages";
 import { Model } from "../model";
 import reset from "../styles/reset.css";
-import { InventoryViewElement } from "./profileView";
-import { InventoryEditElement } from "./profileEdit";
 
-export class InventoryProfileViewElement extends View<Model, Msg> {
-  static uses = define({
-    "mu-form": Form.Element,
-    "input-array": InputArray.Element,
-    "profile-viewer": InventoryProfileViewElement,
-    "profile-editor": InventoryEditElement,
-  });
-
-  @property({ type: Boolean, reflect: true })
-  edit = false;
-
+export class InventoryViewElement extends View<Model, Msg> {
   @property()
   userid?: string;
 
-  @property()
-  mode = "view";
-
-  @state()
-  get profile(): InventoryProfile | undefined {
-    return this.model.profile;
-  }
-
-  constructor() {
-    super("tavern:model");
-  }
-
-  attributeChangedCallback(
-    name: string,
-    old: string | null,
-    value: string | null
-  ) {
-    super.attributeChangedCallback(name, old, value);
-
-    if (name === "userid" && old !== value && value)
-      this.dispatchMessage(["profile/select", { userid: value }]);
-  }
-
-
   render() {
-    const { userid, name, userClass, inventory = [] } = this.profile || {};
-
-    const renderOptions = (inventory: Option[]) => {
-      return html` ${inventory.map(
-        (s) =>
-          html` <div
-            style="--bgImg: url(data:image/png;base64,${s.img})"
-            class="imgInvenBg"
-          ></div>`
-      )}`;
-    };
-
-    return this.edit
-      ? html`
-          <profile-editor
-            .init=${this.profile}
-            @mu-form:submit=${(event: Form.SubmitEvent<InventoryProfile>) =>
-              this._handleSubmit(event)}
-          >
-          </profile-editor>
-        `
-      : html`
-          <profile-viewer>
-            <span slot="name">${name}</span>
-            <span slot="userClass">${userClass}</span>
-            <span slot="inventory">${renderOptions(inventory)}</span>
-          </profile-viewer>
-        `;
+    return html` <section class="view">
+      <main class="mainInventory">
+        <div class="profile">profile</div>
+        <div class="InventoryTitle">
+          <div class="Invtitle">Inventory</div>
+        </div>
+        <div class="Inventory">
+          <slot name="inventory"></slot>
+        </div>
+        <div class="userName"><slot name="name"></slot></div>
+        <div class="class"><slot name="userClass"></slot></div>
+        <button id="edit">Edit</button>
+      </main>
+    </section>`;
   }
 
   static styles = [
@@ -103,7 +53,7 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
         background-position: center;
         background-repeat: no-repeat;
         background: var(--background-color);
-        font-family: var(--font-pixel);
+        font-family: var(--font-pixel)
       }
 
       .mainInventory {
@@ -204,4 +154,6 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
       }
     `,
   ];
+
+
 }
