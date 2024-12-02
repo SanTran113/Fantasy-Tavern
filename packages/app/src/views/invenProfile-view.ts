@@ -12,7 +12,7 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
   static uses = define({
     "mu-form": Form.Element,
     "input-array": InputArray.Element,
-    "profile-viewer": InventoryProfileViewElement,
+    "profile-viewer": InventoryViewElement,
     "profile-editor": InventoryEditElement,
   });
 
@@ -22,7 +22,7 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
   @property()
   userid?: string;
 
-  @property()
+  @property({ type: String, reflect: true })
   mode = "view";
 
   @state()
@@ -45,10 +45,37 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
       this.dispatchMessage(["profile/select", { userid: value }]);
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+    this.addEventListener("edit-mode", () => {
+      console.log("Edit mode triggered");
+      this.edit = true;
+      this.mode = "edit";
+      console.log("Edit:", this.edit, "Mode:", this.mode);
+      this.requestUpdate();
+    });
+  }
+
+
+  _handleSubmit(event: Form.SubmitEvent<InventoryProfile>) {
+    this.dispatchMessage([
+      "profile/save",
+      {
+        userid: this.userid ?? "",
+        profile: event.detail,
+        onSuccess: () =>
+          History.dispatch(this, "history/navigate", {
+            href: `/app/inventoryProfiles/${this.userid}`,
+          }),
+        onFailure: (error: Error) => console.log("ERROR:", error),
+      },
+    ]);
+  }
+
 
   render() {
     const { userid, name, userClass, inventory = [] } = this.profile || {};
-
+    console.log(this.edit, this.mode)
     const renderOptions = (inventory: Option[]) => {
       return html` ${inventory.map(
         (s) =>

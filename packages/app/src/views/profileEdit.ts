@@ -1,12 +1,12 @@
 import { define, Form, InputArray, View } from "@calpoly/mustang";
-import { css, html } from "lit";
+import { css, html, LitElement } from "lit";
 import { property, state } from "lit/decorators.js";
 import { InventoryProfile, Option } from "server/models";
 import { Msg } from "../messages";
 import { Model } from "../model";
 import reset from "../styles/reset.css";
 
-export class InventoryEditElement extends View<Model, Msg> {
+export class InventoryEditElement extends LitElement {
   static uses = define({
     "mu-form": Form.Element,
     "input-array": InputArray.Element,

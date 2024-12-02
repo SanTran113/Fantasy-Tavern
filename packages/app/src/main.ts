@@ -7,6 +7,8 @@ import { TavernHeaderElement } from "./components/tavern-header";
 import { HomeViewElement } from "./views/home-view";
 import { InventoryProfileViewElement } from "./views/invenProfile-view";
 import { DrinkMenuViewElement } from "./views/drinkMenu-view";
+import { InventoryViewElement } from "./views/profileView";
+import { InventoryEditElement } from "./views/profileEdit";
 
 const routes: Switch.Route[] = [
   {
@@ -65,6 +67,8 @@ define({
   "tavern-app": AppElement,
   "tavern-header": TavernHeaderElement,
   "inven-profile-view": InventoryProfileViewElement,
+  "profile-viewer": InventoryViewElement,
+  "profile-editor": InventoryEditElement,
   "drink-menu-view": DrinkMenuViewElement,
   "home-view": HomeViewElement,
 });

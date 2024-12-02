@@ -1,14 +1,29 @@
 import { define, Form, History, InputArray, View } from "@calpoly/mustang";
-import { css, html } from "lit";
+import { css, html, LitElement } from "lit";
 import { property, state } from "lit/decorators.js";
 import { InventoryProfile, Option } from "server/models";
 import { Msg } from "../messages";
 import { Model } from "../model";
 import reset from "../styles/reset.css";
 
-export class InventoryViewElement extends View<Model, Msg> {
+export class InventoryViewElement extends LitElement {
   @property()
   userid?: string;
+
+  connectedCallback() {
+    super.connectedCallback();
+    const editButton = this.shadowRoot?.getElementById("edit");
+    if (editButton) {
+      editButton.addEventListener("click", () => {
+        console.log("Button clicked: dispatching 'edit-mode' event");
+        this.dispatchEvent(new CustomEvent("edit-mode", { bubbles: true, composed: true }));
+      });
+    } else {
+      console.log("Edit button not found");
+    }
+  }
+  
+  
 
   render() {
     return html` <section class="view">
