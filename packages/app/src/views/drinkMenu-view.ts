@@ -41,17 +41,9 @@ export class DrinkMenuViewElement extends View<Model, Msg> {
     super.attributeChangedCallback(name, old, value);
 
     if (name === "userid" && old !== value && value)
-      this.dispatchMessage(["profile/select", { userid: value }]);
+      this.dispatchMessage(["profile/addToInventory", { userid: value }]);
   }
 
-  _handleOptionClick() {
-    this.dispatchMessage([
-      "profile/addToInventory",
-      {
-        userid: this.userid ?? "",
-      },
-    ]);
-  }
 
   render() {
     console.log("rendering");
@@ -72,12 +64,25 @@ export class DrinkMenuViewElement extends View<Model, Msg> {
   renderDrinkOptions(options: Option) {
     const { name, price, desc } = options;
 
+    const _handleOptionClick = () => {
+      console.log("handle click click");
+      this.dispatchMessage([
+        "profile/addToInventory",
+        {
+          userid: this.userid ?? "",
+        },
+        
+      ]);
+    }
+
     return html`
       <div class="option">
-        <span slot="name" class="name" @click=${() => 
-          {console.log("click click")
-          this._handleOptionClick()}}
-          >${name}</span
+        <span
+          slot="name"
+          class="name"
+          @click=${_handleOptionClick}
+        >
+          ${name}</span
         >
         <span slot="price" class="price">${price}</span>
         <span slot="desc" class="desc">${desc}</span>

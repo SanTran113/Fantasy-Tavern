@@ -6,24 +6,22 @@ import { Msg } from "../messages";
 import { Model } from "../model";
 import reset from "../styles/reset.css";
 
-export class InventoryViewElement extends LitElement {
+export class InventoryViewElement extends View<Model, Msg> {
   @property()
   userid?: string;
 
-  connectedCallback() {
-    super.connectedCallback();
-    const editButton = this.shadowRoot?.getElementById("edit");
-    if (editButton) {
-      editButton.addEventListener("click", () => {
-        console.log("Button clicked: dispatching 'edit-mode' event");
-        this.dispatchEvent(new CustomEvent("edit-mode", { bubbles: true, composed: true }));
-      });
-    } else {
-      console.log("Edit button not found");
-    }
-  }
-  
-  
+  @property({ reflect: true })
+  mode = "view";
+
+  // _triggerEditMode() {
+  //   this.dispatchEvent(
+  //     new CustomEvent("edit-mode", { bubbles: true, composed: true })
+  //   );
+  // }
+
+//   <a href="/app/inventoryProfiles/test?edit=1"
+//   >Edit</a
+// >
 
   render() {
     return html` <section class="view">
@@ -37,7 +35,8 @@ export class InventoryViewElement extends LitElement {
         </div>
         <div class="userName"><slot name="name"></slot></div>
         <div class="class"><slot name="userClass"></slot></div>
-        <button id="edit">Edit</button>
+        <a href="test/edit" class="edit">Edit</a>
+        >
       </main>
     </section>`;
   }
@@ -52,6 +51,7 @@ export class InventoryViewElement extends LitElement {
       :host([mode="new"]) {
         --display-view-none: none;
       }
+
       :host([mode="view"]) {
         --display-editor-none: none;
       }
@@ -59,7 +59,7 @@ export class InventoryViewElement extends LitElement {
       section.view {
         display: var(--display-view-none, grid);
       }
-      */ mu-form.edit {
+      mu-form.edit {
         display: var(--display-editor-none, grid);
       }
 
@@ -68,7 +68,7 @@ export class InventoryViewElement extends LitElement {
         background-position: center;
         background-repeat: no-repeat;
         background: var(--background-color);
-        font-family: var(--font-pixel)
+        font-family: var(--font-pixel);
       }
 
       .mainInventory {
@@ -169,6 +169,4 @@ export class InventoryViewElement extends LitElement {
       }
     `,
   ];
-
-
 }

@@ -42,6 +42,11 @@ export default function update(
         }
       });
       break;
+    case "profile/addToInventory":
+      addToInventory(message[1], user).then((profile) => {
+        console.log("Updated Profile:", profile);
+        apply((model) => ({ ...model, profile }));
+      });
   }
 }
 
@@ -52,6 +57,7 @@ function saveProfile(
   },
   user: Auth.User
 ) {
+  console.log("message id", msg.userid)
   return fetch(`/api/inventoryProfiles/${msg.userid}`, {
     method: "PUT",
     headers: {

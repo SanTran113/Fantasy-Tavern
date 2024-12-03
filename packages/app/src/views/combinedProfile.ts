@@ -10,18 +10,8 @@ class InventoryViewElement extends LitElement {
   @property()
   userid?: string;
 
-  connectedCallback() {
-    super.connectedCallback();
-    const editButton = this.shadowRoot?.getElementById("edit");
-    if (editButton) {
-      editButton.addEventListener("click", () => {
-        console.log("Button clicked: dispatching 'edit-mode' event");
-        this.dispatchEvent(new CustomEvent("edit-mode", { bubbles: true, composed: true }));
-      });
-    } else {
-      console.log("Edit button not found");
-    }
-  }
+  @property({ reflect: true })
+  mode = "view";
 
   render() {
     return html` <section class="view">
@@ -35,7 +25,7 @@ class InventoryViewElement extends LitElement {
         </div>
         <div class="userName"><slot name="name"></slot></div>
         <div class="class"><slot name="userClass"></slot></div>
-        <button id="edit">Edit</button>
+        <button id="edit" @click=${() => (this.mode = "edit")}>Edit</button>
       </main>
     </section>`;
   }
@@ -46,10 +36,11 @@ class InventoryViewElement extends LitElement {
       :host {
         display: contents;
       }
-      /* :host([mode="edit"]),
+      :host([mode="edit"]),
       :host([mode="new"]) {
         --display-view-none: none;
       }
+      
       :host([mode="view"]) {
         --display-editor-none: none;
       }
@@ -59,7 +50,7 @@ class InventoryViewElement extends LitElement {
       }
       mu-form.edit {
         display: var(--display-editor-none, grid);
-      } */
+      }
 
       article {
         background-size: cover;
@@ -169,6 +160,7 @@ class InventoryViewElement extends LitElement {
   ];
 }
 
+
 class InventoryEditElement extends LitElement {
   static uses = define({
     "mu-form": Form.Element,
@@ -180,11 +172,6 @@ class InventoryEditElement extends LitElement {
 
   @property({ attribute: false })
   init?: InventoryProfile;
-
-  // @state()
-  // get profile(): InventoryProfile | undefined {
-  //   return this.model.profile;
-  // }
 
   render() {
     return html` <main class="page">
@@ -207,6 +194,7 @@ class InventoryEditElement extends LitElement {
     </main>`;
   }
 }
+
 
 export class InventoryProfileViewElement extends View<Model, Msg> {
   static uses = define({
@@ -245,22 +233,24 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
       this.dispatchMessage(["profile/select", { userid: value }]);
   }
 
-  connectedCallback() {
-    super.connectedCallback();
-    this.addEventListener("edit-mode", () => {
-      console.log("Edit mode triggered");
-      this.edit = true;
-      this.mode = "edit";
-      console.log("Edit:", this.edit, "Mode:", this.mode);
-      this.requestUpdate();
-    });
-  }
+  // connectedCallback() {
+  //   super.connectedCallback();
+  //   this.addEventListener("edit-mode", () => {
+  //     console.log("Edit mode triggered");
+  //     this.edit = true;
+  //     this.mode = "edit";
+  //     console.log("Edit:", this.edit, "Mode:", this.mode);
+  //     this.requestUpdate();
+  //   });
+  // }
+
 
   _handleSubmit(event: Form.SubmitEvent<InventoryProfile>) {
+    console.log("submit userid", this.userid)
     this.dispatchMessage([
       "profile/save",
       {
-        userid: this.userid ?? "",
+        userid: this.userid,
         profile: event.detail,
         onSuccess: () =>
           History.dispatch(this, "history/navigate", {
@@ -271,10 +261,11 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
     ]);
   }
 
+
   render() {
     const { userid, name, userClass, inventory = [] } = this.profile || {};
-    console.log(this.edit, this.mode);
-
+    console.log("Edit, Mode:", this.edit, this.mode)
+    
     const renderOptions = (inventory: Option[]) => {
       return html` ${inventory.map(
         (s) =>
@@ -288,7 +279,6 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
     return this.edit
       ? html`
           <profile-editor
-            userid=${userid}
             .init=${this.profile}
             @mu-form:submit=${(event: Form.SubmitEvent<InventoryProfile>) =>
               this._handleSubmit(event)}
@@ -296,7 +286,7 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
           </profile-editor>
         `
       : html`
-          <profile-viewer userid=${userid}>
+          <profile-viewer>
             <span slot="name">${name}</span>
             <span slot="userClass">${userClass}</span>
             <span slot="inventory">${renderOptions(inventory)}</span>
@@ -310,125 +300,20 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
       :host {
         display: contents;
       }
-      /* :host([mode="edit"]),
+      :host([mode="edit"]),
       :host([mode="new"]) {
         --display-view-none: none;
       }
       :host([mode="view"]) {
         --display-editor-none: none;
-      } */
+      }
 
-      /* section.view {
+      section.view {
         display: var(--display-view-none, grid);
       }
       mu-form.edit {
         display: var(--display-editor-none, grid);
-      } */
-
-      article {
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        background: var(--background-color);
-        font-family: var(--font-pixel);
       }
-
-      .mainInventory {
-        background-image: url("/assets/Inventory/InventoryPageBg.png");
-        padding: 5%;
-        background-size: 100% 100%;
-        background-position: center;
-        background-repeat: no-repeat;
-        aspect-ratio: 4/2;
-
-        display: grid;
-        grid-template-columns: repeat(15, 1fr);
-        grid-template-rows: repeat(7, 1fr);
-        gap: 10px;
-        grid-auto-rows: minmax(100px, auto);
-      }
-
-      .profile {
-        grid-column: 4 / span 3;
-        grid-row: 2 / span 3;
-        background-image: url("/assets/Inventory/profileTavern.png");
-        background-size: 100% 100%;
-        background-position: center;
-        background-repeat: no-repeat;
-      }
-
-      .Inventory {
-        background-image: url("/assets/Inventory/inventorybg.png");
-        grid-column: 8 / span 5;
-        grid-row: 3 / span 4;
-        background-size: 100% 100%;
-        background-position: center;
-        background-repeat: no-repeat;
-
-        padding: 5%;
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        grid-template-rows: repeat(3, 1fr);
-        gap: 3%;
-        grid-auto-rows: minmax(100px, auto);
-      }
-
-      .InventoryTitle {
-        background-image: url("/assets/Inventory/InventoryTitle.png");
-        grid-column: 8 / span 5;
-        grid-row: 2 / span 1;
-        background-size: 100% 100%;
-        background-position: center;
-        background-repeat: no-repeat;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        text-align: center;
-      }
-
-      .imgInven {
-        width: 80%;
-      }
-
-      .imgInvenBg {
-        background: var(--bgImg), url("/assets/Inventory/itemInvBg.png");
-        background-size: contain;
-        background-position: center;
-        background-repeat: no-repeat;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .userName {
-        background-image: url("/assets/Inventory/userClassBg.png");
-        grid-column: 4 / span 3;
-        grid-row: 5 / span 1;
-        background-size: 100% 100%;
-        background-position: center;
-        background-repeat: no-repeat;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        text-align: center;
-      }
-
-      .class {
-        background-image: url("/assets/Inventory/userClassBg.png");
-        grid-column: 4 / span 3;
-        grid-row: 6 / span 1;
-        background-size: 100% 100%;
-        background-position: center;
-        background-repeat: no-repeat;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        text-align: center;
-      }
-    `,
+          `,
   ];
 }

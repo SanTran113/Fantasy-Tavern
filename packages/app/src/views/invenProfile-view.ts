@@ -22,9 +22,6 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
   @property()
   userid?: string;
 
-  @property({ type: String, reflect: true })
-  mode = "view";
-
   @state()
   get profile(): InventoryProfile | undefined {
     return this.model.profile;
@@ -45,28 +42,31 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
       this.dispatchMessage(["profile/select", { userid: value }]);
   }
 
-  // connectedCallback() {
-  //   super.connectedCallback();
-  //   this.addEventListener("edit-mode", () => {
-  //     console.log("Edit mode triggered");
-  //     this.edit = true;
-  //     this.mode = "edit";
-  //     console.log("Edit:", this.edit, "Mode:", this.mode);
-  //     this.requestUpdate();
-  //   });
-  // }
+  connectedCallback() {
+    super.connectedCallback();
+    this.addEventListener("edit-mode", () => {
+      console.log("Edit mode triggered");
+      this.edit = true;
+      this.mode = "edit";
+      console.log("Edit:", this.edit, "Mode:", this.mode);
+      this.requestUpdate();
+    });
+  }
 
 
   _handleSubmit(event: Form.SubmitEvent<InventoryProfile>) {
     this.dispatchMessage([
       "profile/save",
       {
-        userid: this.userid ?? "",
+        userid: this.userid,
         profile: event.detail,
-        onSuccess: () =>
+        onSuccess: () =>{
+          console.log("Navigating")
+          console.log("submit userid", this.userid)
           History.dispatch(this, "history/navigate", {
             href: `/app/inventoryProfiles/${this.userid}`,
-          }),
+            // window.location.reload(),
+          })},
         onFailure: (error: Error) => console.log("ERROR:", error),
       },
     ]);
@@ -75,7 +75,7 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
 
   render() {
     const { userid, name, userClass, inventory = [] } = this.profile || {};
-    console.log(this.edit, this.mode)
+    console.log("Edit, Mode:", this.edit, this.mode)
     
     const renderOptions = (inventory: Option[]) => {
       return html` ${inventory.map(
@@ -115,6 +115,7 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
       :host([mode="new"]) {
         --display-view-none: none;
       }
+      
       :host([mode="view"]) {
         --display-editor-none: none;
       }
@@ -122,7 +123,7 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
       section.view {
         display: var(--display-view-none, grid);
       }
-      */ mu-form.edit {
+      mu-form.edit {
         display: var(--display-editor-none, grid);
       }
 

@@ -6,7 +6,7 @@ import { Msg } from "../messages";
 import { Model } from "../model";
 import reset from "../styles/reset.css";
 
-export class InventoryEditElement extends LitElement {
+export class InventoryEditElement extends View<Model, Msg> {
   static uses = define({
     "mu-form": Form.Element,
     "input-array": InputArray.Element,
@@ -15,17 +15,20 @@ export class InventoryEditElement extends LitElement {
   @property()
   userid?: string;
 
-  @property({ attribute: false })
-  init?: InventoryProfile;
+  // @property({ attribute: false })
+  // init?: InventoryProfile;
 
-  // @state()
-  // get profile(): InventoryProfile | undefined {
-  //   return this.model.profile;
-  // }
+  @property({ reflect: true })
+  mode = "edit";
+
+  @state()
+  get profile(): InventoryProfile | undefined {
+    return this.model.profile;
+  }
 
   render() {
-    return html` <main class="page">
-      <mu-form .init=${this.init}>
+    return html` <main class="edit">
+      <mu-form .init=${this.profile}>
         <label>
           <span>Name</span>
           <input name="name" />
@@ -44,4 +47,20 @@ export class InventoryEditElement extends LitElement {
     </main>`;
   }
 
+  static styles = [
+    reset.styles,
+    css`
+      :host {
+        display: contents;
+      }
+      :host([mode="edit"]),
+      :host([mode="new"]) {
+        --display-view-none: none;
+      }
+
+      :host([mode="view"]) {
+        --display-editor-none: none;
+      }
+    `,
+  ];
 }

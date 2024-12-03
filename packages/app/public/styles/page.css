@@ -2,6 +2,8 @@
 
 body {
   overflow: hidden;
+  background: var(--background-color);
+  font-family: var(--font-pixel);
 }
 
 /* Index Page CSS */
