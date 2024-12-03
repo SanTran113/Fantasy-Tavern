@@ -35,7 +35,7 @@ export default function update(
       });
       break;
     case "options/index":
-      indexOptions(message[1]._id).then((options: Option[] | undefined) => {
+      indexOptions().then((options: Option[] | undefined) => {
         if (options) {
           console.log("Indexed Options:", options);
           apply((model) => ({ ...model, optionsIndex: options }));
@@ -124,8 +124,8 @@ function selectOptions(msg: { _id: string }, user: Auth.User) {
     });
 }
 
-function indexOptions(_id: String) {
-  return fetch(`/api/options/${_id}`, {})
+function indexOptions() {
+  return fetch(`/api/options`, {})
     .then((response: Response) => {
       if (response.status !== 200) throw `Failed to load index of tours`;
       return response.json();
@@ -141,5 +141,41 @@ function indexOptions(_id: String) {
         })) as Option[];
       }
       return [];
+    });
+}
+
+function addToInventory(msg: { userid: string }, user: Auth.User) {
+  return fetch(`/api/inventoryProfiles/${msg.userid}/addToInventory`, {
+    headers: Auth.headers(user),
+  })
+    .then((response: Response) => {
+      if (response.status === 200) {
+        console.log("Profile updated:", response);
+        return response.json();
+      }
+      throw new Error("Failed to update profile");
+    })
+    .then(async (json: unknown) => {
+      if (json) {
+        const profile = json as InventoryProfile;
+
+        const optionsPromises = profile.inventory.map((_id) =>
+          fetch(`/api/options/${_id}`, {
+            headers: Auth.headers(user),
+          })
+            .then((response) => {
+              console.log("Option ID", _id)
+              if (response.status === 200) return response.json();
+              throw new Error(`Failed to fetch option ${_id}`);
+            })
+            .then((optionData) => optionData as Option)
+        );
+
+        const options = await Promise.all(optionsPromises);
+        profile.inventory = options; // Update inventory with full Option details
+
+        return profile;
+      }
+      return undefined;
     });
 }

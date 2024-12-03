@@ -50,10 +50,19 @@ router.post("/", (req, res) => {
 router.put("/:userid", (req, res) => {
   const { userid } = req.params;
   const editedInventoryProfile = req.body;
-  import_inventory_svc.default.update(userid, editedInventoryProfile).then((traveler) => res.json(traveler)).catch((err) => res.status(404).send(err));
+  import_inventory_svc.default.update(userid, editedInventoryProfile).then((adventurer) => res.json(adventurer)).catch((err) => res.status(404).send(err));
 });
 router.delete("/:userid", (req, res) => {
   const { userid } = req.params;
   import_inventory_svc.default.remove(userid).then(() => res.status(204).end()).catch((err) => res.status(404).send(err));
+});
+router.post("/:userid/addToInventory", (req, res) => {
+  const { userid } = req.params;
+  const option = req.body;
+  import_inventory_svc.default.get(userid).then((profile) => {
+    if (!profile) throw `User profile not found: ${userid}`;
+    profile.inventory.push(option);
+    return import_inventory_svc.default.update(userid, profile);
+  }).then((updatedProfile) => res.status(200).json(updatedProfile)).catch((err) => res.status(500).send(`Error adding drink: ${err}`));
 });
 var inventoryProfiles_default = router;

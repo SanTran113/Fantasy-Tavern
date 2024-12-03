@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import { InventoryProfile } from "../models/inventory";
-
+import { Option } from "models";
 import InventoryProfiles from "../services/inventory-svc";
 import { connect } from "mongoose";
 
@@ -35,7 +35,7 @@ router.put("/:userid", (req: Request, res: Response) => {
   const editedInventoryProfile = req.body;
 
   InventoryProfiles.update(userid, editedInventoryProfile)
-    .then((traveler: InventoryProfile) => res.json(traveler))
+    .then((adventurer: InventoryProfile) => res.json(adventurer))
     .catch((err) => res.status(404).send(err));
 });
 
@@ -45,6 +45,21 @@ router.delete("/:userid", (req: Request, res: Response) => {
   InventoryProfiles.remove(userid)
     .then(() => res.status(204).end())
     .catch((err) => res.status(404).send(err));
+});
+
+router.post("/:userid/addToInventory", (req: Request, res:Response) => {
+  const { userid } = req.params;
+  const option: Option = req.body;
+
+  InventoryProfiles.get(userid)
+  .then((profile: InventoryProfile) => {
+    if (!profile) throw `User profile not found: ${userid}`;
+    
+    profile.inventory.push(option);
+    return InventoryProfiles.update(userid, profile);
+  })
+  .then((updatedProfile) => res.status(200).json(updatedProfile))
+  .catch((err) => res.status(500).send(`Error adding drink: ${err}`));
 });
 
 export default router;

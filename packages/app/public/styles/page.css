@@ -1,5 +1,9 @@
 @import url("token.css");
 
+body {
+  overflow: hidden;
+}
+
 /* Index Page CSS */
 .bodyIndex {
   background-size: cover;

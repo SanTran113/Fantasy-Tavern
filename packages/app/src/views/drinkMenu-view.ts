@@ -1,15 +1,57 @@
-import { Auth, Observer } from "@calpoly/mustang";
-import { css, html, LitElement, RenderOptions } from "lit";
-import { state } from "lit/decorators.js";
+import {
+  define,
+  Form,
+  History,
+  InputArray,
+  View,
+  Auth,
+  Observer,
+} from "@calpoly/mustang";
+import { css, html } from "lit";
+import { property, state } from "lit/decorators.js";
+
 import { DrinkSection } from "../../../server/src/models/drinkSection";
 import { Option } from "../../../server/src/models/option";
+import { Msg } from "../messages";
+import { Model } from "../model";
 
-export class DrinkMenuViewElement extends LitElement {
+export class DrinkMenuViewElement extends View<Model, Msg> {
+  static uses = define({
+    "mu-form": Form.Element,
+    "input-array": InputArray.Element,
+  });
+
+  @property()
+  userid?: string;
+
   src = "/api/options";
 
   @state()
-  //   drinkMenu = new Array<DrinkSection>();
   options = new Array<Option>();
+
+  constructor() {
+    super("tavern:model");
+  }
+
+  attributeChangedCallback(
+    name: string,
+    old: string | null,
+    value: string | null
+  ) {
+    super.attributeChangedCallback(name, old, value);
+
+    if (name === "userid" && old !== value && value)
+      this.dispatchMessage(["profile/select", { userid: value }]);
+  }
+
+  _handleOptionClick() {
+    this.dispatchMessage([
+      "profile/addToInventory",
+      {
+        userid: this.userid ?? "",
+      },
+    ]);
+  }
 
   render() {
     console.log("rendering");
@@ -20,22 +62,23 @@ export class DrinkMenuViewElement extends LitElement {
         <mu-auth provides="main:auth">
           <main class="drinkMain">
             <h1 class="drink-title">Drink Menu</h1>
-            <div class="drinkMenu">
-                ${optionList}
-            </div>
+            <div class="drinkMenu">${optionList}</div>
           </main>
         </mu-auth>
       </article>
     `;
   }
-  
 
   renderDrinkOptions(options: Option) {
     const { name, price, desc } = options;
 
     return html`
       <div class="option">
-        <span slot="name" class="name">${name}</span>
+        <span slot="name" class="name" @click=${() => 
+          {console.log("click click")
+          this._handleOptionClick()}}
+          >${name}</span
+        >
         <span slot="price" class="price">${price}</span>
         <span slot="desc" class="desc">${desc}</span>
       </div>
@@ -120,7 +163,7 @@ export class DrinkMenuViewElement extends LitElement {
       max-height: 70%;
       grid-template-columns: repeat(auto-fit, minmax(50%, 5fr));
       grid-template-rows: repeat(auto-fit, minmax(20%, 11vh));
-      justify-content: center;    
+      justify-content: center;
       padding: 2% 5% 2% 5%;
     }
 
@@ -128,8 +171,7 @@ export class DrinkMenuViewElement extends LitElement {
       display: grid;
       grid-template-columns: 90% 10%;
       grid-template-rows: repeat(auto-fit, minmax(50%, 1fr));
-      justify-content: space-between;    
-
+      justify-content: space-between;
     }
 
     .name {
@@ -143,11 +185,8 @@ export class DrinkMenuViewElement extends LitElement {
 
     .desc {
       font-size: 1.5em;
-      color: var(--color-text-menu)
+      color: var(--color-text-menu);
     }
-
-
-
   `;
 
   _authObserver = new Observer<Auth.Model>(this, "main:auth");

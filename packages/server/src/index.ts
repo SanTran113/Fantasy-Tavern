@@ -100,5 +100,7 @@ app.get("/options/:_id", (req: Request, res: Response) => {
     const page = new RegistrationPage();
     res.set("Content-Type", "text/html").send(page.render());
   });
+
+  app.post('/api/')
   
 
