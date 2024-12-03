@@ -15,8 +15,8 @@ export class InventoryEditElement extends View<Model, Msg> {
   @property()
   userid?: string;
 
-  // @property({ attribute: false })
-  // init?: InventoryProfile;
+  @property({ attribute: false })
+  init?: InventoryProfile;
 
   @property({ reflect: true })
   mode = "edit";
@@ -27,8 +27,8 @@ export class InventoryEditElement extends View<Model, Msg> {
   }
 
   render() {
-    return html` <main class="edit">
-      <mu-form .init=${this.profile}>
+    return html` <main class="page">
+      <mu-form .init=${this.init}>
         <label>
           <span>Name</span>
           <input name="name" />

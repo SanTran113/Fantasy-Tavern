@@ -22,6 +22,9 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
   @property()
   userid?: string;
 
+  @property({ type: String, reflect: true })
+  mode = "view";
+
   @state()
   get profile(): InventoryProfile | undefined {
     return this.model.profile;
@@ -65,7 +68,6 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
           console.log("submit userid", this.userid)
           History.dispatch(this, "history/navigate", {
             href: `/app/inventoryProfiles/${this.userid}`,
-            // window.location.reload(),
           })},
         onFailure: (error: Error) => console.log("ERROR:", error),
       },
@@ -115,7 +117,6 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
       :host([mode="new"]) {
         --display-view-none: none;
       }
-      
       :host([mode="view"]) {
         --display-editor-none: none;
       }
@@ -126,111 +127,6 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
       mu-form.edit {
         display: var(--display-editor-none, grid);
       }
-
-      article {
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        background: var(--background-color);
-        font-family: var(--font-pixel);
-      }
-
-      .mainInventory {
-        background-image: url("/assets/Inventory/InventoryPageBg.png");
-        padding: 5%;
-        background-size: 100% 100%;
-        background-position: center;
-        background-repeat: no-repeat;
-        aspect-ratio: 4/2;
-
-        display: grid;
-        grid-template-columns: repeat(15, 1fr);
-        grid-template-rows: repeat(7, 1fr);
-        gap: 10px;
-        grid-auto-rows: minmax(100px, auto);
-      }
-
-      .profile {
-        grid-column: 4 / span 3;
-        grid-row: 2 / span 3;
-        background-image: url("/assets/Inventory/profileTavern.png");
-        background-size: 100% 100%;
-        background-position: center;
-        background-repeat: no-repeat;
-      }
-
-      .Inventory {
-        background-image: url("/assets/Inventory/inventorybg.png");
-        grid-column: 8 / span 5;
-        grid-row: 3 / span 4;
-        background-size: 100% 100%;
-        background-position: center;
-        background-repeat: no-repeat;
-
-        padding: 5%;
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        grid-template-rows: repeat(3, 1fr);
-        gap: 3%;
-        grid-auto-rows: minmax(100px, auto);
-      }
-
-      .InventoryTitle {
-        background-image: url("/assets/Inventory/InventoryTitle.png");
-        grid-column: 8 / span 5;
-        grid-row: 2 / span 1;
-        background-size: 100% 100%;
-        background-position: center;
-        background-repeat: no-repeat;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        text-align: center;
-      }
-
-      .imgInven {
-        width: 80%;
-      }
-
-      .imgInvenBg {
-        background: var(--bgImg), url("/assets/Inventory/itemInvBg.png");
-        background-size: contain;
-        background-position: center;
-        background-repeat: no-repeat;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .userName {
-        background-image: url("/assets/Inventory/userClassBg.png");
-        grid-column: 4 / span 3;
-        grid-row: 5 / span 1;
-        background-size: 100% 100%;
-        background-position: center;
-        background-repeat: no-repeat;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        text-align: center;
-      }
-
-      .class {
-        background-image: url("/assets/Inventory/userClassBg.png");
-        grid-column: 4 / span 3;
-        grid-row: 6 / span 1;
-        background-size: 100% 100%;
-        background-position: center;
-        background-repeat: no-repeat;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        text-align: center;
-      }
-    `,
+          `,
   ];
 }

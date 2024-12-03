@@ -13,17 +13,13 @@ export class InventoryViewElement extends View<Model, Msg> {
   @property({ reflect: true })
   mode = "view";
 
-  // _triggerEditMode() {
-  //   this.dispatchEvent(
-  //     new CustomEvent("edit-mode", { bubbles: true, composed: true })
-  //   );
-  // }
+  _triggerEditMode() {
+    this.dispatchEvent(new CustomEvent('edit-mode', { bubbles: true, composed: true }));
+  }
 
-//   <a href="/app/inventoryProfiles/test?edit=1"
-//   >Edit</a
-// >
 
   render() {
+
     return html` <section class="view">
       <main class="mainInventory">
         <div class="profile">profile</div>
@@ -35,8 +31,7 @@ export class InventoryViewElement extends View<Model, Msg> {
         </div>
         <div class="userName"><slot name="name"></slot></div>
         <div class="class"><slot name="userClass"></slot></div>
-        <a href="test/edit" class="edit">Edit</a>
-        >
+        <button id="edit" @click=${(this._triggerEditMode)}>Edit</button>
       </main>
     </section>`;
   }
@@ -51,7 +46,7 @@ export class InventoryViewElement extends View<Model, Msg> {
       :host([mode="new"]) {
         --display-view-none: none;
       }
-
+      
       :host([mode="view"]) {
         --display-editor-none: none;
       }

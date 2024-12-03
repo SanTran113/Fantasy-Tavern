@@ -25,12 +25,12 @@ const routes: Switch.Route[] = [
   {
     auth: "protected",
     path: "/app/inventoryProfiles/:id",
-    view: () => html` <profile-viewer></profile-viewer> `,
-  },
-  {
-    auth: "protected",
-    path: "/app/inventoryProfiles/:id/edit",
-    view: () => html` <profile-editor></profile-editor> `,
+    view: (params: Switch.Params, query?: URLSearchParams) => html`
+      <inven-profile-view
+        userid=${params.id}
+        mode=${query?.has("edit") ? "edit" : query?.has("new") ? "new" : "view"}
+      ></inven-profile-view>
+    `,
   },
   {
     path: "/app/drinkMenu",
