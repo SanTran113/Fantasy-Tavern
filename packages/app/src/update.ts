@@ -131,15 +131,16 @@ function selectOptions(msg: { _id: string }, user: Auth.User) {
 }
 
 function indexOptions() {
-  return fetch(`/api/options`, {})
+  return fetch(`/api/options`)
     .then((response: Response) => {
       if (response.status !== 200) throw `Failed to load index of tours`;
       return response.json();
     })
     .then((json: unknown) => {
+      console.log("Raw options JSON:", json);
       if (json) {
-        const { data } = json as { data: any[] };
-        return data.map((option: any) => ({
+        const { data } = json as { data: Option[] };
+        return data.map((option: Option) => ({
           name: option.name,
           price: option.price,
           desc: option.desc,

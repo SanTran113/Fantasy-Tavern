@@ -10,7 +10,6 @@ import {
 import { css, html } from "lit";
 import { property, state } from "lit/decorators.js";
 
-import { DrinkSection } from "../../../server/src/models/drinkSection";
 import { Option } from "../../../server/src/models/option";
 import { Msg } from "../messages";
 import { Model } from "../model";
@@ -24,14 +23,18 @@ export class DrinkMenuViewElement extends View<Model, Msg> {
   @property()
   userid?: string;
 
-  src = "/api/options";
-
   @state()
-  options = new Array<Option>();
+  get optionsIndex(): Option[] | undefined {
+    return this.model.optionsIndex;
+  }
 
   constructor() {
     super("tavern:model");
   }
+
+  // _authObserver = new Observer<Auth.Model>(this, "main:auth");
+
+  // _user = new Auth.User();
 
   attributeChangedCallback(
     name: string,
@@ -39,16 +42,34 @@ export class DrinkMenuViewElement extends View<Model, Msg> {
     value: string | null
   ) {
     super.attributeChangedCallback(name, old, value);
-
-    if (name === "userid" && old !== value && value)
-      this.dispatchMessage(["profile/addToInventory", { userid: value }]);
+    console.log("user", this.userid);
+    if (name === "userid" && old !== value && value) {
+      this.dispatchMessage(["options/index"]);
+      // this.dispatchMessage(["profile/addToInventory", { userid: value }]);
+    }
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+  }
+
+  _handleOptionClick = () => {
+    console.log("handle click click");
+    this.dispatchMessage([
+      "profile/addToInventory",
+      {
+        userid: this.userid ?? "",
+      },
+      
+    ]);
+  }
 
   render() {
+
     console.log("rendering");
-    // const drinkSections = this.drinkMenu.map(this.renderDrinks);
-    const optionList = this.options.map(this.renderDrinkOptions);
+    console.log("Options Index", this.optionsIndex)
+    const optionList = this.optionsIndex?.map(this.renderDrinkOptions) || [];
+    console.log("Options", optionList)
     return html`
       <article class="bodyDrink">
         <mu-auth provides="main:auth">
@@ -63,24 +84,14 @@ export class DrinkMenuViewElement extends View<Model, Msg> {
 
   renderDrinkOptions(options: Option) {
     const { name, price, desc } = options;
-
-    const _handleOptionClick = () => {
-      console.log("handle click click");
-      this.dispatchMessage([
-        "profile/addToInventory",
-        {
-          userid: this.userid ?? "",
-        },
-        
-      ]);
-    }
+    console.log("options", options)
 
     return html`
       <div class="option">
         <span
           slot="name"
           class="name"
-          @click=${_handleOptionClick}
+          @click=${this._handleOptionClick}
         >
           ${name}</span
         >
@@ -90,26 +101,6 @@ export class DrinkMenuViewElement extends View<Model, Msg> {
     `;
   }
 
-  //   maps backend data back into json
-  hydrate(url: string) {
-    fetch(url, {
-      headers: Auth.headers(this._user),
-    })
-      .then((res: Response) => {
-        if (res.status === 200) return res.json();
-        throw `Server responded with status ${res.status}`;
-      })
-      .then((json: unknown) => {
-        console.log("Raw API response: ", json);
-        if (Array.isArray(json)) {
-          this.options = json as Array<Option>;
-          console.log("Options loaded: ", this.options);
-        } else {
-          console.error("Unexpected response format: ", json);
-        }
-      })
-      .catch((err) => console.log("Failed to tour data:", err));
-  }
 
   static styles = css`
     :host {
@@ -194,18 +185,4 @@ export class DrinkMenuViewElement extends View<Model, Msg> {
     }
   `;
 
-  _authObserver = new Observer<Auth.Model>(this, "main:auth");
-
-  _user = new Auth.User();
-
-  connectedCallback() {
-    super.connectedCallback();
-    console.log("connectedCall");
-    this._authObserver.observe(({ user }) => {
-      if (user) {
-        this._user = user;
-      }
-      this.hydrate(this.src);
-    });
-  }
 }
