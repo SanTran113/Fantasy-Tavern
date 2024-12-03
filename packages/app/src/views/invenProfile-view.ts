@@ -30,6 +30,11 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
     return this.model.profile;
   }
 
+  @state()
+  get options(): Option | undefined {
+    return this.model.options;
+  }
+
   constructor() {
     super("tavern:model");
   }
@@ -56,38 +61,33 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
     });
   }
 
-
   _handleSubmit(event: Form.SubmitEvent<InventoryProfile>) {
     this.dispatchMessage([
       "profile/save",
       {
         userid: this.userid,
         profile: event.detail,
-        onSuccess: () =>{
-          console.log("Navigating")
-          console.log("submit userid", this.userid)
+        onSuccess: () => {
+          console.log("Navigating");
+          console.log("submit userid", this.userid);
           History.dispatch(this, "history/navigate", {
             href: `/app/inventoryProfiles/${this.userid}`,
-          })},
+          });
+        },
         onFailure: (error: Error) => console.log("ERROR:", error),
       },
     ]);
   }
 
-
   render() {
     const { userid, name, userClass, inventory = [] } = this.profile || {};
-    console.log("Edit, Mode:", this.edit, this.mode)
-    
-    const renderOptions = (inventory: Option[]) => {
-      return html` ${inventory.map(
-        (s) =>
-          html` <div
-            style="--bgImg: url(data:image/png;base64,${s.img})"
-            class="imgInvenBg"
-          ></div>`
-      )}`;
-    };
+    console.log("Edit, Mode:", this.edit, this.mode);
+
+    // const renderOptions = (inventory: Option[]) => {
+    //   console.log(inventory.length)
+    //   return html`
+
+    // };
 
     return this.edit
       ? html`
@@ -102,7 +102,16 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
           <profile-viewer>
             <span slot="name">${name}</span>
             <span slot="userClass">${userClass}</span>
-            <span slot="inventory">${renderOptions(inventory)}</span>
+            ${inventory.map(
+              (s) =>
+                html` <span
+                  slot="inventory"
+                  style="--bgImg: url(data:image/png;base64,${s.img})"
+                  class="imgInvenBg"
+                >
+                  ㅤ
+                </span>`
+            )}
           </profile-viewer>
         `;
   }
@@ -117,6 +126,7 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
       :host([mode="new"]) {
         --display-view-none: none;
       }
+
       :host([mode="view"]) {
         --display-editor-none: none;
       }
@@ -127,6 +137,111 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
       mu-form.edit {
         display: var(--display-editor-none, grid);
       }
-          `,
+
+      article {
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background: var(--background-color);
+        font-family: var(--font-pixel);
+      }
+
+      .mainInventory {
+        background-image: url("/assets/Inventory/InventoryPageBg.png");
+        padding: 5%;
+        background-size: 100% 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        aspect-ratio: 4/2;
+
+        display: grid;
+        grid-template-columns: repeat(15, 1fr);
+        grid-template-rows: repeat(7, 1fr);
+        gap: 10px;
+        grid-auto-rows: minmax(100px, auto);
+      }
+
+      .profile {
+        grid-column: 4 / span 3;
+        grid-row: 2 / span 3;
+        background-image: url("/assets/Inventory/profileTavern.png");
+        background-size: 100% 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+
+      .Inventory {
+        background-image: url("/assets/Inventory/inventorybg.png");
+        grid-column: 8 / span 5;
+        grid-row: 3 / span 4;
+        background-size: 100% 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+
+        padding: 5%;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        gap: 3%;
+        grid-auto-rows: minmax(100px, auto);
+      }
+
+      .InventoryTitle {
+        background-image: url("/assets/Inventory/InventoryTitle.png");
+        grid-column: 8 / span 5;
+        grid-row: 2 / span 1;
+        background-size: 100% 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-align: center;
+      }
+
+      .imgInven {
+        width: 80%;
+      }
+
+      .imgInvenBg {
+        background: var(--bgImg), url("/assets/Inventory/itemInvBg.png");
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .userName {
+        background-image: url("/assets/Inventory/userClassBg.png");
+        grid-column: 4 / span 3;
+        grid-row: 5 / span 1;
+        background-size: 100% 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-align: center;
+      }
+
+      .class {
+        background-image: url("/assets/Inventory/userClassBg.png");
+        grid-column: 4 / span 3;
+        grid-row: 6 / span 1;
+        background-size: 100% 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-align: center;
+      }
+    `,
   ];
 }
