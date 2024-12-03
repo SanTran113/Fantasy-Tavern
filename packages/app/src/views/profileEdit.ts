@@ -12,8 +12,8 @@ export class InventoryEditElement extends LitElement {
     "input-array": InputArray.Element,
   });
 
-  // @property()
-  // userid?: string;
+  @property()
+  userid?: string;
 
   @property({ attribute: false })
   init?: InventoryProfile;

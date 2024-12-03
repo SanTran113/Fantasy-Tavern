@@ -21,9 +21,7 @@ export class DrinkMenuViewElement extends LitElement {
           <main class="drinkMain">
             <h1 class="drink-title">Drink Menu</h1>
             <div class="drinkMenu">
-              <ul class="drinkOptions">
-                <span slot="option"> ${optionList} </span>
-              </ul>
+                ${optionList}
             </div>
           </main>
         </mu-auth>
@@ -36,10 +34,10 @@ export class DrinkMenuViewElement extends LitElement {
     const { name, price, desc } = options;
 
     return html`
-      <div>
-        <span slot="name">${name}</span>
-        <span slot="price">${price}</span>
-        <span slot="desc">${desc}</span>
+      <div class="option">
+        <span slot="name" class="name">${name}</span>
+        <span slot="price" class="price">${price}</span>
+        <span slot="desc" class="desc">${desc}</span>
       </div>
     `;
   }
@@ -117,29 +115,38 @@ export class DrinkMenuViewElement extends LitElement {
     }
 
     .drinkMenu {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-evenly;
+      display: grid;
+      max-width: screen;
+      max-height: 70%;
+      grid-template-columns: repeat(auto-fit, minmax(50%, 5fr));
+      grid-template-rows: repeat(auto-fit, minmax(20%, 11vh));
+      justify-content: center;    
+      padding: 2% 5% 2% 5%;
     }
 
-    .drink-title {
-      margin-bottom: 3%;
+    .option {
+      display: grid;
+      grid-template-columns: 90% 10%;
+      grid-template-rows: repeat(auto-fit, minmax(50%, 1fr));
+      justify-content: space-between;    
+
     }
 
-    ul {
-      list-style-type: none;
-      font-weight: bold;
-      font-size: calc(1vw + 1vh);
+    .name {
+      font-size: 2em;
+      font-weight: 600;
     }
 
-    p {
-      font-size: calc(0.75vw + 0.75vh);
-      margin-bottom: 5%;
+    .price {
+      font-size: 1.5em;
     }
 
-    div {
-      justify-content: space-between;
+    .desc {
+      font-size: 1.5em;
+      color: var(--color-text-menu)
     }
+
+
 
   `;
 

@@ -45,16 +45,16 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
       this.dispatchMessage(["profile/select", { userid: value }]);
   }
 
-  connectedCallback() {
-    super.connectedCallback();
-    this.addEventListener("edit-mode", () => {
-      console.log("Edit mode triggered");
-      this.edit = true;
-      this.mode = "edit";
-      console.log("Edit:", this.edit, "Mode:", this.mode);
-      this.requestUpdate();
-    });
-  }
+  // connectedCallback() {
+  //   super.connectedCallback();
+  //   this.addEventListener("edit-mode", () => {
+  //     console.log("Edit mode triggered");
+  //     this.edit = true;
+  //     this.mode = "edit";
+  //     console.log("Edit:", this.edit, "Mode:", this.mode);
+  //     this.requestUpdate();
+  //   });
+  // }
 
 
   _handleSubmit(event: Form.SubmitEvent<InventoryProfile>) {
@@ -76,6 +76,7 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
   render() {
     const { userid, name, userClass, inventory = [] } = this.profile || {};
     console.log(this.edit, this.mode)
+    
     const renderOptions = (inventory: Option[]) => {
       return html` ${inventory.map(
         (s) =>
