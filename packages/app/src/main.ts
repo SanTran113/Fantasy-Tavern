@@ -33,9 +33,11 @@ const routes: Switch.Route[] = [
     `,
   },
   {
-    path: "/app/drinkMenu",
-    view: () => html` <drink-menu-view></drink-menu-view> `,
-  },
+    path: "/app/drinkMenu/:id",
+    view: (params: Switch.Params) => html`
+      <drink-menu-view .userid="${params.id}"></drink-menu-view>
+    `,
+  }  
 ];
 
 class AppElement extends LitElement {

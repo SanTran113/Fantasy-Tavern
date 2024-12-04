@@ -11,6 +11,7 @@ import { css, html } from "lit";
 import { property, state } from "lit/decorators.js";
 
 import { Option } from "../../../server/src/models/option";
+import { InventoryProfile } from "server/models";
 import { Msg } from "../messages";
 import { Model } from "../model";
 
@@ -20,8 +21,13 @@ export class DrinkMenuViewElement extends View<Model, Msg> {
     "input-array": InputArray.Element,
   });
 
-  @property()
-  userid?: string;
+  @property({ type: String })
+  userid?: "";
+
+  @state()
+  get profile(): InventoryProfile | undefined {
+    return this.model.profile;
+  }
 
   @state()
   get optionsIndex(): Option[] | undefined {
@@ -42,11 +48,9 @@ export class DrinkMenuViewElement extends View<Model, Msg> {
     value: string | null
   ) {
     super.attributeChangedCallback(name, old, value);
-    console.log("user", this.userid);
-    if (name === "userid" && old !== value && value) {
-      this.dispatchMessage(["options/index"]);
-      // this.dispatchMessage(["profile/addToInventory", { userid: value }]);
-    }
+
+    if (name === "userid" && old !== value && value)
+      this.dispatchMessage(["profile/select", { userid: value }]);
   }
 
   connectedCallback() {
@@ -60,16 +64,15 @@ export class DrinkMenuViewElement extends View<Model, Msg> {
       {
         userid: this.userid ?? "",
       },
-      
     ]);
-  }
+  };
 
   render() {
-
+    console.log("userid", this.userid);
     console.log("rendering");
-    console.log("Options Index", this.optionsIndex)
+    console.log("Options Index", this.optionsIndex);
     const optionList = this.optionsIndex?.map(this.renderDrinkOptions) || [];
-    console.log("Options", optionList)
+    console.log("Options", optionList);
     return html`
       <article class="bodyDrink">
         <mu-auth provides="main:auth">
@@ -84,15 +87,11 @@ export class DrinkMenuViewElement extends View<Model, Msg> {
 
   renderDrinkOptions(options: Option) {
     const { name, price, desc } = options;
-    console.log("options", options)
+    console.log("options", options);
 
     return html`
       <div class="option">
-        <span
-          slot="name"
-          class="name"
-          @click=${this._handleOptionClick}
-        >
+        <span slot="name" class="name" @click=${this._handleOptionClick}>
           ${name}</span
         >
         <span slot="price" class="price">${price}</span>
@@ -101,13 +100,10 @@ export class DrinkMenuViewElement extends View<Model, Msg> {
     `;
   }
 
-
   static styles = css`
     :host {
       display: contents;
     }
-
-    @import url("token.css");
 
     .drinkOptions,
     .foodOptions,
@@ -141,16 +137,12 @@ export class DrinkMenuViewElement extends View<Model, Msg> {
     }
 
     .drinkMain {
-      background-image: url("../assets/drinkMenuBg.png");
+      background-image: url("/assets/drinkMenuBg.png");
       padding: 5%;
       background-size: 100% 100%;
       background-position: center;
       background-repeat: no-repeat;
       aspect-ratio: 3/2;
-    }
-
-    .drinkMain {
-      background-image: url("../assets/drinkMenuBg.png");
     }
 
     .drinkMenu {
@@ -184,5 +176,4 @@ export class DrinkMenuViewElement extends View<Model, Msg> {
       color: var(--color-text-menu);
     }
   `;
-
 }

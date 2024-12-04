@@ -82,6 +82,7 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
   render() {
     const { userid, name, userClass, inventory = [] } = this.profile || {};
     console.log("Edit, Mode:", this.edit, this.mode);
+    console.log("inventory user", this.userid)
 
     return this.edit
       ? html`

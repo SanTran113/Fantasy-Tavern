@@ -36,7 +36,7 @@ connectedCallback() {
           <h1 class="titleIndex">Fantasy Tavern</h1>
           <tavern-header></tavern-header>
           <section class="htmlIndex">
-            <a href="/app/drinkMenu">Drink Menu</a>
+            <a href="/app/drinkMenu/${this.userid}">Drink Menu</a>
             <a href="food.html">Food Menu</a>
             <a href="quests.html">Quest Board</a>
             <a href="goods.html">General Goods</a>

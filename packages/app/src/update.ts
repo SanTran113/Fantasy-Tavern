@@ -35,6 +35,7 @@ export default function update(
       });
       break;
     case "options/index":
+      console.log("Processing options/index message...");
       indexOptions().then((options: Option[] | undefined) => {
         if (options) {
           console.log("Indexed Options:", options);
@@ -42,6 +43,7 @@ export default function update(
         }
       });
       break;
+
     case "profile/addToInventory":
       addToInventory(message[1], user).then((profile) => {
         console.log("Updated Profile:", profile);
@@ -57,7 +59,7 @@ function saveProfile(
   },
   user: Auth.User
 ) {
-  console.log("message id", msg.userid)
+  console.log("message id", msg.userid);
   return fetch(`/api/inventoryProfiles/${msg.userid}`, {
     method: "PUT",
     headers: {
@@ -95,7 +97,7 @@ function selectProfile(msg: { userid: string }, user: Auth.User) {
             headers: Auth.headers(user),
           })
             .then((response) => {
-              console.log("Option ID", _id)
+              console.log("Option ID", _id);
               if (response.status === 200) return response.json();
               throw new Error(`Failed to fetch option ${_id}`);
             })
@@ -134,11 +136,12 @@ function indexOptions() {
   return fetch(`/api/options`)
     .then((response: Response) => {
       if (response.status !== 200) throw `Failed to load index of tours`;
+      console.log("Raw options JSON:", response);
       return response.json();
     })
     .then((json: unknown) => {
-      console.log("Raw options JSON:", json);
       if (json) {
+        console.log("Raw options JSON:", json);
         const { data } = json as { data: Option[] };
         return data.map((option: Option) => ({
           name: option.name,
@@ -171,7 +174,7 @@ function addToInventory(msg: { userid: string }, user: Auth.User) {
             headers: Auth.headers(user),
           })
             .then((response) => {
-              console.log("Option ID", _id)
+              console.log("Option ID", _id);
               if (response.status === 200) return response.json();
               throw new Error(`Failed to fetch option ${_id}`);
             })
