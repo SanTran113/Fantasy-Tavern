@@ -50,7 +50,7 @@ export class DrinkMenuViewElement extends View<Model, Msg> {
     super.attributeChangedCallback(name, old, value);
 
     if (name === "userid" && old !== value && value)
-      this.dispatchMessage(["profile/select", { userid: value }]);
+      this.dispatchMessage(["options/index"]);
   }
 
   connectedCallback() {
