@@ -14,6 +14,7 @@ import { Option } from "../../../server/src/models/option";
 import { InventoryProfile } from "server/models";
 import { Msg } from "../messages";
 import { Model } from "../model";
+import reset from "../styles/reset.css";
 
 export class DrinkMenuViewElement extends View<Model, Msg> {
   static uses = define({
@@ -30,8 +31,8 @@ export class DrinkMenuViewElement extends View<Model, Msg> {
   }
 
   @state()
-  get optionsIndex(): Option[] | undefined {
-    return this.model.optionsIndex;
+  get optionsIndex(): Option[] {
+    return this.model.optionsIndex || [];
   }
 
   constructor() {
@@ -71,14 +72,20 @@ export class DrinkMenuViewElement extends View<Model, Msg> {
     console.log("userid", this.userid);
     console.log("rendering");
     console.log("Options Index", this.optionsIndex);
-    const optionList = this.optionsIndex?.map(this.renderDrinkOptions) || [];
+    const optionList = this.optionsIndex.map(this.renderDrinkOptions);
     console.log("Options", optionList);
+
+    const firstFive = this.optionsIndex.slice(0, 5).map(this.renderDrinkOptions);
+    const restOfOptions = this.optionsIndex.slice(5).map(this.renderDrinkOptions);
+  
+
     return html`
       <article class="bodyDrink">
         <mu-auth provides="main:auth">
           <main class="drinkMain">
             <h1 class="drink-title">Drink Menu</h1>
-            <div class="drinkMenu">${optionList}</div>
+            <div class="firstFive">${firstFive}</div>
+            <div class="restOfOptions">${restOfOptions}</div>
           </main>
         </mu-auth>
       </article>
@@ -88,19 +95,19 @@ export class DrinkMenuViewElement extends View<Model, Msg> {
   renderDrinkOptions(options: Option) {
     const { name, price, desc } = options;
     console.log("options", options);
-
+    // @click=${this._handleOptionClick}
     return html`
       <div class="option">
-        <span slot="name" class="name" @click=${this._handleOptionClick}>
-          ${name}</span
-        >
+        <span slot="name" class="name"> ${name}</span>
         <span slot="price" class="price">${price}</span>
         <span slot="desc" class="desc">${desc}</span>
       </div>
     `;
   }
 
-  static styles = css`
+  static styles = [
+    reset.styles,
+    css`
     :host {
       display: contents;
     }
@@ -112,14 +119,6 @@ export class DrinkMenuViewElement extends View<Model, Msg> {
     }
 
     /* Drink Menu CSS */
-
-    h1 {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: calc(2.5vw + 1.5vh);
-    }
-
     svg.icon {
       display: inline;
       height: var(--icon-size);
@@ -138,22 +137,49 @@ export class DrinkMenuViewElement extends View<Model, Msg> {
 
     .drinkMain {
       background-image: url("/assets/drinkMenuBg.png");
-      padding: 5%;
+      padding: 3%;
       background-size: 100% 100%;
       background-position: center;
       background-repeat: no-repeat;
-      aspect-ratio: 3/2;
+      aspect-ratio: 9/5;
+
+      display: grid;
+      grid-template-columns: 48% 4% 48%;
+      grid-template-rows: 15% 75%;
     }
 
-    .drinkMenu {
+    h1 {
+      place-self: center;
+      font-size: calc(2.5vw + 1.5vh);
+      margin-bottom: .5em;
+      grid-template-columns: 95% 5%
+    }
+
+    .firstFive {
       display: grid;
       max-width: screen;
       max-height: 70%;
-      grid-template-columns: repeat(auto-fit, minmax(50%, 5fr));
       grid-template-rows: repeat(auto-fit, minmax(20%, 11vh));
       justify-content: center;
-      padding: 2% 5% 2% 5%;
+      grid-column: 1 / span 1;
+      grid-row: 2 / span 2;
+      padding: 5% 12% 1% 10%;
+      row-gap: 8%;
     }
+
+    .restOfOptions {
+      display: grid;
+      max-width: screen;
+      max-height: 70%;
+      grid-template-rows: repeat(auto-fit, minmax(20%, 11vh));
+      justify-content: center;
+      grid-column: 3 / span 1;
+      grid-row: 1 / span 3;
+      padding: 2% 3% 2% 15%;
+      row-gap: 8%;
+    }
+
+
 
     .option {
       display: grid;
@@ -175,5 +201,5 @@ export class DrinkMenuViewElement extends View<Model, Msg> {
       font-size: 1.5em;
       color: var(--color-text-menu);
     }
-  `;
+  `];
 }

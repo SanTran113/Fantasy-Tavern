@@ -140,18 +140,19 @@ function indexOptions() {
       return response.json();
     })
     .then((json: unknown) => {
-      if (json) {
-        console.log("Raw options JSON:", json);
-        const { data } = json as { data: Option[] };
-        return data.map((option: Option) => ({
+      if (Array.isArray(json)) {
+        console.log("Fetched data:", json);
+        return json.map((option: Option) => ({
           name: option.name,
           price: option.price,
           desc: option.desc,
           img: option.img,
         })) as Option[];
+      } else {
+        console.error("Unexpected JSON format:", json);
+        return []; // Fallback to an empty array if the data isn't in the expected format
       }
-      return [];
-    });
+    })
 }
 
 function addToInventory(msg: { userid: string }, user: Auth.User) {
