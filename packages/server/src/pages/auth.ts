@@ -9,7 +9,7 @@ export class LoginPage {
       scripts: [
         `
         import { define, Auth } from "@calpoly/mustang";
-        import { LoginForm } from "/public/scripts/login-form.js";
+        import { LoginForm } from "/scripts/login-form.js";
 
         define({
           "mu-auth": Auth.Provider,
