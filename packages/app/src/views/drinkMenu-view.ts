@@ -59,21 +59,21 @@ export class DrinkMenuViewElement extends View<Model, Msg> {
     this._handleOptionClick = this._handleOptionClick.bind(this);
   }
 
-  _handleOptionClick() {
+  _handleOptionClick(option: Option) {
     // console.log("Clicked Option:", option);
     // console.log("Current userid:", this.userid);
-    console.log("handle click click");
-    // this.dispatchMessage([
-    //   "profile/addToInventory",
-    //   {
-    //     userid: this.userid ?? "",
-    //     optionid: option._id,
-    //   },
-    // ]);
+    // console.log("handle click click");
+    this.dispatchMessage([
+      "profile/addToInventory",
+      {
+        userid: this.userid ?? "",
+        optionid: option._id,
+      },
+    ]);
   }
 
   render() {
-    console.log("userid renderOptions", this.userid);
+    // console.log("userid renderOptions", this.userid);
 
     const optionList = this.optionsIndex.map((option) =>
       this.renderDrinkOptions(option, this.userid!)
@@ -100,13 +100,13 @@ export class DrinkMenuViewElement extends View<Model, Msg> {
 
   renderDrinkOptions(options: Option, userid: string) {
     const { name, price, desc } = options;
-    console.log("userid renderOptions", this.userid);
+    // console.log("userid renderOptions", this.userid);
     return html`
       <div class="option">
         <span
           slot="name"
           class="name"
-          @click=${() => this._handleOptionClick()}
+          @click=${() => this._handleOptionClick(options)}
         >
           ${name}
         </span>

@@ -143,6 +143,7 @@ function indexOptions() {
       if (Array.isArray(json)) {
         console.log("Fetched data:", json);
         return json.map((option: Option) => ({
+          _id: option._id,
           name: option.name,
           price: option.price,
           desc: option.desc,
@@ -152,12 +153,17 @@ function indexOptions() {
         console.error("Unexpected JSON format:", json);
         return []; // Fallback to an empty array if the data isn't in the expected format
       }
-    })
+    });
 }
 
-function addToInventory(msg: { userid: string, optionid: string }, user: Auth.User) {
+function addToInventory(msg: { userid: string; optionid: string }, user: Auth.User) {
   return fetch(`/api/inventoryProfiles/${msg.userid}/addToInventory`, {
-    headers: Auth.headers(user),
+    method: "POST", // Use POST to match the server route
+    headers: {
+      "Content-Type": "application/json",
+      ...Auth.headers(user),
+    },
+    body: JSON.stringify({ _id: msg.optionid }), // Pass the option ID
   })
     .then((response: Response) => {
       if (response.status === 200) {
@@ -166,27 +172,8 @@ function addToInventory(msg: { userid: string, optionid: string }, user: Auth.Us
       }
       throw new Error("Failed to update profile");
     })
-    .then(async (json: unknown) => {
-      if (json) {
-        const profile = json as InventoryProfile;
-
-        const optionsPromises = profile.inventory.map((_id) =>
-          fetch(`/api/options/${_id}`, {
-            headers: Auth.headers(user),
-          })
-            .then((response) => {
-              console.log("Option ID", _id);
-              if (response.status === 200) return response.json();
-              throw new Error(`Failed to fetch option ${_id}`);
-            })
-            .then((optionData) => optionData as Option)
-        );
-
-        const options = await Promise.all(optionsPromises);
-        profile.inventory = options; // Update inventory with full Option details
-
-        return profile;
-      }
+    .then((json: unknown) => {
+      if (json) return json as InventoryProfile;
       return undefined;
     });
 }

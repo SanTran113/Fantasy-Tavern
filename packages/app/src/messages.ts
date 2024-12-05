@@ -1,4 +1,4 @@
-import { InventoryProfile } from "server/models";
+import { InventoryProfile, Option } from "server/models";
 
 export type Msg =
   | ["profile/select", { userid: string }]

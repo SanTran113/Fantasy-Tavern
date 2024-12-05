@@ -40,19 +40,6 @@ app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
 
-app.post('/:userid/addToInventory', (req: Request, res: Response) => {
-  const { userid } = req.params
-  const optionIDToAdd = req.body;
-  
-  const inventoryProfile = InventoryProfile.get(userid);
-  const option = Options.get(optionIDToAdd);
-
-  inventoryProfile.inventory.push(option);
-
-  InventoryProfile.update(userid, inventoryProfile);
-  res.status(200).json({ message: "Option added to inventory successfully", inventoryProfile });
-
-});
 
 app.get("/drink/:drinkMenuId", (req: Request, res: Response) => {
   const { drinkMenuId } = req.params;
