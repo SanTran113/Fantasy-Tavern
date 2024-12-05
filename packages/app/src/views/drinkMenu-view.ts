@@ -25,10 +25,10 @@ export class DrinkMenuViewElement extends View<Model, Msg> {
   @property({ type: String })
   userid?: "";
 
-  @state()
-  get profile(): InventoryProfile | undefined {
-    return this.model.profile;
-  }
+  // @state()
+  // get profile(): InventoryProfile | undefined {
+  //   return this.model.profile;
+  // }
 
   @state()
   get optionsIndex(): Option[] {
@@ -56,28 +56,34 @@ export class DrinkMenuViewElement extends View<Model, Msg> {
 
   connectedCallback() {
     super.connectedCallback();
+    this._handleOptionClick = this._handleOptionClick.bind(this);
   }
 
-  _handleOptionClick = () => {
+  _handleOptionClick() {
+    // console.log("Clicked Option:", option);
+    // console.log("Current userid:", this.userid);
     console.log("handle click click");
-    this.dispatchMessage([
-      "profile/addToInventory",
-      {
-        userid: this.userid ?? "",
-      },
-    ]);
-  };
+    // this.dispatchMessage([
+    //   "profile/addToInventory",
+    //   {
+    //     userid: this.userid ?? "",
+    //     optionid: option._id,
+    //   },
+    // ]);
+  }
 
   render() {
-    console.log("userid", this.userid);
-    console.log("rendering");
-    console.log("Options Index", this.optionsIndex);
-    const optionList = this.optionsIndex.map(this.renderDrinkOptions);
-    console.log("Options", optionList);
+    console.log("userid renderOptions", this.userid);
 
-    const firstFive = this.optionsIndex.slice(0, 5).map(this.renderDrinkOptions);
-    const restOfOptions = this.optionsIndex.slice(5).map(this.renderDrinkOptions);
-  
+    const optionList = this.optionsIndex.map((option) =>
+      this.renderDrinkOptions(option, this.userid!)
+    );
+    const firstFive = this.optionsIndex
+      .slice(0, 5)
+      .map((option) => this.renderDrinkOptions(option, this.userid!));
+    const restOfOptions = this.optionsIndex
+      .slice(5)
+      .map((option) => this.renderDrinkOptions(option, this.userid!));
 
     return html`
       <article class="bodyDrink">
@@ -92,13 +98,18 @@ export class DrinkMenuViewElement extends View<Model, Msg> {
     `;
   }
 
-  renderDrinkOptions(options: Option) {
+  renderDrinkOptions(options: Option, userid: string) {
     const { name, price, desc } = options;
-    console.log("options", options);
-    // @click=${this._handleOptionClick}
+    console.log("userid renderOptions", this.userid);
     return html`
       <div class="option">
-        <span slot="name" class="name"> ${name}</span>
+        <span
+          slot="name"
+          class="name"
+          @click=${() => this._handleOptionClick()}
+        >
+          ${name}
+        </span>
         <span slot="price" class="price">${price}</span>
         <span slot="desc" class="desc">${desc}</span>
       </div>
@@ -108,98 +119,97 @@ export class DrinkMenuViewElement extends View<Model, Msg> {
   static styles = [
     reset.styles,
     css`
-    :host {
-      display: contents;
-    }
+      :host {
+        display: contents;
+      }
 
-    .drinkOptions,
-    .foodOptions,
-    .goodsOptions {
-      color: var(--color-text-menu);
-    }
+      .drinkOptions,
+      .foodOptions,
+      .goodsOptions {
+        color: var(--color-text-menu);
+      }
 
-    /* Drink Menu CSS */
-    svg.icon {
-      display: inline;
-      height: var(--icon-size);
-      width: var(--icon-size);
-      vertical-align: calc(0.5em - 0.65 * var(--icon-size));
-    }
+      /* Drink Menu CSS */
+      svg.icon {
+        display: inline;
+        height: var(--icon-size);
+        width: var(--icon-size);
+        vertical-align: calc(0.5em - 0.65 * var(--icon-size));
+      }
 
-    article {
-      background-color: var(--background-color);
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      overflow: hidden;
-      font-family: var(--font-pixel);
-    }
+      article {
+        background-color: var(--background-color);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        overflow: hidden;
+        font-family: var(--font-pixel);
+      }
 
-    .drinkMain {
-      background-image: url("/assets/drinkMenuBg.png");
-      padding: 3%;
-      background-size: 100% 100%;
-      background-position: center;
-      background-repeat: no-repeat;
-      aspect-ratio: 9/5;
+      .drinkMain {
+        background-image: url("/assets/drinkMenuBg.png");
+        padding: 3%;
+        background-size: 100% 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        aspect-ratio: 9/5;
 
-      display: grid;
-      grid-template-columns: 48% 4% 48%;
-      grid-template-rows: 15% 75%;
-    }
+        display: grid;
+        grid-template-columns: 48% 4% 48%;
+        grid-template-rows: 15% 75%;
+      }
 
-    h1 {
-      place-self: center;
-      font-size: calc(2.5vw + 1.5vh);
-      margin-bottom: .5em;
-      grid-template-columns: 95% 5%
-    }
+      h1 {
+        place-self: center;
+        font-size: calc(2.5vw + 1.5vh);
+        /* margin-bottom: .5em; */
+        grid-template-columns: 95% 5%;
+      }
 
-    .firstFive {
-      display: grid;
-      max-width: screen;
-      max-height: 70%;
-      grid-template-rows: repeat(auto-fit, minmax(20%, 11vh));
-      justify-content: center;
-      grid-column: 1 / span 1;
-      grid-row: 2 / span 2;
-      padding: 5% 12% 1% 10%;
-      row-gap: 8%;
-    }
+      .firstFive {
+        display: grid;
+        max-width: screen;
+        max-height: 70%;
+        grid-template-rows: repeat(auto-fit, minmax(20%, 11vh));
+        justify-content: center;
+        grid-column: 1 / span 1;
+        grid-row: 2 / span 2;
+        padding: 5% 12% 1% 10%;
+        row-gap: 8%;
+      }
 
-    .restOfOptions {
-      display: grid;
-      max-width: screen;
-      max-height: 70%;
-      grid-template-rows: repeat(auto-fit, minmax(20%, 11vh));
-      justify-content: center;
-      grid-column: 3 / span 1;
-      grid-row: 1 / span 3;
-      padding: 2% 3% 2% 15%;
-      row-gap: 8%;
-    }
+      .restOfOptions {
+        display: grid;
+        max-width: screen;
+        max-height: 70%;
+        grid-template-rows: repeat(auto-fit, minmax(20%, 11vh));
+        justify-content: center;
+        grid-column: 3 / span 1;
+        grid-row: 1 / span 3;
+        padding: 2% 3% 2% 15%;
+        row-gap: 8%;
+      }
 
+      .option {
+        display: grid;
+        grid-template-columns: 90% 10%;
+        grid-template-rows: repeat(auto-fit, minmax(50%, 1fr));
+        justify-content: space-between;
+      }
 
+      .name {
+        font-size: 2em;
+        font-weight: 600;
+      }
 
-    .option {
-      display: grid;
-      grid-template-columns: 90% 10%;
-      grid-template-rows: repeat(auto-fit, minmax(50%, 1fr));
-      justify-content: space-between;
-    }
+      .price {
+        font-size: 1.5em;
+      }
 
-    .name {
-      font-size: 2em;
-      font-weight: 600;
-    }
-
-    .price {
-      font-size: 1.5em;
-    }
-
-    .desc {
-      font-size: 1.5em;
-      color: var(--color-text-menu);
-    }
-  `];
+      .desc {
+        font-size: 1.5em;
+        color: var(--color-text-menu);
+      }
+    `,
+  ];
 }

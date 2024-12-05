@@ -13,5 +13,5 @@ export type Msg =
     ]
   | ["options/select", { _id: string }]
   | ["options/index"]
-  | ["profile/addToInventory", { userid: string }]
+  | ["profile/addToInventory", { userid: string; optionid: string }]
     ;

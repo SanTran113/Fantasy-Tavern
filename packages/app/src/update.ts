@@ -36,7 +36,7 @@ export default function update(
       break;
     case "options/index":
       console.log("Processing options/index message...");
-      indexOptions().then((options: Option[] | undefined) => {
+      indexOptions().then((options: Option[] | []) => {
         if (options) {
           console.log("Indexed Options:", options);
           apply((model) => ({ ...model, optionsIndex: options }));
@@ -155,7 +155,7 @@ function indexOptions() {
     })
 }
 
-function addToInventory(msg: { userid: string }, user: Auth.User) {
+function addToInventory(msg: { userid: string, optionid: string }, user: Auth.User) {
   return fetch(`/api/inventoryProfiles/${msg.userid}/addToInventory`, {
     headers: Auth.headers(user),
   })

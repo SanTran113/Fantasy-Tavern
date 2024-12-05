@@ -55,7 +55,7 @@ router.post("/:userid/addToInventory", (req: Request, res:Response) => {
   .then((profile: InventoryProfile) => {
     if (!profile) throw `User profile not found: ${userid}`;
     
-    profile.inventory.push(option);
+    profile.inventory.push(option._id);
     return InventoryProfiles.update(userid, profile);
   })
   .then((updatedProfile) => res.status(200).json(updatedProfile))
