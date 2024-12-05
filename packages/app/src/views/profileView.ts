@@ -126,7 +126,7 @@ export class InventoryViewElement extends View<Model, Msg> {
       }
 
       .InventoryTitle {
-        background-image: url("/assets/Inventory/InventoryTitle.png");
+        background-image: url("/assets/Inventory/userClassBg.png");
         grid-column: 8 / span 5;
         grid-row: 2 / span 1;
         background-size: 100% 100%;
@@ -137,6 +137,7 @@ export class InventoryViewElement extends View<Model, Msg> {
         justify-content: center;
         color: white;
         text-align: center;
+        font-size: 1.5vw;
       }
 
       .imgInven {
@@ -166,6 +167,7 @@ export class InventoryViewElement extends View<Model, Msg> {
         justify-content: center;
         color: white;
         text-align: center;
+        font-size: 1.5vw;
       }
 
       .class {
@@ -180,6 +182,7 @@ export class InventoryViewElement extends View<Model, Msg> {
         justify-content: center;
         color: white;
         text-align: center;
+        font-size: 1.5vw;
       }
     `,
   ];

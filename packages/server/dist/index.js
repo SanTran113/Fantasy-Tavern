@@ -89,4 +89,3 @@ app.get("/register", (req, res) => {
   const page = new import_auth.RegistrationPage();
   res.set("Content-Type", "text/html").send(page.render());
 });
-app.post("/api/");

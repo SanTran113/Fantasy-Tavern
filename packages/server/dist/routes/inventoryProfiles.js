@@ -61,7 +61,7 @@ router.post("/:userid/addToInventory", (req, res) => {
   const option = req.body;
   import_inventory_svc.default.get(userid).then((profile) => {
     if (!profile) throw `User profile not found: ${userid}`;
-    profile.inventory.push(option);
+    profile.inventory.push(option._id);
     return import_inventory_svc.default.update(userid, profile);
   }).then((updatedProfile) => res.status(200).json(updatedProfile)).catch((err) => res.status(500).send(`Error adding drink: ${err}`));
 });
