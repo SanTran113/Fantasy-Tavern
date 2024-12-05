@@ -72,6 +72,16 @@ export class DrinkMenuViewElement extends View<Model, Msg> {
     ]);
   }
 
+  openPopup() {
+    console.log("open popup")
+    const popup = this.shadowRoot?.getElementById("popup");
+    console.log("popup", popup)
+    popup?.classList.add("open-popup");
+    setTimeout(() => {
+      popup?.classList.remove("open-popup");
+    }, 1000);
+  }
+
   render() {
     // console.log("userid renderOptions", this.userid);
 
@@ -92,6 +102,9 @@ export class DrinkMenuViewElement extends View<Model, Msg> {
             <h1 class="drink-title">Drink Menu</h1>
             <div class="firstFive">${firstFive}</div>
             <div class="restOfOptions">${restOfOptions}</div>
+            <div class="popup" id="popup">
+              <p>Added To Inventory!</p>
+            </div>
           </main>
         </mu-auth>
       </article>
@@ -103,13 +116,14 @@ export class DrinkMenuViewElement extends View<Model, Msg> {
     // console.log("userid renderOptions", this.userid);
     return html`
       <div class="option">
-        <span
+        <a
+          href="#"
           slot="name"
           class="name"
-          @click=${() => this._handleOptionClick(options)}
-        >
+          @click=${() => { this._handleOptionClick(options); this.openPopup(); }}
+          >
           ${name}
-        </span>
+        </a>
         <span slot="price" class="price">${price}</span>
         <span slot="desc" class="desc">${desc}</span>
       </div>
@@ -166,6 +180,21 @@ export class DrinkMenuViewElement extends View<Model, Msg> {
         grid-template-columns: 95% 5%;
       }
 
+      .popup {
+        visibility: hidden;
+        grid-column: 3 / span 1;
+        grid-row: 3 / span 1;
+        place-self: center;
+        font-size: 1.75em;
+        transform: scale(0.1);
+        transition: all 0.4s ease-in-out;
+      }
+
+      .open-popup {
+        visibility: visible;
+        transform: scale(1);
+      }
+
       .firstFive {
         display: grid;
         max-width: screen;
@@ -200,6 +229,8 @@ export class DrinkMenuViewElement extends View<Model, Msg> {
       .name {
         font-size: 2em;
         font-weight: 600;
+        color: black;
+        text-decoration: none;
       }
 
       .price {

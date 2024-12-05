@@ -22,7 +22,7 @@ export class LoginForm extends HTMLElement {
       </label>
       <img src="/assets/submit-x.png" />
       <slot name="submit">
-        <button type="submit">Sign In</button>
+        <button  type="submit">Sign In</button>
       </slot>
       <hr />
     </form>
@@ -120,8 +120,15 @@ export class LoginForm extends HTMLElement {
       border: 0px solid;
       font-size: 30px;
       font-family: var(--font-pixel);
+
     }
+
+    
+  button:hover {
+    background-color: var(--form-button-hover-color);
+  }
   `;
+
 
   get form() {
     return this.shadowRoot.querySelector("form");
