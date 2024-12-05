@@ -1,7 +1,6 @@
-import { define, Form, History, InputArray, View } from "@calpoly/mustang";
-import { css, html, LitElement } from "lit";
-import { property, state } from "lit/decorators.js";
-import { InventoryProfile, Option } from "server/models";
+import { View } from "@calpoly/mustang";
+import { css, html } from "lit";
+import { property } from "lit/decorators.js";
 import { Msg } from "../messages";
 import { Model } from "../model";
 import reset from "../styles/reset.css";

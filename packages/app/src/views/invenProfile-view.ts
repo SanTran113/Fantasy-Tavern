@@ -80,7 +80,7 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
   }
 
   render() {
-    const { userid, name, userClass, inventory = [] } = this.profile || {};
+    const { name, userClass, inventory = [] } = this.profile || {};
     console.log("Edit, Mode:", this.edit, this.mode);
 
     return this.edit

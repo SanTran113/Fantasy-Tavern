@@ -1,17 +1,13 @@
 import {
   define,
   Form,
-  History,
   InputArray,
-  View,
-  Auth,
-  Observer,
+  View
 } from "@calpoly/mustang";
 import { css, html } from "lit";
 import { property, state } from "lit/decorators.js";
 
 import { Option } from "../../../server/src/models/option";
-import { InventoryProfile } from "server/models";
 import { Msg } from "../messages";
 import { Model } from "../model";
 import reset from "../styles/reset.css";
@@ -84,10 +80,6 @@ export class DrinkMenuViewElement extends View<Model, Msg> {
 
   render() {
     // console.log("userid renderOptions", this.userid);
-
-    const optionList = this.optionsIndex.map((option) =>
-      this.renderDrinkOptions(option, this.userid!)
-    );
     const firstFive = this.optionsIndex
       .slice(0, 5)
       .map((option) => this.renderDrinkOptions(option, this.userid!));
