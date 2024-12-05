@@ -14,15 +14,17 @@ export class InventoryViewElement extends View<Model, Msg> {
   mode = "view";
 
   _triggerEditMode() {
-    this.dispatchEvent(new CustomEvent('edit-mode', { bubbles: true, composed: true }));
+    this.dispatchEvent(
+      new CustomEvent("edit-mode", { bubbles: true, composed: true })
+    );
   }
 
-
   render() {
-
     return html` <section class="view">
       <main class="mainInventory">
-        <div class="profile">profile</div>
+        <div class="profile">
+          <div class="characterSheet"></div>
+        </div>
         <div class="InventoryTitle">
           <div class="Invtitle">Inventory</div>
         </div>
@@ -31,7 +33,7 @@ export class InventoryViewElement extends View<Model, Msg> {
         </div>
         <div class="userName"><slot name="name"></slot></div>
         <div class="class"><slot name="userClass"></slot></div>
-        <button id="edit" @click=${(this._triggerEditMode)}>Edit</button>
+        <button id="edit" @click=${this._triggerEditMode}>Edit</button>
       </main>
     </section>`;
   }
@@ -46,7 +48,7 @@ export class InventoryViewElement extends View<Model, Msg> {
       :host([mode="new"]) {
         --display-view-none: none;
       }
-      
+
       :host([mode="view"]) {
         --display-editor-none: none;
       }
@@ -88,6 +90,23 @@ export class InventoryViewElement extends View<Model, Msg> {
         background-size: 100% 100%;
         background-position: center;
         background-repeat: no-repeat;
+      }
+
+      .characterSheet {
+        width: 215px;
+        height: 300px;
+        /* width: 100%;
+        height: 100%; */
+        background-image: url("/assets/sleepycat.png");
+        animation: moveCharacterSheet 2s steps(12) infinite;
+        display: flex;
+        /* background: center; */
+        align-self: flex-end;
+}
+
+      @keyframes moveCharacterSheet {
+        0% {background-position: 0% 0%}
+        100% {background-position: 100% 0%}
       }
 
       .Inventory {
