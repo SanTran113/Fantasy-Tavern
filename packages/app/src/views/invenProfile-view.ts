@@ -65,7 +65,7 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
     this.dispatchMessage([
       "profile/save",
       {
-        userid: this.userid,
+        userid: this.userid ?? "",
         profile: event.detail,
         onSuccess: () => {
           console.log("Navigating");
