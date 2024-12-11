@@ -98,13 +98,16 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
             <span slot="userClass">${userClass}</span>
             ${inventory.map(
               (s) =>
-                html` <span
-                  slot="inventory"
-                  style="--bgImg: url(data:image/png;base64,${s.img})"
-                  class="imgInvenBg"
-                >
-                  ㅤ
-                </span>`
+                html`
+                  <span slot="inventory" class="imgInvenBg">
+                    <div
+                      class="imgInven"
+                      style="--bgImg: url(data:image/png;base64,${s.img})"
+                    >
+                      ㅤ
+                    </div>
+                  </span>
+                `
             )}
           </profile-viewer>
         `;
@@ -195,18 +198,19 @@ export class InventoryProfileViewElement extends View<Model, Msg> {
       }
 
       .imgInven {
-        width: 80%;
+        background: var(--bgImg);
+        background-size: 60%;
+        background-repeat: no-repeat;
+        /* background-attachment: fixed; */
+        background-position: center center;
+        font-size: 7.5vh;
       }
 
       .imgInvenBg {
-        background: var(--bgImg), url("/assets/Inventory/itemInvBg.png");
-        background-size: contain;
+        background: url("/assets/Inventory/itemInvBg.png");
+        background-size: 100% 100%;
         background-position: center;
         background-repeat: no-repeat;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
       }
 
       .userName {

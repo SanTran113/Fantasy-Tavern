@@ -5,7 +5,10 @@
     --background-color: #451814;
     --index-menu-color: white;
     --index-bg-color: rgba(0,0,0,.7);
-    --bgImg: black 50% 50%;
-
+    --bgImg: black;
+    --form-text-size: 40px;
+    --form-input-bg-color: rgba(218, 140, 101, 0.8);
+    --form-input-border-color: rgb(218, 140, 101);
+    --form-button-color: #cd6042;
 } 
    
