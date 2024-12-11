@@ -22,7 +22,7 @@ export class InventoryViewElement extends View<Model, Msg> {
     return html` <section class="view">
       <main class="mainInventory">
         <div class="profile">
-          <div class="characterSheet"></div>
+          <div class="characterSheet">ㅤ</div>
         </div>
         <div class="InventoryTitle">
           <div class="Invtitle">Inventory</div>
@@ -92,15 +92,18 @@ export class InventoryViewElement extends View<Model, Msg> {
       }
 
       .characterSheet {
-        width: 215px;
-        height: 300px;
-        /* width: 100%;
-        height: 100%; */
+        /* width: 215px;
+        height: 300px; */
+        width: 100%;
+        height: 100%;
         background-image: url("/assets/sleepycat.png");
         animation: moveCharacterSheet 2s steps(12) infinite;
         display: flex;
-        /* background: center; */
+        background-size: 1700%;
+        background-position: center;
+        background-repeat: no-repeat;
         align-self: flex-end;
+        aspect-ratio: 22/2;
 }
 
       @keyframes moveCharacterSheet {
