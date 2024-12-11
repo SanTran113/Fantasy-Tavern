@@ -46,14 +46,13 @@ export class TavernHeaderElement extends LitElement {
         display: contents;
       }
 
-    /* #userid[data-userid=""] ~ .when-signed-in,
-    #userid[data-userid="anonymous"] ~ .when-signed-in {
+      #userid:empty ~ .when-signed-in {
       display: none;
     }
 
-    #userid:not([data-userid=""]) ~ .when-signed-out {
+    #userid:not(:empty) ~ .when-signed-out {
       display: none;
-    } */
+    }
     `,
   ];
 
