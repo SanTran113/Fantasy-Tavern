@@ -1,5 +1,5 @@
 import { define, Form, InputArray, View } from "@calpoly/mustang";
-import { css, html} from "lit";
+import { css, html } from "lit";
 import { property, state } from "lit/decorators.js";
 import { InventoryProfile } from "server/models";
 import { Msg } from "../messages";
@@ -60,6 +60,15 @@ export class InventoryEditElement extends View<Model, Msg> {
 
       :host([mode="view"]) {
         --display-editor-none: none;
+      }
+
+      main {
+        background-color: var(--background-color);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        overflow: hidden;
+        font-family: var(--font-pixel);
       }
     `,
   ];

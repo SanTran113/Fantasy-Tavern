@@ -61,7 +61,6 @@ export class InventoryViewElement extends View<Model, Msg> {
         display: var(--display-editor-none, grid);
       }
 
-      
       article {
         background-size: cover;
         background-position: center;
@@ -192,6 +191,15 @@ export class InventoryViewElement extends View<Model, Msg> {
         color: white;
         text-align: center;
         font-size: 3vh;
+      }
+
+      .view {
+        background-color: var(--background-color);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        overflow: hidden;
+        font-family: var(--font-pixel);
       }
     `,
   ];

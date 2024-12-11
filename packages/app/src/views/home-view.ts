@@ -54,15 +54,16 @@ connectedCallback() {
       }
 
       /* Index Page CSS */
-      .bodyIndex {
+      body.dark-mode {
+        background: black;
+        /* background-image: url("../assets/backdrop_DM4.png"); */
+      }
+
+      body {
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
         background-image: url("../assets/backdrop.png");
-      }
-
-      .bodyIndex.dark-mode {
-        background-image: url("../assets/backdrop_DM4.png");
       }
 
       .darkmodeButton {
@@ -99,7 +100,6 @@ connectedCallback() {
       }
 
       article {
-        background-color: var(--background-color);
         height: 100vh;
         display: flex;
         justify-content: center;

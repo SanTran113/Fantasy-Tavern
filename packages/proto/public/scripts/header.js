@@ -25,7 +25,8 @@ export class HeaderElement extends HTMLElement {
         <a href="/login">Sign In</a>
       </div>
       <label class="dark-mode-switch">
-        <input type="checkbox" /> Dark Mode
+        <input type="checkbox" />
+        Dark Mode
       </label>
     </template>
   `;
@@ -67,7 +68,7 @@ export class HeaderElement extends HTMLElement {
     this._userid = this.shadowRoot.querySelector("#userid");
     this._signout = this.shadowRoot.querySelector("#signout");
 
-    const dm = this.shadowRoot.querySelector(".dark-mode-switch input");
+    const dm = this.shadowRoot.querySelector(".dark-mode-switch");
 
     dm.addEventListener("click", (event) =>
       Events.relay(event, "dark-mode", {

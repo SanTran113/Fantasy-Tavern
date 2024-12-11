@@ -47,36 +47,34 @@ export class TavernHeaderElement extends LitElement {
       }
 
       #userid:empty ~ .when-signed-in {
-      display: none;
-    }
+        display: none;
+      }
 
-    #userid:not(:empty) ~ .when-signed-out {
-      display: none;
-    }
+      #userid:not(:empty) ~ .when-signed-out {
+        display: none;
+      }
     `,
   ];
 
   _authObserver = new Observer<Auth.Model>(this, "main:auth");
 
-connectedCallback() {
-  super.connectedCallback();
+  connectedCallback() {
+    super.connectedCallback();
 
-  this._authObserver.observe(({ user }) => {
-    const username = user?.username || "anonymous";
-    console.log("username", username)
-    console.log("userid", this.userid)
-    if (username !== this.userid) {
-      this.userid = username;
-      const useridElement = this.shadowRoot?.getElementById("userid");
-      if (useridElement) {
-        useridElement.setAttribute("data-userid", "anonymous");
+    this._authObserver.observe(({ user }) => {
+      const username = user?.username || "anonymous";
+      console.log("username", username);
+      console.log("userid", this.userid);
+      if (username !== this.userid) {
+        this.userid = username;
+        const useridElement = this.shadowRoot?.getElementById("userid");
+        if (useridElement) {
+          useridElement.setAttribute("data-userid", "anonymous");
+        }
+        console.log("ele", useridElement);
       }
-    console.log("ele", useridElement)
-
-    }
-  });
-}
-
+    });
+  }
 
   static initializeOnce() {
     function toggleDarkMode(page: HTMLElement, checked: boolean) {
