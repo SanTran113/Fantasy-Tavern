@@ -53,12 +53,15 @@ export class InventoryViewElement extends View<Model, Msg> {
       }
 
       section.view {
+        display: flex;
+        justify-content: center;
         display: var(--display-view-none, grid);
       }
       mu-form.edit {
         display: var(--display-editor-none, grid);
       }
 
+      
       article {
         background-size: cover;
         background-position: center;
@@ -74,7 +77,7 @@ export class InventoryViewElement extends View<Model, Msg> {
         background-position: center;
         background-repeat: no-repeat;
         aspect-ratio: 4/2;
-
+        height: 100vh;
         display: grid;
         grid-template-columns: repeat(15, 1fr);
         grid-template-rows: repeat(7, 1fr);
@@ -104,11 +107,15 @@ export class InventoryViewElement extends View<Model, Msg> {
         background-repeat: no-repeat;
         align-self: flex-end;
         aspect-ratio: 22/2;
-}
+      }
 
       @keyframes moveCharacterSheet {
-        0% {background-position: 0% 0%}
-        100% {background-position: 100% 0%}
+        0% {
+          background-position: 0% 0%;
+        }
+        100% {
+          background-position: 100% 0%;
+        }
       }
 
       .Inventory {
@@ -139,7 +146,7 @@ export class InventoryViewElement extends View<Model, Msg> {
         justify-content: center;
         color: white;
         text-align: center;
-        font-size: 1.5vw;
+        font-size: 3.5vh;
       }
 
       .imgInven {
@@ -169,7 +176,7 @@ export class InventoryViewElement extends View<Model, Msg> {
         justify-content: center;
         color: white;
         text-align: center;
-        font-size: 1.5vw;
+        font-size: 3vh;
       }
 
       .class {
@@ -184,7 +191,7 @@ export class InventoryViewElement extends View<Model, Msg> {
         justify-content: center;
         color: white;
         text-align: center;
-        font-size: 1.5vw;
+        font-size: 3vh;
       }
     `,
   ];
