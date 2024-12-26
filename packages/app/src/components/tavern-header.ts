@@ -25,17 +25,40 @@ export class TavernHeaderElement extends LitElement {
   protected render() {
     return html`
       <header>
-        <div id="userid">${this.userid}</div>
-        <div class="when-signed-in">
-          <a id="signout" @click=${signOut}>Sign Out</a>
-        </div>
-        <div class="when-signed-out">
-          <a href="/login">Sign In</a>
-        </div>
-        <label @change=${toggleDarkMode}>
-          <input type="checkbox" />
-          Dark Mode
-        </label>
+        <mu-dropdown>
+          <a slot="actuator"> ☰ </a>
+          <menu>
+            <li>
+              <span id="userid">${this.userid}</span>
+            </li>
+            <li>
+              <label @change=${toggleDarkMode}>
+                <input type="checkbox" />
+                Dark Mode
+              </label>
+            </li>
+            <li class="when-signed-in">
+              <a id="signout" @click=${signOut}>Sign Out</a>
+            </li>
+            <section class="htmlIndex">
+              <li>
+                <a href="/app/drinkMenu/${this.userid}">Drink Menu</a>
+              </li>
+              <li>
+                <a href="food.html">Food Menu</a>
+              </li>
+              <li>
+                <a href="quests.html">Quest Board</a>
+              </li>
+              <li>
+                <a href="goods.html">General Goods</a>
+              </li>
+              <li>
+                <a href="/app/inventoryProfiles/${this.userid}">Inventory</a>
+              </li>
+            </section>
+          </menu>
+        </mu-dropdown>
       </header>
     `;
   }
@@ -46,11 +69,26 @@ export class TavernHeaderElement extends LitElement {
         display: contents;
       }
 
-      #userid:empty ~ .when-signed-in {
-        display: none;
+      a[slot="actuator"] {
+        color: var(--color-link-inverted);
+        cursor: pointer;
+        font-size: 2em;
       }
 
-      #userid:not(:empty) ~ .when-signed-out {
+      menu {
+        position: absolute;
+        width: max-content;
+        left: 10%;
+      }
+
+      menu a {
+        color: white;
+        cursor: pointer;
+        padding: 0.5em;
+      }
+
+      a:has(#userid:empty) ~ menu > .when-signed-in,
+      a:has(#userid:not(:empty)) ~ menu > .when-signed-out {
         display: none;
       }
     `,

@@ -4,44 +4,34 @@ import { Auth, Observer } from "@calpoly/mustang";
 import reset from "../styles/reset.css";
 
 export class HomeViewElement extends LitElement {
-
   @state()
   userid: string = "";
 
   _authObserver = new Observer<Auth.Model>(this, "main:auth");
 
-connectedCallback() {
-  super.connectedCallback();
+  connectedCallback() {
+    super.connectedCallback();
 
-  this._authObserver.observe(({ user }) => {
-    const username = user?.username || "anonymous";
-    console.log("username", username)
-    console.log("userid", this.userid)
-    if (username !== this.userid) {
-      this.userid = username;
-      const useridElement = this.shadowRoot?.getElementById("userid");
-      if (useridElement) {
-        useridElement.setAttribute("data-userid", "anonymous");
+    this._authObserver.observe(({ user }) => {
+      const username = user?.username || "anonymous";
+      console.log("username", username);
+      console.log("userid", this.userid);
+      if (username !== this.userid) {
+        this.userid = username;
+        const useridElement = this.shadowRoot?.getElementById("userid");
+        if (useridElement) {
+          useridElement.setAttribute("data-userid", "anonymous");
+        }
+        console.log("ele", useridElement);
       }
-    console.log("ele", useridElement)
+    });
+  }
 
-    }
-  });
-}
-
-  render() {    
+  render() {
     return html`
       <article class="bodyIndex">
         <div class="indexInformation">
-          <h1 class="titleIndex">Fantasy Tavern</h1>
           <tavern-header></tavern-header>
-          <section class="htmlIndex">
-            <a href="/app/drinkMenu/${this.userid}">Drink Menu</a>
-            <a href="food.html">Food Menu</a>
-            <a href="quests.html">Quest Board</a>
-            <a href="goods.html">General Goods</a>
-            <a href="/app/inventoryProfiles/${this.userid}">Inventory</a>
-          </section>
         </div>
       </article>
     `;
@@ -78,7 +68,7 @@ connectedCallback() {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        background-color: var(--index-bg-color);
+        // background-color: var(--index-bg-color);
       }
 
       .titleIndex {
