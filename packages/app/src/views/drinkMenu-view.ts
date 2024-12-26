@@ -151,7 +151,7 @@ export class DrinkMenuViewElement extends View<Model, Msg> {
 
       .drinkMain {
         background-image: url("/assets/drinkMenuBg.png");
-        padding: 3%;
+        padding: 3vh;
         background-size: 100% 100%;
         background-position: center;
         background-repeat: no-repeat;
@@ -164,7 +164,7 @@ export class DrinkMenuViewElement extends View<Model, Msg> {
 
       h1 {
         place-self: center;
-        font-size: calc(2.5vw + 1.5vh);
+        font-size: 6vh;
         /* margin-bottom: .5em; */
         grid-template-columns: 95% 5%;
       }
@@ -216,18 +216,18 @@ export class DrinkMenuViewElement extends View<Model, Msg> {
       }
 
       .name {
-        font-size: 2em;
+        font-size: 3vh;
         font-weight: 600;
         color: black;
         text-decoration: none;
       }
 
       .price {
-        font-size: 1.5em;
+        font-size: 2.5vh;
       }
 
       .desc {
-        font-size: 1.5em;
+        font-size: 2.3vh;
         color: var(--color-text-menu);
       }
     `,

@@ -68,17 +68,19 @@ export class TavernHeaderElement extends LitElement {
       :host {
         display: contents;
       }
+        
 
       a[slot="actuator"] {
         color: var(--color-link-inverted);
         cursor: pointer;
-        font-size: 2em;
+        font-size: 3em;
       }
 
       menu {
         position: absolute;
         width: max-content;
         left: 10%;
+        font-size: 3vh;
       }
 
       menu a {

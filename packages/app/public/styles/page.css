@@ -8,14 +8,20 @@
 
 /* Index Page CSS */
 body {
+  background: var(--background-color);
+  background-image: url("../assets/backdrop.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-image: url("../assets/backdrop.png");
+  overflow: hidden;
+  font-family: var(--font-pixel);
 }
 
 body.dark-mode {
   background-image: url("../assets/backdrop_DM4.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   /* background: black; */
 }
 
@@ -27,7 +33,6 @@ body.dark-mode {
 
 .indexInformation {
   color: var(--index-menu-color);
-  font-size: 3vw;
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -43,17 +43,28 @@ export class HomeViewElement extends LitElement {
         display: contents;
       }
 
-      /* Index Page CSS */
-      body.dark-mode {
-        background: black;
-        /* background-image: url("../assets/backdrop_DM4.png"); */
-      }
-
       body {
+        background: var(--background-color);
+        background-image: url("../assets/backdrop.png");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        background-image: url("../assets/backdrop.png");
+        overflow: hidden;
+        font-family: var(--font-pixel);
+      }
+
+      /* Index Page CSS */
+      body.dark-mode {
+        background-image: url("../assets/backdrop_DM4.png");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+
+      .bodyIndex {
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
       }
 
       .darkmodeButton {
@@ -64,11 +75,9 @@ export class HomeViewElement extends LitElement {
 
       .indexInformation {
         color: var(--index-menu-color);
-        font-size: 3vw;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        // background-color: var(--index-bg-color);
       }
 
       .titleIndex {
@@ -91,10 +100,13 @@ export class HomeViewElement extends LitElement {
 
       article {
         height: 100vh;
-        display: flex;
         justify-content: center;
         overflow: hidden;
-        font-family: var(--font-pixel);
+
+        display: grid;
+        grid-template-columns: 4% 48% 48%;
+        grid-template-rows: 15% 75%;
+        padding: 3vh;
       }
     `,
   ];
